@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="344.0" prefWidth="134.0" style="-fx-border-color: grey; -fx-border-style: hidden solid hidden hidden;"
+      BorderPane.alignment="CENTER"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="at.fh.tourplanner.controller.TourListController">
+<children>
+    <SplitPane dividerPositions="0.408132530120482" prefHeight="47.0" prefWidth="134.0">
+        <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <children>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Touren" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="14.0" />
+                </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="29.0" prefWidth="50.0">
+                <children>
+                    <ToolBar AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <items>
+                            <Button minWidth="25.0" mnemonicParsing="false" text="+" />
+                            <Button minWidth="25.0" mnemonicParsing="false" text="-" />
+                        </items>
+                    </ToolBar>
+                </children>
+            </AnchorPane>
+        </items>
+    </SplitPane>
+    <ListView fx:id="tourList" prefHeight="300.0" prefWidth="133.0" />
+</children>
+</VBox>

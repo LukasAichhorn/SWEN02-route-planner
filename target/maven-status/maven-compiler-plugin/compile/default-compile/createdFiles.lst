@@ -1,3 +1,6 @@
-at\fh\tourplanner\HelloApplication.class
-at\fh\tourplanner\HelloController.class
+at\fh\tourplanner\controller\HelloController.class
 module-info.class
+at\fh\tourplanner\HelloApplication.class
+at\fh\tourplanner\controller\TourFormController.class
+at\fh\tourplanner\model\Tour.class
+at\fh\tourplanner\viewmodels\TourFormViewModel.class
