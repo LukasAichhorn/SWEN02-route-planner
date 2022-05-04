@@ -32,4 +32,12 @@ public class TourListViewModel {
         this.changeListeners.add(listener);
     }
 
+    public void saveTourToList(Tour tour) {
+        //TODO implement DAL backendcalls
+        //TourRepository.getInstance().create(tour);
+        //tours.clear();
+        //setTours(TourRepository.getInstance().getAll());
+        tours.add(tour);
+
+    }
 }

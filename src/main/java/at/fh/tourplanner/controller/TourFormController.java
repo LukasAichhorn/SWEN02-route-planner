@@ -1,6 +1,7 @@
 package at.fh.tourplanner.controller;
 
 import at.fh.tourplanner.viewmodels.TourFormViewModel;
+import at.fh.tourplanner.viewmodels.TourListViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -11,7 +12,9 @@ import java.util.ResourceBundle;
 
 public class TourFormController implements Initializable {
 
-    private final TourFormViewModel viewModel = new TourFormViewModel();
+    private final TourListViewModel tourListViewModel;
+    private final TourFormViewModel tourFormViewModel;
+
 
     public TextField tourNameTextField;
 
@@ -21,16 +24,21 @@ public class TourFormController implements Initializable {
 
     public TextArea descriptionTextArea;
 
+    public TourFormController(TourListViewModel tourListViewModel, TourFormViewModel tourFormViewModel) {
+        this.tourListViewModel = tourListViewModel;
+        this.tourFormViewModel = tourFormViewModel;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        tourNameTextField.textProperty().bindBidirectional(viewModel.getTourName());
-        startTextField.textProperty().bindBidirectional(viewModel.getStart());
-        destinationTextField.textProperty().bindBidirectional(viewModel.getDestination());
-        descriptionTextArea.textProperty().bindBidirectional(viewModel.getDescription());
+        tourNameTextField.textProperty().bindBidirectional(tourFormViewModel.getTourName());
+        startTextField.textProperty().bindBidirectional(tourFormViewModel.getStart());
+        destinationTextField.textProperty().bindBidirectional(tourFormViewModel.getDestination());
+        descriptionTextArea.textProperty().bindBidirectional(tourFormViewModel.getDescription());
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        viewModel.saveTourToList();
+        tourListViewModel.saveTourToList(tourFormViewModel.getFormData());
     }
 }

@@ -35,9 +35,10 @@ public class TourFormViewModel {
 
     public StringProperty getDescription() { return description;}
 
-    public void saveTourToList(){
-        TourRepository.getInstance().create(new Tour(tourName.get(), start.get(), destination.get(), description.get()));
+    public Tour getFormData(){
+       Tour tour =  new Tour(tourName.get(), start.get(), destination.get(), description.get());
         clearForm();
+        return tour;
     }
 
     public void clearForm(){

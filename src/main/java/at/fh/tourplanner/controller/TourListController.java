@@ -15,8 +15,12 @@ import java.util.ResourceBundle;
 
 public class TourListController implements Initializable {
 
-    private final TourListViewModel viewModel = new TourListViewModel();
+    private final TourListViewModel viewModel;
     public ListView<Tour> tourList;
+
+    public TourListController(TourListViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -42,7 +46,8 @@ public class TourListController implements Initializable {
         viewModel.addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
-                tourList.setItems(viewModel.getTours());
+                System.out.println("rebuild listView");
+                //tourList.setItems(viewModel.getTours());
             }
         });
     }

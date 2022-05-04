@@ -23,9 +23,9 @@ public class ControllerFactory {
 
     public Object create(Class<?> controllerClass) {
         if (controllerClass == TourFormController.class){
-            return new TourFormController();
+            return new TourFormController(tourListViewModel,tourFormViewModel);
         } else if (controllerClass == TourListController.class) {
-            return new TourListController();
+            return new TourListController(tourListViewModel);
         }
         throw new IllegalArgumentException("Unknown Controller Class");
     }
