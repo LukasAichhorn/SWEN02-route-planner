@@ -22,6 +22,10 @@ public class TourRepository {
         return tours;
     }
 
+    public void create(Tour t){
+        tours.add(t);
+    }
+
 
 
 }
