@@ -2,6 +2,8 @@ package at.fh.tourplanner.controller;
 
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.viewmodels.TourListViewModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -36,6 +38,12 @@ public class TourListController implements Initializable {
                 }
             });
             return cell;
+        });
+        viewModel.addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                tourList.setItems(viewModel.getTours());
+            }
         });
     }
 
