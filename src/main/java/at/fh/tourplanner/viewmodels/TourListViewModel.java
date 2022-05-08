@@ -1,5 +1,6 @@
 package at.fh.tourplanner.viewmodels;
 
+import at.fh.tourplanner.listenerInterfaces.FormActionListener;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.repositories.TourRepository;
 import javafx.beans.value.ChangeListener;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class TourListViewModel {
 
-    private List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
+    private List<FormActionListener> changeListeners = new ArrayList<>();
     ObservableList<Tour> tours = FXCollections.observableArrayList();
     public ObservableList<Tour> getTours() {
         return tours;
@@ -28,15 +29,12 @@ public class TourListViewModel {
 
     }
 
-    public void addListener(ChangeListener listener) {
+    public void addListener(FormActionListener listener) {
         this.changeListeners.add(listener);
     }
 
     public void saveTourToList(Tour tour) {
-        //TODO implement DAL backendcalls
-        //TourRepository.getInstance().create(tour);
-        //tours.clear();
-        //setTours(TourRepository.getInstance().getAll());
+        //TODO implement DAL backend calls
         tours.add(tour);
 
     }

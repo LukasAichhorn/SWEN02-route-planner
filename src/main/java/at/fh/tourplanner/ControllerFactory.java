@@ -18,12 +18,12 @@ public class ControllerFactory {
     public ControllerFactory() {
         tourFormViewModel = new TourFormViewModel();
         tourListViewModel = new TourListViewModel();
-        mainWindowViewModel = new MainWindowViewModel(tourFormViewModel, tourListViewModel);
+        mainWindowViewModel = new MainWindowViewModel(tourFormViewModel,tourListViewModel);
     }
 
     public Object create(Class<?> controllerClass) {
         if (controllerClass == TourFormController.class){
-            return new TourFormController(tourListViewModel,tourFormViewModel);
+            return new TourFormController(tourFormViewModel);
         } else if (controllerClass == TourListController.class) {
             return new TourListController(tourListViewModel);
         }

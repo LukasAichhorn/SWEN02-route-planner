@@ -1,5 +1,6 @@
 package at.fh.tourplanner.viewmodels;
 
+import at.fh.tourplanner.listenerInterfaces.FormActionListener;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.repositories.TourRepository;
 import javafx.beans.property.Property;
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TourFormViewModel {
 
@@ -25,7 +27,7 @@ public class TourFormViewModel {
 
     private final StringProperty description = new SimpleStringProperty("");
 
-    //private final ObservableList<Tour> data = FXCollections.observableArrayList();
+    private List<FormActionListener> changeListeners = new ArrayList<>();
 
     public StringProperty getTourName() { return tourName;}
 
@@ -49,5 +51,14 @@ public class TourFormViewModel {
     }
 
 
+    public void addListener(FormActionListener formActionListener) {
+        this.changeListeners.add(formActionListener);
 
+    }
+
+    public void publishFormButtonEvent(Tour tour) {
+        for(var listener : changeListeners){
+            listener.handleFormAction(tour);
+        }
+    }
 }
