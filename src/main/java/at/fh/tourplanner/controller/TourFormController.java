@@ -1,5 +1,6 @@
 package at.fh.tourplanner.controller;
 
+import at.fh.tourplanner.enums.FormEventType;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.viewmodels.TourFormViewModel;
 import at.fh.tourplanner.viewmodels.TourListViewModel;
@@ -43,8 +44,18 @@ public class TourFormController implements Initializable {
                 startTextField.getText(),
                 destinationTextField.getText(),
                 descriptionTextArea.getText());
-        tourFormViewModel.publishFormButtonEvent(tour);
+        tourFormViewModel.publishFormButtonEvent(FormEventType.CREATE,tour);
         tourFormViewModel.clearForm();
 
+    }
+
+    public void editAction(ActionEvent actionEvent) {
+        Tour tour = new Tour(
+                tourFormViewModel.getTourUUID(),
+                tourNameTextField.getText(),
+                startTextField.getText(),
+                destinationTextField.getText(),
+                descriptionTextArea.getText());
+        tourFormViewModel.publishFormButtonEvent(FormEventType.EDIT,tour);
     }
 }

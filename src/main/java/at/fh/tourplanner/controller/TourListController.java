@@ -1,11 +1,7 @@
 package at.fh.tourplanner.controller;
 
-import at.fh.tourplanner.listenerInterfaces.FormActionListener;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.viewmodels.TourListViewModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
@@ -25,6 +21,7 @@ public class TourListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        viewModel.addChangeListener(tourList);
         tourList.setItems(viewModel.getTours());
         tourList.setCellFactory(value -> {
             TextFieldListCell<Tour> cell = new TextFieldListCell<Tour>();
