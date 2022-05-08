@@ -1,5 +1,6 @@
 package at.fh.tourplanner.controller;
 
+import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.viewmodels.TourFormViewModel;
 import at.fh.tourplanner.viewmodels.TourListViewModel;
 import javafx.event.ActionEvent;
@@ -12,7 +13,6 @@ import java.util.ResourceBundle;
 
 public class TourFormController implements Initializable {
 
-    private final TourListViewModel tourListViewModel;
     private final TourFormViewModel tourFormViewModel;
 
 
@@ -24,8 +24,7 @@ public class TourFormController implements Initializable {
 
     public TextArea descriptionTextArea;
 
-    public TourFormController(TourListViewModel tourListViewModel, TourFormViewModel tourFormViewModel) {
-        this.tourListViewModel = tourListViewModel;
+    public TourFormController(TourFormViewModel tourFormViewModel) {
         this.tourFormViewModel = tourFormViewModel;
     }
 
@@ -39,6 +38,13 @@ public class TourFormController implements Initializable {
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        tourListViewModel.saveTourToList(tourFormViewModel.getFormData());
+        Tour tour = new Tour(
+                tourNameTextField.getText(),
+                startTextField.getText(),
+                destinationTextField.getText(),
+                descriptionTextArea.getText());
+        tourFormViewModel.publishFormButtonEvent(tour);
+        tourFormViewModel.clearForm();
+
     }
 }
