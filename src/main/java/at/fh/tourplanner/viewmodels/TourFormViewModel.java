@@ -1,24 +1,20 @@
 package at.fh.tourplanner.viewmodels;
 
+import at.fh.tourplanner.enums.FormEventType;
+import at.fh.tourplanner.listenerInterfaces.FormActionCreateListener;
+import at.fh.tourplanner.listenerInterfaces.FormActionEditListener;
 import at.fh.tourplanner.listenerInterfaces.FormActionListener;
 import at.fh.tourplanner.model.Tour;
-import at.fh.tourplanner.repositories.TourRepository;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 
 public class TourFormViewModel {
-
-    //private List<FocusChangedListener> focusChangedListenerList = new ArrayList<FocusChangedListener>();
-
+    private UUID tourUUID = null;
     private final StringProperty tourName = new SimpleStringProperty("");
 
     private final StringProperty start = new SimpleStringProperty("");
@@ -29,6 +25,7 @@ public class TourFormViewModel {
 
     private List<FormActionListener> changeListeners = new ArrayList<>();
 
+    public UUID getTourUUID() {return tourUUID;}
     public StringProperty getTourName() { return tourName;}
 
     public StringProperty getStart() { return start;}
@@ -37,13 +34,9 @@ public class TourFormViewModel {
 
     public StringProperty getDescription() { return description;}
 
-    public Tour getFormData(){
-       Tour tour =  new Tour(tourName.get(), start.get(), destination.get(), description.get());
-        clearForm();
-        return tour;
-    }
 
     public void clearForm(){
+        tourUUID = null;
         tourName.set("");
         start.set("");
         destination.set("");
@@ -51,14 +44,32 @@ public class TourFormViewModel {
     }
 
 
-    public void addListener(FormActionListener formActionListener) {
+    public void addCreateListener(FormActionListener formActionListener) {
         this.changeListeners.add(formActionListener);
-
     }
 
-    public void publishFormButtonEvent(Tour tour) {
+    public void publishFormButtonEvent(FormEventType type, Tour tour) {
         for(var listener : changeListeners){
-            listener.handleFormAction(tour);
+            if(listener instanceof FormActionCreateListener && type.equals(FormEventType.CREATE)){
+                ((FormActionCreateListener) listener).handleCreateAction(tour);
+            }
+            if(listener instanceof FormActionEditListener && type.equals(FormEventType.EDIT)){
+                ((FormActionEditListener) listener).handleEditAction(tour);
+            }
+
+        }
+    }
+
+    public void fillFormWithSelection(Tour tour) {
+        if(tour != null) {
+            tourUUID = tour.getUUID();
+            tourName.set(tour.getName());
+            start.set(tour.getStart());
+            destination.set(tour.getDestination());
+            description.set(tour.getDescription());
+        }
+        else {
+            clearForm();
         }
     }
 }
