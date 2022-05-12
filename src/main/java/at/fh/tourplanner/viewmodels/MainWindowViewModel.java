@@ -1,9 +1,6 @@
 package at.fh.tourplanner.viewmodels;
 
-import at.fh.tourplanner.listenerInterfaces.FormActionCreateListener;
-import at.fh.tourplanner.listenerInterfaces.FormActionEditListener;
-import at.fh.tourplanner.listenerInterfaces.FormActionListener;
-import at.fh.tourplanner.listenerInterfaces.ListItemSelectiontListener;
+import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.Tour;
 
 public class MainWindowViewModel {
@@ -15,14 +12,13 @@ public class MainWindowViewModel {
     public MainWindowViewModel(TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel){
         this.tourFormViewModel = tourFormViewModel;
         this.tourListViewModel = tourListViewModel;
-
-        this.tourFormViewModel.addCreateListener(new FormActionCreateListener() {
+        this.tourFormViewModel.addCreateActionListener(new FormActionCreateListener() {
             @Override
             public void handleCreateAction(Tour formData) {
                 tourListViewModel.saveTourToList(formData);
             }
         });
-        this.tourFormViewModel.addCreateListener(new FormActionEditListener() {
+        this.tourFormViewModel.addEditActionListener(new FormActionEditListener() {
             @Override
             public void handleEditAction(Tour formData) {
                 tourListViewModel.editTour(formData);

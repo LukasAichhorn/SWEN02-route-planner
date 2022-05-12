@@ -38,24 +38,24 @@ public class TourFormController implements Initializable {
         descriptionTextArea.textProperty().bindBidirectional(tourFormViewModel.getDescription());
     }
 
-    public void saveAction(ActionEvent actionEvent) {
+    public void saveAction() {
         Tour tour = new Tour(
                 tourNameTextField.getText(),
                 startTextField.getText(),
                 destinationTextField.getText(),
                 descriptionTextArea.getText());
-        tourFormViewModel.publishFormButtonEvent(FormEventType.CREATE,tour);
+        tourFormViewModel.publishCreateButtonEvent(tour);
         tourFormViewModel.clearForm();
 
     }
 
-    public void editAction(ActionEvent actionEvent) {
+    public void editAction() {
         Tour tour = new Tour(
                 tourFormViewModel.getTourUUID(),
                 tourNameTextField.getText(),
                 startTextField.getText(),
                 destinationTextField.getText(),
                 descriptionTextArea.getText());
-        tourFormViewModel.publishFormButtonEvent(FormEventType.EDIT,tour);
+        tourFormViewModel.publishEditButtonEvent(tour);
     }
 }
