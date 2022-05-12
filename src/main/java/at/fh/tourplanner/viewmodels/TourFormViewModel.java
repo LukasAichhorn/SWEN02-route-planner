@@ -1,9 +1,7 @@
 package at.fh.tourplanner.viewmodels;
 
-import at.fh.tourplanner.enums.FormEventType;
 import at.fh.tourplanner.listenerInterfaces.FormActionCreateListener;
 import at.fh.tourplanner.listenerInterfaces.FormActionEditListener;
-import at.fh.tourplanner.listenerInterfaces.FormActionListener;
 import at.fh.tourplanner.model.Tour;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -23,7 +21,8 @@ public class TourFormViewModel {
 
     private final StringProperty description = new SimpleStringProperty("");
 
-    private List<FormActionListener> changeListeners = new ArrayList<>();
+    private final List<FormActionCreateListener> createButtonListeners = new ArrayList<>();
+    private final List<FormActionEditListener> editButtonListeners = new ArrayList<>();
 
     public UUID getTourUUID() {return tourUUID;}
     public StringProperty getTourName() { return tourName;}
@@ -44,19 +43,21 @@ public class TourFormViewModel {
     }
 
 
-    public void addCreateListener(FormActionListener formActionListener) {
-        this.changeListeners.add(formActionListener);
+    public void addCreateActionListener(FormActionCreateListener formActionCreateListener) {
+        this.createButtonListeners.add(formActionCreateListener);
+    }
+    public void addEditActionListener(FormActionEditListener formActionEditListener) {
+        this.editButtonListeners.add(formActionEditListener);
     }
 
-    public void publishFormButtonEvent(FormEventType type, Tour tour) {
-        for(var listener : changeListeners){
-            if(listener instanceof FormActionCreateListener && type.equals(FormEventType.CREATE)){
-                ((FormActionCreateListener) listener).handleCreateAction(tour);
-            }
-            if(listener instanceof FormActionEditListener && type.equals(FormEventType.EDIT)){
-                ((FormActionEditListener) listener).handleEditAction(tour);
-            }
-
+    public void publishCreateButtonEvent(Tour tour) {
+        for(var listener : createButtonListeners){
+            listener.handleCreateAction(tour);
+        }
+    }
+    public void publishEditButtonEvent(Tour tour) {
+        for(var listener : editButtonListeners){
+            listener.handleEditAction(tour);
         }
     }
 
