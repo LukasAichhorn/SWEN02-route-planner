@@ -23,7 +23,6 @@ public class TourListViewModel {
 
     public TourListViewModel() {
         setTours(TourRepository.getInstance().getAll());
-        System.out.println(tours);
     }
 
     public void setTours(List<Tour> tourList) {
@@ -52,7 +51,6 @@ public class TourListViewModel {
     public void saveTourToList(Tour tour) {
         //TODO implement DAL backend calls
         tours.add(tour);
-
     }
     public void editTour(Tour tour) {
         List<Tour> tempState = tours.stream().toList();
@@ -77,5 +75,10 @@ public class TourListViewModel {
 
 
 
+    }
+
+    public void searchTours(String searchString) {
+        var tours = TourRepository.getInstance().findMatchingTours(searchString);
+        setTours(tours);
     }
 }

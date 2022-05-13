@@ -1,8 +1,5 @@
 package at.fh.tourplanner.model;
-
-
 import java.util.UUID;
-
 public class Tour {
     private UUID   uuid;
     private String name;
