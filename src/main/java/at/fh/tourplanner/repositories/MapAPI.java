@@ -1,7 +1,7 @@
 package at.fh.tourplanner.repositories;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -27,17 +27,27 @@ public class MapAPI {
 
     public void requestStaticMap(String start, String end) {
         try {
-            URL url = new URL(buildStaticMapUrl(start, end));
-            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            var respCode = con.getResponseCode();
-            System.out.println("Static Map request resulted in " + respCode);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            saveImage(buildStaticMapUrl(start, end), "image.jpg");
+        }
+        catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    private static void saveImage(String imageUrl, String destinationFile) throws IOException {
+        URL url = new URL(imageUrl);
+        InputStream is = url.openStream();
+        OutputStream os = new FileOutputStream(destinationFile);
+
+        byte[] b = new byte[2048];
+        int length;
+
+        while ((length = is.read(b)) != -1) {
+            os.write(b, 0, length);
+        }
+
+        is.close();
+        os.close();
     }
 
 }
