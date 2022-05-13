@@ -12,9 +12,10 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view.fxml"));
         fxmlLoader.setControllerFactory(controller -> ControllerFactory.getInstance().create(controller));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 898, 644);
         stage.setTitle("Tour Planner");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

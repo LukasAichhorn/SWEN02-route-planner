@@ -9,9 +9,12 @@ public class MainWindowViewModel {
 
     private TourListViewModel tourListViewModel;
 
-    public MainWindowViewModel(TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel){
+    private SearchBarViewModel searchBarViewModel;
+
+    public MainWindowViewModel(TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel, SearchBarViewModel searchBarViewModel){
         this.tourFormViewModel = tourFormViewModel;
         this.tourListViewModel = tourListViewModel;
+        this.searchBarViewModel = searchBarViewModel;
         this.tourFormViewModel.addCreateActionListener(new FormActionCreateListener() {
             @Override
             public void handleCreateAction(Tour formData) {
@@ -28,6 +31,13 @@ public class MainWindowViewModel {
             @Override
             public void fillForm(Tour tour) {
                 tourFormViewModel.fillFormWithSelection(tour);
+            }
+        });
+
+        this.searchBarViewModel.addSearchListener(new SearchListener() {
+            @Override
+            public void handleSearch(String searchString) {
+                tourListViewModel.searchTours(searchString);
             }
         });
 
