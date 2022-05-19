@@ -38,8 +38,8 @@
                 <Insets left="10.0" />
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="tourDistance" editable="false" GridPane.rowIndex="5" />
-        <TextField fx:id="estimatedTime" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <TextField fx:id="tourDistanceTextField" editable="false" GridPane.rowIndex="5" />
+        <TextField fx:id="estimatedTimeTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets left="10.0" />
             </GridPane.margin>

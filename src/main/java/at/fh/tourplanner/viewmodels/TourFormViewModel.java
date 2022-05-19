@@ -4,10 +4,10 @@ import at.fh.tourplanner.listenerInterfaces.FormActionCreateListener;
 import at.fh.tourplanner.listenerInterfaces.FormActionEditListener;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.SingleSelectionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,14 @@ public class TourFormViewModel {
 
     private final StringProperty description = new SimpleStringProperty("");
 
+    private final StringProperty tourDistance = new SimpleStringProperty("");
+
+    private final StringProperty estimatedTime = new SimpleStringProperty("");
+
     private final List<FormActionCreateListener> createButtonListeners = new ArrayList<>();
     private final List<FormActionEditListener> editButtonListeners = new ArrayList<>();
+
+    private final ObjectProperty<TransportType> selectedTransportType = new SimpleObjectProperty<>();
 
     private final ObservableList<TransportType> transportTypeObservableList = FXCollections.observableArrayList(TransportType.values());
 
@@ -73,6 +79,8 @@ public class TourFormViewModel {
             start.set(tour.getStart());
             destination.set(tour.getDestination());
             description.set(tour.getDescription());
+            selectedTransportType.setValue(tour.getTransportType());
+
         }
         else {
             clearForm();
@@ -80,8 +88,10 @@ public class TourFormViewModel {
     }
 
     public ObservableList<TransportType> getTransportTypes() {
-        System.out.println(this.transportTypeObservableList);
         return this.transportTypeObservableList;
     }
 
+    public Property<TransportType> getSelectedTransportType() {
+        return this.selectedTransportType;
+    }
 }
