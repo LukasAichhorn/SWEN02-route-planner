@@ -12,4 +12,5 @@ public class Log {
     private Duration duration;
     private String comment;
 
+
 }
