@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<GridPane prefHeight="257.0" prefWidth="507.0"
+          xmlns="http://javafx.com/javafx/11.0.2"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="at.fh.tourplanner.controller.TourFormController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.5999755859375" minWidth="10.0" prefWidth="162.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.00006103515625" minWidth="10.0" prefWidth="162.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.39996337890625" minWidth="10.0" prefWidth="88.199951171875" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.20007324218744" minWidth="10.0" prefWidth="97.80004882812494" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="25.599996948242186" minHeight="10.0" prefHeight="16.799993896484374" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="44.000006103515624" minHeight="10.0" prefHeight="44.000006103515624" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="25.59999694824218" minHeight="10.0" prefHeight="19.200003051757804" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="41.59999694824219" minHeight="10.0" prefHeight="41.59999694824219" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="25.600012207031256" minHeight="10.0" prefHeight="20.00000610351563" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="42.399993896484375" minHeight="10.0" prefHeight="42.399993896484375" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="40.00000610351563" minHeight="10.0" prefHeight="18.40001831054687" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="41.59998168945313" minHeight="10.0" prefHeight="41.59998168945313" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <VBox.margin>
+        <Insets left="10.0" right="10.0" top="5.0" />
+    </VBox.margin>
+    <children>
+        <TextField fx:id="tourNameTextField" GridPane.rowIndex="1" />
+        <TextField fx:id="startTextField" GridPane.rowIndex="3" />
+        <TextField fx:id="destinationTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets left="10.0" />
+            </GridPane.margin>
+        </TextField>
+        <TextField fx:id="tourDistanceTextField" editable="false" GridPane.rowIndex="5" />
+        <TextField fx:id="estimatedTimeTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets left="10.0" />
+            </GridPane.margin>
+        </TextField>
+        <TextArea fx:id="descriptionTextArea" prefHeight="0.0" prefWidth="218.0" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="2" />
+        <Label text="Name" />
+        <Label text="Transport Type" GridPane.columnIndex="1">
+            <GridPane.margin>
+                <Insets left="10.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="From" GridPane.rowIndex="2" />
+        <Label text="To" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+        </Label>
+        <Label text="Distance" GridPane.rowIndex="4" />
+        <Label text="Estimated Time" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets left="10.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Description" GridPane.rowIndex="6" />
+        <Button alignment="CENTER_RIGHT" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+        <Button  defaultButton="true" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Edit" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+        <ImageView fx:id="routeImage" fitHeight="164.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="6">
+            <image>
+                <Image url="@../../../../../../../../OneDrive/Dokumente/FH/BIFSEM4/SWEN/TestMap.png" />
+            </image>
+        </ImageView>
+        <ChoiceBox fx:id="transportTypeChoiceBox" prefHeight="26.0" prefWidth="166.4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="10.0" />
+            </GridPane.margin>
+        </ChoiceBox>
+    </children>
+</GridPane>
+
