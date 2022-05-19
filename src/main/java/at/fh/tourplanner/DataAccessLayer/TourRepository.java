@@ -1,4 +1,4 @@
-package at.fh.tourplanner.repositories;
+package at.fh.tourplanner.DataAccessLayer;
 
 import at.fh.tourplanner.model.Tour;
 

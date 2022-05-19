@@ -71,7 +71,7 @@
                 <Image url="@../../../../../../../../OneDrive/Dokumente/FH/BIFSEM4/SWEN/TestMap.png" />
             </image>
         </ImageView>
-        <ChoiceBox prefHeight="26.0" prefWidth="166.4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <ChoiceBox fx:id="transportTypeChoiceBox" prefHeight="26.0" prefWidth="166.4" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets left="10.0" />
             </GridPane.margin>

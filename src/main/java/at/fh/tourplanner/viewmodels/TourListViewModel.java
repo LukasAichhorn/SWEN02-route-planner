@@ -2,14 +2,13 @@ package at.fh.tourplanner.viewmodels;
 
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectiontListener;
 import at.fh.tourplanner.model.Tour;
-import at.fh.tourplanner.repositories.TourRepository;
+import at.fh.tourplanner.DataAccessLayer.TourRepository;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

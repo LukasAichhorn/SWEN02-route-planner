@@ -3,8 +3,11 @@ package at.fh.tourplanner.viewmodels;
 import at.fh.tourplanner.listenerInterfaces.FormActionCreateListener;
 import at.fh.tourplanner.listenerInterfaces.FormActionEditListener;
 import at.fh.tourplanner.model.Tour;
+import at.fh.tourplanner.model.TransportType;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,8 @@ public class TourFormViewModel {
 
     private final List<FormActionCreateListener> createButtonListeners = new ArrayList<>();
     private final List<FormActionEditListener> editButtonListeners = new ArrayList<>();
+
+    private final ObservableList<TransportType> transportTypeObservableList = FXCollections.observableArrayList(TransportType.values());
 
     public UUID getTourUUID() {return tourUUID;}
     public StringProperty getTourName() { return tourName;}
@@ -73,4 +78,10 @@ public class TourFormViewModel {
             clearForm();
         }
     }
+
+    public ObservableList<TransportType> getTransportTypes() {
+        System.out.println(this.transportTypeObservableList);
+        return this.transportTypeObservableList;
+    }
+
 }

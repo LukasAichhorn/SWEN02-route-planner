@@ -7,6 +7,8 @@ public class Tour {
     private String destination;
     private String description;
 
+    private TransportType transportType;
+
 
     public Tour(String name, String start, String destination, String description) {
         this.uuid = UUID.randomUUID();
