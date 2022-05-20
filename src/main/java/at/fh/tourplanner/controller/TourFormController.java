@@ -24,12 +24,13 @@ public class TourFormController implements Initializable {
     public TextField tourNameTextField;
 
     public TextField startTextField;
-
     public TextField destinationTextField;
 
+    public TextField tourDistanceTextField;
+    public TextField estimatedTimeTextField;
     public TextArea descriptionTextArea;
-
     public ChoiceBox<TransportType> transportTypeChoiceBox;
+
 
     public TourFormController(TourFormViewModel tourFormViewModel) {
 
@@ -44,26 +45,18 @@ public class TourFormController implements Initializable {
         destinationTextField.textProperty().bindBidirectional(tourFormViewModel.getDestination());
         descriptionTextArea.textProperty().bindBidirectional(tourFormViewModel.getDescription());
         transportTypeChoiceBox.getItems().setAll(tourFormViewModel.getTransportTypes());
+        transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
     }
 
     public void saveAction() {
-        Tour tour = new Tour(
-                tourNameTextField.getText(),
-                startTextField.getText(),
-                destinationTextField.getText(),
-                descriptionTextArea.getText());
+        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
         tourFormViewModel.publishCreateButtonEvent(tour);
         tourFormViewModel.clearForm();
 
     }
 
     public void editAction() {
-        Tour tour = new Tour(
-                tourFormViewModel.getTourUUID(),
-                tourNameTextField.getText(),
-                startTextField.getText(),
-                destinationTextField.getText(),
-                descriptionTextArea.getText());
+        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
         tourFormViewModel.publishEditButtonEvent(tour);
     }
 }

@@ -1,0 +1,4 @@
+--patch-module
+at.fh.tourplanner=_
+--add-reads
+at.fh.tourplanner=ALL-UNNAMED

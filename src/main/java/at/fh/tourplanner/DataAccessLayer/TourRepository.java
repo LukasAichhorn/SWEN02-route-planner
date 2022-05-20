@@ -1,6 +1,7 @@
 package at.fh.tourplanner.DataAccessLayer;
 
 import at.fh.tourplanner.model.Tour;
+import at.fh.tourplanner.model.TransportType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,9 @@ public class TourRepository {
     private List<Tour> tours = new ArrayList();
 
     TourRepository() {
-        tours.add(new Tour("Roadtrip", "Wien", "Graz", "Fun  fun"));
-        tours.add(new Tour("Kurzausflug", "Graz", "Paris", "Fun fun fun"));
-        tours.add(new Tour("Trip", "Wien", "Krems", " fun"));
+        tours.add(new Tour("Roadtrip", "Wien", "Graz", "Fun  fun", TransportType.BICYCLE, "180 km", "11h"));
+        tours.add(new Tour("Kurzausflug", "Graz", "Paris", "Fun fun fun", TransportType.CAR, "1233 km", "12h 30min"));
+        tours.add(new Tour("Trip", "Wien", "Krems", " fun", TransportType.PEDESTRIAN, "70 km", "14h"));
     }
 
     public List<Tour> getAll(){
