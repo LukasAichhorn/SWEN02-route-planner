@@ -10,7 +10,6 @@
 <TableView
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
-        fx:controller="at.fh.tourplanner.controller.LogsController"
         prefHeight="200.0" prefWidth="200.0">
     <columns>
         <TableColumn prefWidth="75.0" text="Date/Time" />

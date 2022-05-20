@@ -21,16 +21,14 @@ public class LogsController implements Initializable {
 
     public LogsController(LogsViewModel logsViewModel) {
         this.logsViewModel = logsViewModel;
-        this.ratingChoiceBox = new ChoiceBox<>();
-        this.difficultyTierChoiceBox = new ChoiceBox<>();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         durationTextField.textProperty().bindBidirectional(logsViewModel.getDuration());
         commentTextField.textProperty().bindBidirectional(logsViewModel.getComment());
-        difficultyTierChoiceBox.getItems().setAll(logsViewModel.getDifficultyTiers());
-        ratingChoiceBox.getItems().setAll(logsViewModel.getRatings());
-        datePickerField.valueProperty().bindBidirectional(logsViewModel.getDate());
+         difficultyTierChoiceBox.getItems().setAll(logsViewModel.getDifficultyTiers());
+         ratingChoiceBox.getItems().setAll(logsViewModel.getRatings());
+         datePickerField.valueProperty().bindBidirectional(logsViewModel.getDate());
     }
 }

@@ -97,7 +97,7 @@
                               <Insets left="10.0" />
                            </VBox.margin>
                         </Text>
-                        <fx:include source="logForm.fxml"/>
+                         <fx:include source="logForm.fxml"/>
                         <fx:include source="logList.fxml"/>
                      </children>
                   </VBox>
