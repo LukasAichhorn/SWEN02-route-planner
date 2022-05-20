@@ -10,13 +10,15 @@ public class MainWindowViewModel {
     private TourListViewModel tourListViewModel;
 
     private SearchBarViewModel searchBarViewModel;
-    private LogsViewModel   logsViewModel;
+    private LogsFormViewModel logsFormViewModel;
+    private LogListViewModel logListViewModel;
 
-    public MainWindowViewModel(TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel, SearchBarViewModel searchBarViewModel, LogsViewModel logsViewModel){
+    public MainWindowViewModel(TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel, SearchBarViewModel searchBarViewModel, LogsFormViewModel logsFormViewModel,LogListViewModel logListViewModel){
         this.tourFormViewModel = tourFormViewModel;
         this.tourListViewModel = tourListViewModel;
         this.searchBarViewModel = searchBarViewModel;
-        this.logsViewModel = logsViewModel;
+        this.logsFormViewModel = logsFormViewModel;
+        this.logListViewModel = logListViewModel;
 
         //Section - listener
         this.tourFormViewModel.addCreateActionListener(new FormActionCreateListener() {

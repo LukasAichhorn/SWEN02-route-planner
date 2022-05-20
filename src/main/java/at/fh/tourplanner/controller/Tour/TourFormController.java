@@ -1,4 +1,4 @@
-package at.fh.tourplanner.controller;
+package at.fh.tourplanner.controller.Tour;
 
 
 import at.fh.tourplanner.model.Tour;

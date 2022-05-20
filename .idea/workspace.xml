@@ -4,18 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="116d0d88-e2ff-4d08-adc3-136e45afe761" name="Changes" comment="TransportType enum created and ChoiceBox populated. First steps towards layered architecture.">
-      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/DataAccessLayer/TourRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/DataAccessLayer/TourRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/SearchBarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/SearchBarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/TourFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/TourFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/model/Tour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/model/Tour.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/model/TransportType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/model/TransportType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/SearchBarViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/SearchBarViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/TourFormViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/TourFormViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/at/fh/tourplanner/searchBar.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/at/fh/tourplanner/searchBar.fxml" afterDir="false" />
+    <list default="true" id="2ada7d04-2836-4d98-8bf8-bb88edf211a6" name="Changes" comment="???">
+      <change afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/Log/LogListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/LogListViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/ControllerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/ControllerFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/LogsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/Log/LogsFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/TourFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/Tour/TourFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/TourListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/controller/Tour/TourListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/LogsViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/LogsFormViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/MainWindowViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/at/fh/tourplanner/viewmodels/MainWindowViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/at/fh/tourplanner/logForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/at/fh/tourplanner/logForm.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/at/fh/tourplanner/tourForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/at/fh/tourplanner/tourForm.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/at/fh/tourplanner/tourList.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/at/fh/tourplanner/tourList.fxml" afterDir="false" />
     </list>
-    <list id="06070bed-0181-402b-95e0-37968afb4414" name="NoCommit" comment=".idea folder changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,15 +29,15 @@
         <option value="JUnit5 Test Class" />
         <option value="FxmlFile" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/dependency-injection-first-steps" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,36 +45,12 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="28HhfgUaFVX72nOTlz8sT1IlkCJ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;last_directory_selection&quot;: &quot;C:/Users/goell/IdeaProjects/tourPlanner/src/main/java/at/fh/tourplanner&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/goell/Downloads/highscores-with-ui-tests&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;
-  }
-}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="at.fh.tourplanner.viewmodels" />
@@ -88,12 +66,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="at.fh.tourplanner.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="at.fh.tourplanner.Main" />
       <module name="tourPlanner" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="at.fh.tourplanner.controller.*" />
+          <option name="PATTERN" value="at.fh.tourplanner.controller.Tour.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -251,6 +229,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Project setup" />

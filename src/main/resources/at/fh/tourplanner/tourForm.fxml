@@ -9,7 +9,7 @@
 <GridPane prefHeight="257.0" prefWidth="507.0"
           xmlns="http://javafx.com/javafx/11.0.2"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="at.fh.tourplanner.controller.TourFormController">
+          fx:controller="at.fh.tourplanner.controller.Tour.TourFormController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.5999755859375" minWidth="10.0" prefWidth="162.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.00006103515625" minWidth="10.0" prefWidth="162.0" />

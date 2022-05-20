@@ -1,9 +1,10 @@
 package at.fh.tourplanner;
 
-import at.fh.tourplanner.controller.LogsController;
+import at.fh.tourplanner.controller.Log.LogListController;
+import at.fh.tourplanner.controller.Log.LogsFormController;
 import at.fh.tourplanner.controller.SearchBarController;
-import at.fh.tourplanner.controller.TourFormController;
-import at.fh.tourplanner.controller.TourListController;
+import at.fh.tourplanner.controller.Tour.TourFormController;
+import at.fh.tourplanner.controller.Tour.TourListController;
 import at.fh.tourplanner.viewmodels.*;
 
 public class ControllerFactory {
@@ -13,7 +14,8 @@ public class ControllerFactory {
     private final TourFormViewModel tourFormViewModel;
 
     private final SearchBarViewModel searchBarViewModel;
-    private final LogsViewModel logsViewModel;
+    private final LogsFormViewModel logsFormViewModel;
+    private final LogListViewModel logListViewModel;
 
     private final MainWindowViewModel mainWindowViewModel;
 
@@ -22,8 +24,9 @@ public class ControllerFactory {
         tourFormViewModel = new TourFormViewModel();
         tourListViewModel = new TourListViewModel();
         searchBarViewModel = new SearchBarViewModel();
-        logsViewModel = new LogsViewModel();
-        mainWindowViewModel = new MainWindowViewModel(tourFormViewModel,tourListViewModel, searchBarViewModel,logsViewModel);
+        logsFormViewModel = new LogsFormViewModel();
+        logListViewModel = new LogListViewModel();
+        mainWindowViewModel = new MainWindowViewModel(tourFormViewModel,tourListViewModel, searchBarViewModel, logsFormViewModel,logListViewModel);
     }
 
     public Object create(Class<?> controllerClass) {
@@ -33,8 +36,10 @@ public class ControllerFactory {
             return new TourListController(tourListViewModel);
         } else if (controllerClass == SearchBarController.class) {
             return new SearchBarController(searchBarViewModel);
-        }else if (controllerClass == LogsController.class) {
-            return new LogsController(logsViewModel);
+        }else if (controllerClass == LogsFormController.class) {
+            return new LogsFormController(logsFormViewModel);
+        }else if (controllerClass == LogListController.class) {
+            return new LogListController(logListViewModel);
         }
         throw new IllegalArgumentException("Unknown Controller Class");
     }

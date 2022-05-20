@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.UUID;
 
-public class LogsViewModel {
+public class LogsFormViewModel {
     private UUID logUUID = null;
     private final ObjectProperty date = new SimpleObjectProperty(LocalDate.now());
     private final StringProperty duration = new SimpleStringProperty("");
