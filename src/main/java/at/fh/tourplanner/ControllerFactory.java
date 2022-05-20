@@ -1,12 +1,10 @@
 package at.fh.tourplanner;
 
+import at.fh.tourplanner.controller.LogsController;
 import at.fh.tourplanner.controller.SearchBarController;
 import at.fh.tourplanner.controller.TourFormController;
 import at.fh.tourplanner.controller.TourListController;
-import at.fh.tourplanner.viewmodels.MainWindowViewModel;
-import at.fh.tourplanner.viewmodels.SearchBarViewModel;
-import at.fh.tourplanner.viewmodels.TourFormViewModel;
-import at.fh.tourplanner.viewmodels.TourListViewModel;
+import at.fh.tourplanner.viewmodels.*;
 
 public class ControllerFactory {
 
@@ -15,6 +13,7 @@ public class ControllerFactory {
     private final TourFormViewModel tourFormViewModel;
 
     private final SearchBarViewModel searchBarViewModel;
+    private final LogsViewModel logsViewModel;
 
     private final MainWindowViewModel mainWindowViewModel;
 
@@ -23,7 +22,8 @@ public class ControllerFactory {
         tourFormViewModel = new TourFormViewModel();
         tourListViewModel = new TourListViewModel();
         searchBarViewModel = new SearchBarViewModel();
-        mainWindowViewModel = new MainWindowViewModel(tourFormViewModel,tourListViewModel, searchBarViewModel);
+        logsViewModel = new LogsViewModel();
+        mainWindowViewModel = new MainWindowViewModel(tourFormViewModel,tourListViewModel, searchBarViewModel,logsViewModel);
     }
 
     public Object create(Class<?> controllerClass) {
@@ -33,6 +33,8 @@ public class ControllerFactory {
             return new TourListController(tourListViewModel);
         } else if (controllerClass == SearchBarController.class) {
             return new SearchBarController(searchBarViewModel);
+        }else if (controllerClass == LogsController.class) {
+            return new LogsController(logsViewModel);
         }
         throw new IllegalArgumentException("Unknown Controller Class");
     }

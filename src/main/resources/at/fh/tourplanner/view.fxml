@@ -97,80 +97,8 @@
                               <Insets left="10.0" />
                            </VBox.margin>
                         </Text>
-                        <GridPane>
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="37.40000610351562" minHeight="10.0" prefHeight="37.40000610351562" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="61.400012207031246" minHeight="10.0" prefHeight="13.800012207031251" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="28.199987792968756" minHeight="10.0" prefHeight="28.199987792968756" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                           </VBox.margin>
-                           <children>
-                              <Label text="Date/Time" />
-                              <Label text="Rating" GridPane.columnIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Difficulty" GridPane.columnIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Total Time" GridPane.columnIndex="3">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <TextField GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </TextField>
-                              <TextField GridPane.columnSpan="3" GridPane.rowIndex="3" />
-                              <Label text="Comment" GridPane.rowIndex="2" />
-                              <DatePicker GridPane.rowIndex="1" />
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </ComboBox>
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin>
-                              </ComboBox>
-                              <ButtonBar buttonMinWidth="20.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                                 <buttons>
-                                    <Button minWidth="25.0" mnemonicParsing="false" prefHeight="26.0" text="-" />
-                                    <Button defaultButton="true" mnemonicParsing="false" text="+" />
-                                 </buttons>
-                              </ButtonBar>
-                           </children>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                        </GridPane>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Date/Time" />
-                            <TableColumn prefWidth="75.0" text="Rating" />
-                              <TableColumn prefWidth="75.0" text="Difficulty" />
-                              <TableColumn prefWidth="75.0" text="Total Time" />
-                              <TableColumn minWidth="-Infinity" prefWidth="230.0" text="Comment" />
-                          </columns>
-                           <VBox.margin>
-                              <Insets bottom="15.0" left="10.0" right="10.0" top="5.0" />
-                           </VBox.margin>
-                        </TableView>
+                         <fx:include source="logForm.fxml"/>
+                        <fx:include source="logList.fxml"/>
                      </children>
                   </VBox>
                </children>
