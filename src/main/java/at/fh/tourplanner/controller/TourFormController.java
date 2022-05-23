@@ -8,10 +8,7 @@ import at.fh.tourplanner.viewmodels.TourListViewModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,10 +16,7 @@ import java.util.ResourceBundle;
 public class TourFormController implements Initializable {
 
     private final TourFormViewModel tourFormViewModel;
-
-
     public TextField tourNameTextField;
-
     public TextField startTextField;
     public TextField destinationTextField;
 
@@ -30,6 +24,10 @@ public class TourFormController implements Initializable {
     public TextField estimatedTimeTextField;
     public TextArea descriptionTextArea;
     public ChoiceBox<TransportType> transportTypeChoiceBox;
+
+    public Button deleteButton;
+
+    public Button editButton;
 
 
     public TourFormController(TourFormViewModel tourFormViewModel) {
@@ -44,6 +42,8 @@ public class TourFormController implements Initializable {
         startTextField.textProperty().bindBidirectional(tourFormViewModel.getStart());
         destinationTextField.textProperty().bindBidirectional(tourFormViewModel.getDestination());
         descriptionTextArea.textProperty().bindBidirectional(tourFormViewModel.getDescription());
+        estimatedTimeTextField.textProperty().bindBidirectional(tourFormViewModel.getEstimatedTime());
+        tourDistanceTextField.textProperty().bindBidirectional(tourFormViewModel.getTourDistance());
         transportTypeChoiceBox.getItems().setAll(tourFormViewModel.getTransportTypes());
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
     }

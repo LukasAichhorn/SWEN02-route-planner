@@ -64,8 +64,8 @@
             </GridPane.margin>
         </Label>
         <Label text="Description" GridPane.rowIndex="6" />
-        <Button alignment="CENTER_RIGHT" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
-        <Button  defaultButton="true" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Edit" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+        <Button fx:id="deleteButton" alignment="CENTER_RIGHT" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+        <Button fx:id="editButton"  defaultButton="true" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Edit" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
         <ImageView fx:id="routeImage" fitHeight="164.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="6">
             <image>
                 <Image url="@../../../../../../../../OneDrive/Dokumente/FH/BIFSEM4/SWEN/TestMap.png" />
