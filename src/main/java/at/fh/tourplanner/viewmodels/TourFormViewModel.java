@@ -44,6 +44,10 @@ public class TourFormViewModel {
 
     public StringProperty getDescription() { return description;}
 
+    public StringProperty getTourDistance() { return tourDistance;}
+
+    public StringProperty getEstimatedTime() { return estimatedTime;}
+
 
     public void clearForm(){
         tourUUID = null;
@@ -51,6 +55,9 @@ public class TourFormViewModel {
         start.set("");
         destination.set("");
         description.set("");
+        tourDistance.set("");
+        estimatedTime.set("");
+        selectedTransportType.setValue(null);
     }
 
 
@@ -80,6 +87,8 @@ public class TourFormViewModel {
             destination.set(tour.getDestination());
             description.set(tour.getDescription());
             selectedTransportType.setValue(tour.getTransportType());
+            estimatedTime.set(tour.getEstimatedTime());
+            tourDistance.set(tour.getDistance());
 
         }
         else {
@@ -93,5 +102,10 @@ public class TourFormViewModel {
 
     public Property<TransportType> getSelectedTransportType() {
         return this.selectedTransportType;
+    }
+
+    public void handleNewTourMode() {
+        clearForm();
+
     }
 }

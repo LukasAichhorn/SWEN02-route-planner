@@ -5,6 +5,7 @@ import at.fh.tourplanner.controller.Log.LogsFormController;
 import at.fh.tourplanner.controller.SearchBarController;
 import at.fh.tourplanner.controller.Tour.TourFormController;
 import at.fh.tourplanner.controller.Tour.TourListController;
+import at.fh.tourplanner.controller.*;
 import at.fh.tourplanner.viewmodels.*;
 
 public class ControllerFactory {
@@ -40,6 +41,8 @@ public class ControllerFactory {
             return new LogsFormController(logsFormViewModel);
         }else if (controllerClass == LogListController.class) {
             return new LogListController(logListViewModel);
+        } else if(controllerClass == MainWindowController.class){
+            return new MainWindowController(mainWindowViewModel);
         }
         throw new IllegalArgumentException("Unknown Controller Class");
     }
