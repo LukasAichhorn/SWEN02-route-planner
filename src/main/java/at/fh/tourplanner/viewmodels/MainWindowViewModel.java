@@ -3,20 +3,26 @@ package at.fh.tourplanner.viewmodels;
 import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.Tour;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainWindowViewModel {
 
-    private TourFormViewModel tourFormViewModel;
+    private final TourFormViewModel tourFormViewModel;
 
-    private TourListViewModel tourListViewModel;
+    private final TourListViewModel tourListViewModel;
 
-    private SearchBarViewModel searchBarViewModel;
-    private LogsViewModel   logsViewModel;
+    private final SearchBarViewModel searchBarViewModel;
+    private final LogsViewModel logsViewModel;
 
-    public MainWindowViewModel(TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel, SearchBarViewModel searchBarViewModel, LogsViewModel logsViewModel){
+    private final List<NewTourModeActionListener> newTourModeActionListeners = new ArrayList<>();
+
+    public MainWindowViewModel(TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel, SearchBarViewModel searchBarViewModel, LogsViewModel logsViewModel) {
         this.tourFormViewModel = tourFormViewModel;
         this.tourListViewModel = tourListViewModel;
         this.searchBarViewModel = searchBarViewModel;
         this.logsViewModel = logsViewModel;
+
 
         //Section - listener
         this.tourFormViewModel.addCreateActionListener(new FormActionCreateListener() {
@@ -45,7 +51,19 @@ public class MainWindowViewModel {
             }
         });
 
+        newTourModeActionListeners.add(new NewTourModeActionListener() {
+            @Override
+            public void handleNewTourModeAction() {
+                tourFormViewModel.handleNewTourMode();
+            }
+        });
+
     }
 
 
+    public void publishNewTourModeEvent() {
+        for(var listener : newTourModeActionListeners) {
+            listener.handleNewTourModeAction();
+        }
+    }
 }

@@ -12,7 +12,7 @@ public class TourRepository {
     public static TourRepository getInstance(){return instance;}
     private List<Tour> tours = new ArrayList();
 
-    TourRepository() {
+    private TourRepository() {
         tours.add(new Tour("Roadtrip", "Wien", "Graz", "Fun  fun", TransportType.BICYCLE, "180 km", "11h"));
         tours.add(new Tour("Kurzausflug", "Graz", "Paris", "Fun fun fun", TransportType.CAR, "1233 km", "12h 30min"));
         tours.add(new Tour("Trip", "Wien", "Krems", " fun", TransportType.PEDESTRIAN, "70 km", "14h"));

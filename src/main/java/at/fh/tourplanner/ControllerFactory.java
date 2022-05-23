@@ -1,9 +1,6 @@
 package at.fh.tourplanner;
 
-import at.fh.tourplanner.controller.LogsController;
-import at.fh.tourplanner.controller.SearchBarController;
-import at.fh.tourplanner.controller.TourFormController;
-import at.fh.tourplanner.controller.TourListController;
+import at.fh.tourplanner.controller.*;
 import at.fh.tourplanner.viewmodels.*;
 
 public class ControllerFactory {
@@ -35,6 +32,8 @@ public class ControllerFactory {
             return new SearchBarController(searchBarViewModel);
         }else if (controllerClass == LogsController.class) {
             return new LogsController(logsViewModel);
+        } else if(controllerClass == MainWindowController.class){
+            return new MainWindowController(mainWindowViewModel);
         }
         throw new IllegalArgumentException("Unknown Controller Class");
     }
