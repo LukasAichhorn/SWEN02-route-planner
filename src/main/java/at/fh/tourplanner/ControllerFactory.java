@@ -11,9 +11,7 @@ import at.fh.tourplanner.viewmodels.*;
 public class ControllerFactory {
 
     private final TourListViewModel tourListViewModel;
-
     private final TourFormViewModel tourFormViewModel;
-
     private final SearchBarViewModel searchBarViewModel;
     private final LogsFormViewModel logsFormViewModel;
     private final LogListViewModel logListViewModel;

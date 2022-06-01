@@ -12,10 +12,9 @@ public class MainWindowViewModel {
 
     private final TourListViewModel tourListViewModel;
 
-    private SearchBarViewModel searchBarViewModel;
-    private LogsFormViewModel logsFormViewModel;
-    private LogListViewModel logListViewModel;
     private final SearchBarViewModel searchBarViewModel;
+    private final LogsFormViewModel logsFormViewModel;
+    private  final LogListViewModel logListViewModel;
 
     private final List<NewTourModeActionListener> newTourModeActionListeners = new ArrayList<>();
 

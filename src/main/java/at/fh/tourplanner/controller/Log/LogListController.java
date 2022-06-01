@@ -19,6 +19,6 @@ public class LogListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        logList.setItems(logListViewModel.getLogs());
     }
 }

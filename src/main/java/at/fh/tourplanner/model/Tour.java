@@ -1,4 +1,5 @@
 package at.fh.tourplanner.model;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -11,6 +12,7 @@ public class Tour {
     private TransportType transportType;
     private String distance;
     private String estimatedTime;
+   // private List<Log> logs;
 
     @Override
     public String toString() {
