@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class LogsFormController implements Initializable {
     private final LogsFormViewModel logsFormViewModel;
     public DatePicker datePickerField;
-    public ChoiceBox<String> ratingChoiceBox;
+    public ChoiceBox<Integer> ratingChoiceBox;
     public ChoiceBox<DifficultyTier> difficultyTierChoiceBox;
     public TextField durationTextField;
     public TextField commentTextField;
@@ -28,7 +28,10 @@ public class LogsFormController implements Initializable {
         durationTextField.textProperty().bindBidirectional(logsFormViewModel.getDuration());
         commentTextField.textProperty().bindBidirectional(logsFormViewModel.getComment());
          difficultyTierChoiceBox.getItems().setAll(logsFormViewModel.getDifficultyTiers());
+         difficultyTierChoiceBox.valueProperty().bindBidirectional(logsFormViewModel.getSelectedDifficulty());
          ratingChoiceBox.getItems().setAll(logsFormViewModel.getRatings());
+        ratingChoiceBox.valueProperty().bindBidirectional(logsFormViewModel.getSelectedRating());
+
          datePickerField.valueProperty().bindBidirectional(logsFormViewModel.getDate());
     }
 }

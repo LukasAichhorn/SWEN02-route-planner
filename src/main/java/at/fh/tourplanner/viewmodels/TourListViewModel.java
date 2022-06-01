@@ -43,7 +43,8 @@ public class TourListViewModel {
             @Override
             public void changed(ObservableValue<? extends Tour> observableValue, Tour tour, Tour t1) {
                 publishSelectionEvent(t1);
-                System.out.println("changeListener triggered with " + tour + " " + t1);
+                System.out.println("changeListener triggered with");
+                System.out.println(t1);
             }
         });
     }

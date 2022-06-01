@@ -23,11 +23,11 @@ public class LogListController implements Initializable {
 
     public LogListController(LogListViewModel logListViewModel) {
         this.logListViewModel = logListViewModel;
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logListViewModel.addChangeListener(logList);
         System.out.println("setting items to table view");
         System.out.println(logListViewModel.getLogs());
         logList.setItems(logListViewModel.getLogs());
