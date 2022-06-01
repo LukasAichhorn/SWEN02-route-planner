@@ -39,10 +39,17 @@ public class MainWindowViewModel {
                 tourListViewModel.editTour(formData);
             }
         });
-        this.tourListViewModel.addListener(new ListItemSelectiontListener() {
+        this.tourListViewModel.addListener(new ListItemSelectiontListener<Tour>() {
             @Override
             public void fillForm(Tour tour) {
                 tourFormViewModel.fillFormWithSelection(tour);
+            }
+        });
+        this.tourListViewModel.addListener(new ListItemSelectiontListener<Tour>() {
+            @Override
+            public void fillForm(Tour tour) {
+                System.out.println(tour.getLogs());
+                logListViewModel.setLogs(tour.getLogs());
             }
         });
 

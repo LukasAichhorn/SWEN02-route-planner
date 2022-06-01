@@ -41,12 +41,12 @@ class TourFormViewModelTest {
     @Test
     void getFormData() {
         //Arrange
-        Tour tour;
-        Tour expectedElement = new Tour("Ausflug", "Wien", "Graz", "Spass");
-        instance.getTourName().set("Ausflug");
-        instance.getStart().set("Wien");
-        instance.getDestination().set("Graz");
-        instance.getDescription().set("Spass");
+//        Tour tour;
+//        Tour expectedElement = new Tour("Ausflug", "Wien", "Graz", "Spass");
+//        instance.getTourName().set("Ausflug");
+//        instance.getStart().set("Wien");
+//        instance.getDestination().set("Graz");
+//        instance.getDescription().set("Spass");
 
         //Act
 

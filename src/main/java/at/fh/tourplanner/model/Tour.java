@@ -1,4 +1,5 @@
 package at.fh.tourplanner.model;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ public class Tour {
     private TransportType transportType;
     private String distance;
     private String estimatedTime;
-   // private List<Log> logs;
+    private List<Log> logs;
 
     @Override
     public String toString() {
@@ -25,10 +26,11 @@ public class Tour {
                 ", transportType=" + transportType +
                 ", distance='" + distance + '\'' +
                 ", estimatedTime='" + estimatedTime + '\'' +
+                ", logs=" + logs +
                 '}';
     }
 
-    public Tour(String name, String start, String destination, String description, TransportType transportType, String distance, String estimatedTime) {
+    public Tour(String name, String start, String destination, String description, TransportType transportType, String distance, String estimatedTime, List<Log> logs) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.start = start;
@@ -37,6 +39,7 @@ public class Tour {
         this.transportType = transportType;
         this.distance = distance;
         this.estimatedTime = estimatedTime;
+        this.logs = logs;
     }
 
     public UUID getUUID() {
@@ -101,5 +104,9 @@ public class Tour {
 
     public void setEstimatedTime(String estimatedTime) {
         this.estimatedTime = estimatedTime;
+    }
+
+    public List<Log> getLogs() {
+        return logs;
     }
 }

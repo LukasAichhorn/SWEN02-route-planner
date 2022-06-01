@@ -1,8 +1,9 @@
 package at.fh.tourplanner.viewmodels;
 
+import at.fh.tourplanner.DataAccessLayer.TourRepository;
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectiontListener;
 import at.fh.tourplanner.model.Tour;
-import at.fh.tourplanner.DataAccessLayer.TourRepository;
+import at.fh.tourplanner.DataAccessLayer.DAO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,7 +22,7 @@ public class TourListViewModel {
     }
 
     public TourListViewModel() {
-        setTours(TourRepository.getInstance().getAll());
+        setTours(TourRepository.getInstance().getCachedToursList());
     }
 
     public void setTours(List<Tour> tourList) {
@@ -66,7 +67,7 @@ public class TourListViewModel {
         tourToEdit.get(0).setUUID(tour.getUUID());
         tourToEdit.get(0).setName(tour.getName());
         tourToEdit.get(0).setStart(tour.getStart());
-        tourToEdit.get(0).setDescription(tour.getDestination());
+        tourToEdit.get(0).setDestination(tour.getDestination());
         tourToEdit.get(0).setDescription(tour.getDescription());
         tours.clear();
         tours.addAll(tempState);
@@ -77,7 +78,7 @@ public class TourListViewModel {
     }
 
     public void searchTours(String searchString) {
-        var tours = TourRepository.getInstance().findMatchingTours(searchString);
+        var tours = DAO.getInstance().findMatchingTours(searchString);
         setTours(tours);
     }
 }

@@ -11,7 +11,7 @@
 <ScrollPane prefHeight="474.0" prefWidth="247.0"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="at.fh.tourplanner.controller.TourListController">
+            fx:controller="at.fh.tourplanner.controller.Tour.TourListController">
 <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="466.0" prefWidth="343.0">
         <children>

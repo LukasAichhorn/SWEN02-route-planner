@@ -48,15 +48,15 @@ public class TourFormController implements Initializable {
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
     }
 
-    public void saveAction() {
-        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
-        tourFormViewModel.publishCreateButtonEvent(tour);
-        tourFormViewModel.clearForm();
-
-    }
-
-    public void editAction() {
-        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
-        tourFormViewModel.publishEditButtonEvent(tour);
-    }
+//    public void saveAction() {
+//        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
+//        tourFormViewModel.publishCreateButtonEvent(tour);
+//        tourFormViewModel.clearForm();
+//
+//    }
+//
+//    public void editAction() {
+//        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
+//        tourFormViewModel.publishEditButtonEvent(tour);
+//    }
 }
