@@ -19,7 +19,10 @@ public class TourRepository {
         tours.setAll(database.getAll());
     }
     public List<Tour> getCachedToursList(){
-        return tours;
+        return database.getAll();
+    }
+    public void addTour(Tour tour){
+        database.addTour(tour);
     }
 }
 

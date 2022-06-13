@@ -26,4 +26,7 @@ public class MainWindowController implements Initializable {
     public void startNewTourModeAction(ActionEvent actionEvent) {
         mainWindowViewModel.publishNewTourModeEvent();
     }
+    public void openFormWindow(){
+        mainWindowViewModel.openFormWindow();
+    }
 }

@@ -1,6 +1,8 @@
 package at.fh.tourplanner.viewmodels;
 
 import at.fh.tourplanner.DataAccessLayer.TourRepository;
+import at.fh.tourplanner.businessLayer.TourService;
+import at.fh.tourplanner.controller.Tour.TourFormController;
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectiontListener;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.DataAccessLayer.DAO;
@@ -8,8 +10,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +60,12 @@ public class TourListViewModel {
 
     public void saveTourToList(Tour tour) {
         //TODO implement DAL backend calls
-        tours.add(tour);
-    }
+        //call Tour Service add Tour -> called backend -> usw.
+        TourRepository.getInstance().addTour(tour);
+        tours.clear();
+        setTours(TourRepository.getInstance().getCachedToursList());
+        }
+
     public void editTour(Tour tour) {
         List<Tour> tempState = tours.stream().toList();
         System.out.println("Editing tour with UUID: " + tour.getUUID() );

@@ -8,6 +8,7 @@ import java.util.UUID;
 public interface DAO_Interface<T> {
     List<Tour> getAll();
     //T get(UUID uuid);
+    void addTour(Tour tour);
 
 
 }

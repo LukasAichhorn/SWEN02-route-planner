@@ -1,5 +1,7 @@
 package at.fh.tourplanner.viewmodels;
 
+import at.fh.tourplanner.businessLayer.FormValidationService;
+import at.fh.tourplanner.businessLayer.FormValidationServiceImp;
 import at.fh.tourplanner.listenerInterfaces.FormActionCreateListener;
 import at.fh.tourplanner.listenerInterfaces.FormActionEditListener;
 import at.fh.tourplanner.model.Tour;
@@ -34,6 +36,11 @@ public class TourFormViewModel {
     private final ObjectProperty<TransportType> selectedTransportType = new SimpleObjectProperty<>();
 
     private final ObservableList<TransportType> transportTypeObservableList = FXCollections.observableArrayList(TransportType.values());
+    private final FormValidationService formValidationService;
+
+    public TourFormViewModel() {
+        this.formValidationService = new FormValidationServiceImp();
+    }
 
     public UUID getTourUUID() {return tourUUID;}
     public StringProperty getTourName() { return tourName;}
@@ -104,8 +111,18 @@ public class TourFormViewModel {
         return this.selectedTransportType;
     }
 
-    public void handleNewTourMode() {
-        clearForm();
+    public void addNewTourAction(Tour tour) {
+        if(formValidationService.noEmptyValues(tour)){
+            System.out.println("adding " + tour );
+            publishCreateButtonEvent(tour);
+            clearForm();
+        }
+        else {
+            System.out.println("error while creating new Tour ");
+        };
 
+    }
+
+    public void handleNewTourMode() {
     }
 }

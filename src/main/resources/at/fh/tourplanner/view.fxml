@@ -69,7 +69,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button onAction="#startNewTourModeAction" defaultButton="true" mnemonicParsing="false" text="New Tour" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                              <Button onAction="#openFormWindow" defaultButton="true" mnemonicParsing="false" text="New Tour" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets right="10.0" />
                                  </GridPane.margin>
@@ -84,7 +84,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <fx:include source="tourForm.fxml"/>
+<!--                        <fx:include source="tourForm.fxml"/>-->
                         <Separator prefWidth="200.0">
                            <VBox.margin>
                               <Insets bottom="15.0" top="15.0" />

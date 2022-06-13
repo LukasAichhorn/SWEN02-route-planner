@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TourFormController implements Initializable {
@@ -25,7 +26,7 @@ public class TourFormController implements Initializable {
     public TextArea descriptionTextArea;
     public ChoiceBox<TransportType> transportTypeChoiceBox;
 
-    public Button deleteButton;
+    public Button addButton;
 
     public Button editButton;
 
@@ -48,12 +49,18 @@ public class TourFormController implements Initializable {
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
     }
 
-//    public void saveAction() {
-//        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
-//        tourFormViewModel.publishCreateButtonEvent(tour);
-//        tourFormViewModel.clearForm();
-//
-//    }
+    public void addNewTourAction() {
+        Tour tour = new Tour(
+                tourNameTextField.getText(),
+                startTextField.getText(),
+                destinationTextField.getText(),
+                descriptionTextArea.getText(),
+                TransportType.BICYCLE,
+                "120 km",
+                "2h",
+                new ArrayList<>());
+        tourFormViewModel.addNewTourAction(tour);
+    }
 //
 //    public void editAction() {
 //        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");

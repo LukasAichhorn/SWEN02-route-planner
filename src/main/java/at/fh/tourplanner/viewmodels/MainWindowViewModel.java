@@ -1,9 +1,22 @@
 package at.fh.tourplanner.viewmodels;
 
+import at.fh.tourplanner.ControllerFactory;
+import at.fh.tourplanner.Main;
+import at.fh.tourplanner.controller.Log.LogsFormController;
+import at.fh.tourplanner.controller.MainWindowController;
+import at.fh.tourplanner.controller.Tour.TourFormController;
 import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,5 +102,26 @@ public class MainWindowViewModel {
         for(var listener : newTourModeActionListeners) {
             listener.handleNewTourModeAction();
         }
+    }
+    public void openFormWindow(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(Main.class.getResource("/at/fh/tourplanner/tourForm.fxml"));
+            fxmlLoader.setControllerFactory(controller -> ControllerFactory.getInstance().create(controller));
+            GridPane gridPane = fxmlLoader.load();
+            Stage modal_stage = new Stage();
+            modal_stage.setScene(new Scene(gridPane, 500, 575));
+            modal_stage.setTitle("modal");
+            modal_stage.initModality(Modality.APPLICATION_MODAL);
+            modal_stage.initOwner(modal_stage.getOwner());
+            modal_stage.setResizable(false);
+            modal_stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+
+
     }
 }

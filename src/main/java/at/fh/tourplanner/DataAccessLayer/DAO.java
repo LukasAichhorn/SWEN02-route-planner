@@ -57,6 +57,14 @@ public class DAO implements DAO_Interface<Tour> {
         return inMemoryDatabase;
     }
 
+    @Override
+    public void addTour(Tour tour) {
+        System.out.println("inside database");
+        System.out.println( "before " + inMemoryDatabase.size());
+        this.inMemoryDatabase.add(tour);
+        System.out.println( "after " + inMemoryDatabase.size());
+    }
+
     public void create(Tour t) {
         inMemoryDatabase.add(t);
     }
