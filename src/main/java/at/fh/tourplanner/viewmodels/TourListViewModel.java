@@ -31,6 +31,9 @@ public class TourListViewModel {
     }
 
     public TourListViewModel() {
+        // TODO route request over Tour service interface
+        //create tour service interface
+        //
         setTours(TourRepository.getInstance().getCachedToursList());
     }
 

@@ -84,7 +84,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-<!--                        <fx:include source="tourForm.fxml"/>-->
+                        <fx:include source="staticTourInfo.fxml"/>
                         <Separator prefWidth="200.0">
                            <VBox.margin>
                               <Insets bottom="15.0" top="15.0" />
