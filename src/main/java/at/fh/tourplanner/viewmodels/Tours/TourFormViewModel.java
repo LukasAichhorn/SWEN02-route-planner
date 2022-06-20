@@ -1,7 +1,8 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
 import at.fh.tourplanner.ControllerFactory;
-import at.fh.tourplanner.DataAccessLayer.RemoteMapAPI;
+import at.fh.tourplanner.DataAccessLayer.mapAPI.RemoteMapAPI;
+import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.Route;
 import at.fh.tourplanner.Main;
 import at.fh.tourplanner.businessLayer.DirectionService;
 import at.fh.tourplanner.businessLayer.DirectionServiceImpl;
@@ -14,12 +15,16 @@ import at.fh.tourplanner.model.TransportType;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.SingleSelectionModel;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -28,7 +33,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 
 
 public class TourFormViewModel {
@@ -48,25 +52,52 @@ public class TourFormViewModel {
 
     private final ObservableList<TransportType> transportTypeObservableList = FXCollections.observableArrayList(TransportType.values());
     private final FormValidationService formValidationService;
-    private final DirectionService  directionService;
+    private final DirectionService directionService;
+    private final UiServiceQueryDirection uiServiceQueryDirection;
 
-    public TourFormViewModel(RemoteMapAPI remoteMapAPI) {
-        this.directionService = new DirectionServiceImpl(remoteMapAPI);
+    public TourFormViewModel(DirectionService directionService) {
+        this.directionService = directionService;
         this.formValidationService = new FormValidationServiceImp();
+        this.uiServiceQueryDirection = new UiServiceQueryDirection();
+        uiServiceQueryDirection.setOnSucceeded(e->{
+            System.out.println("task is done");
+            //wie bekomme ich den return value aus dem Task???
+
+        });
+        uiServiceQueryDirection.exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, newValue.toString());
+                alert.showAndWait();
+            }
+        });
     }
 
-    public UUID getTourUUID() {return tourUUID;}
-    public StringProperty getTourName() { return tourName;}
+    public UUID getTourUUID() {
+        return tourUUID;
+    }
 
-    public StringProperty getStart() { return start;}
+    public ReadOnlyBooleanProperty runningProperty() {
+        return uiServiceQueryDirection.runningProperty();
+    }
 
-    public StringProperty getDestination() { return destination;}
+    public StringProperty getTourName() {
+        return tourName;
+    }
 
-    public StringProperty getDescription() { return description;}
+    public StringProperty getStart() {
+        return start;
+    }
+
+    public StringProperty getDestination() {
+        return destination;
+    }
+
+    public StringProperty getDescription() {
+        return description;
+    }
 
 
-
-    public void clearForm(){
+    public void clearForm() {
         tourUUID = null;
         tourName.set("");
         start.set("");
@@ -74,10 +105,12 @@ public class TourFormViewModel {
         description.set("");
         selectedTransportType.setValue(null);
     }
-    public void closeWindow(ActionEvent event){
-        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+
+    public void closeWindow(ActionEvent event) {
+        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
-    public void openFormInWindow(){
+
+    public void openFormInWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(Main.class.getResource("/at/fh/tourplanner/tourForm_2.fxml"));
@@ -100,23 +133,25 @@ public class TourFormViewModel {
     public void addCreateActionListener(FormActionCreateListener formActionCreateListener) {
         this.createButtonListeners.add(formActionCreateListener);
     }
+
     public void addEditActionListener(FormActionEditListener formActionEditListener) {
         this.editButtonListeners.add(formActionEditListener);
     }
 
     public void publishCreateButtonEvent(Tour tour) {
-        for(var listener : createButtonListeners){
+        for (var listener : createButtonListeners) {
             listener.handleCreateAction(tour);
         }
     }
+
     public void publishEditButtonEvent(Tour tour) {
-        for(var listener : editButtonListeners){
+        for (var listener : editButtonListeners) {
             listener.handleEditAction(tour);
         }
     }
 
     public void fillFormWithSelection(Tour tour) {
-        if(tour != null) {
+        if (tour != null) {
             tourUUID = tour.getUUID();
             tourName.set(tour.getName());
             start.set(tour.getStart());
@@ -124,8 +159,7 @@ public class TourFormViewModel {
             description.set(tour.getDescription());
             selectedTransportType.setValue(tour.getTransportType());
 
-        }
-        else {
+        } else {
             clearForm();
         }
     }
@@ -139,17 +173,28 @@ public class TourFormViewModel {
     }
 
     public void addNewTourAction(Tour tour) {
-        if(formValidationService.noEmptyValues(tour)){
-            System.out.println("calling APi " + tour );
-            directionService.queryDirection(getStart().get(), getDestination().get());
-            publishCreateButtonEvent(tour);
-        }
-        else {
+        if (formValidationService.noEmptyValues(tour)) {
+            System.out.println("calling APi " + tour);
+            uiServiceQueryDirection.restart();
+
+        } else {
             System.out.println("error while creating new Tour ");
-        };
+        }
 
     }
 
-    public void handleNewTourMode() {
+    public class UiServiceQueryDirection extends Service<Route> {
+        @Override
+        protected Task createTask() {
+            return new Task<Route>() {
+                protected Route call() throws Exception {
+                    Route result = directionService.queryDirection(getStart().get(), getDestination().get());
+                    return result;
+                }
+            };
+        }
     }
+
 }
+
+

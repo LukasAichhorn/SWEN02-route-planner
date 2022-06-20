@@ -1,8 +1,7 @@
 package at.fh.tourplanner.businessLayer;
 
-import at.fh.tourplanner.DataAccessLayer.Direction;
-import at.fh.tourplanner.DataAccessLayer.RemoteMapAPI;
-import at.fh.tourplanner.DataAccessLayer.Route;
+import at.fh.tourplanner.DataAccessLayer.mapAPI.RemoteMapAPI;
+import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.Route;
 
 public class DirectionServiceImpl implements DirectionService {
     private final RemoteMapAPI remoteMapAPI;
@@ -13,6 +12,7 @@ public class DirectionServiceImpl implements DirectionService {
 
     @Override
     public Route queryDirection(String start, String end) {
+        System.out.println("DirectionServiceImp -- start: " + start +" end: " + end);
         return remoteMapAPI.queryDirection(start,end);
     }
 }

@@ -22,6 +22,7 @@ public class TourFormController implements Initializable {
     public TextField estimatedTimeTextField;
     public TextArea descriptionTextArea;
     public ChoiceBox<TransportType> transportTypeChoiceBox;
+    public ProgressIndicator progressIndicator;
 
     public Button addButton;
 
@@ -44,6 +45,7 @@ public class TourFormController implements Initializable {
         //tourDistanceTextField.textProperty().bindBidirectional(tourFormViewModel.getTourDistance());
         transportTypeChoiceBox.getItems().setAll(tourFormViewModel.getTransportTypes());
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
+        progressIndicator.visibleProperty().bind(tourFormViewModel.runningProperty());
     }
 
     public void addNewTourAction() {

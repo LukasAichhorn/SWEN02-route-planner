@@ -30,7 +30,10 @@ public class StaticTourInfoViewModel {
     public StringProperty getSelectedTransportType() { return selectedTransportType;}
 
     public void fillTourInfo(Tour tour) {
-        tourName.set(tour.getName());
+        if(tour == null){
+            System.out.println("fillTourInfo was called with an Empty Tour");
+            return;
+        }
         start.set(tour.getStart());
         destination.set(tour.getDestination());
         description.set(tour.getDescription());

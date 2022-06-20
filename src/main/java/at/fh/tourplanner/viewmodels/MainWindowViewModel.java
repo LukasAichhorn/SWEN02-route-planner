@@ -31,7 +31,6 @@ public class MainWindowViewModel {
     private  final LogListViewModel logListViewModel;
     private final StaticTourInfoViewModel staticTourInfoViewModel;
 
-    private final List<NewTourModeActionListener> newTourModeActionListeners = new ArrayList<>();
 
     public MainWindowViewModel(StaticTourInfoViewModel staticTourInfoViewModel, TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel, SearchBarViewModel searchBarViewModel, LogsFormViewModel logsFormViewModel,LogListViewModel logListViewModel) {
         this.tourFormViewModel = tourFormViewModel;
@@ -109,38 +108,5 @@ public class MainWindowViewModel {
                 tourListViewModel.searchTours(searchString);
             }
         });
-
-        newTourModeActionListeners.add(new NewTourModeActionListener() {
-            @Override
-            public void handleNewTourModeAction() {
-                tourFormViewModel.handleNewTourMode();
-            }
-        });
-
-    }
-
-
-    public void publishNewTourModeEvent() {
-        for(var listener : newTourModeActionListeners) {
-            listener.handleNewTourModeAction();
-        }
-    }
-    public void openFormWindow(){
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(Main.class.getResource("/at/fh/tourplanner/tourForm.fxml"));
-            fxmlLoader.setControllerFactory(controller -> ControllerFactory.getInstance().create(controller));
-            GridPane gridPane = fxmlLoader.load();
-            Stage modal_stage = new Stage();
-            modal_stage.setScene(new Scene(gridPane, 500, 575));
-            modal_stage.setTitle("modal");
-            modal_stage.initModality(Modality.APPLICATION_MODAL);
-            modal_stage.initOwner(modal_stage.getOwner());
-            modal_stage.setResizable(false);
-            modal_stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
     }
 }

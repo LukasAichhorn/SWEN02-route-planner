@@ -1,4 +1,4 @@
-package at.fh.tourplanner.DataAccessLayer;
+package at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
