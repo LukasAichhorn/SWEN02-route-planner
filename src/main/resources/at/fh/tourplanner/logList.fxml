@@ -10,13 +10,15 @@
 <TableView
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
-        prefHeight="200.0" prefWidth="200.0">
+        prefHeight="200.0" prefWidth="200.0"
+        fx:id="logList"
+        fx:controller="at.fh.tourplanner.controller.Log.LogListController">
     <columns>
-        <TableColumn prefWidth="75.0" text="Date/Time" />
-        <TableColumn prefWidth="75.0" text="Rating" />
-        <TableColumn prefWidth="75.0" text="Difficulty" />
-        <TableColumn prefWidth="75.0" text="Total Time" />
-        <TableColumn minWidth="-Infinity" prefWidth="230.0" text="Comment" />
+        <TableColumn prefWidth="75.0" text="Date/Time" fx:id="timeStamp" />
+        <TableColumn prefWidth="75.0" text="Rating" fx:id="rating"/>
+        <TableColumn prefWidth="75.0" text="Difficulty" fx:id="difficulty" />
+        <TableColumn prefWidth="75.0" text="Total Time" fx:id="duration"/>
+        <TableColumn minWidth="-Infinity" prefWidth="230.0" text="Comment" fx:id="comment" />
     </columns>
     <VBox.margin>
         <Insets bottom="15.0" left="10.0" right="10.0" top="5.0" />

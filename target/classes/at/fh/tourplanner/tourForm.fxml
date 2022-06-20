@@ -9,7 +9,8 @@
 <GridPane prefHeight="257.0" prefWidth="507.0"
           xmlns="http://javafx.com/javafx/11.0.2"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="at.fh.tourplanner.controller.TourFormController">
+          fx:controller="at.fh.tourplanner.controller.Tour.TourFormController"
+>
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.5999755859375" minWidth="10.0" prefWidth="162.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.00006103515625" minWidth="10.0" prefWidth="162.0" />
@@ -64,13 +65,8 @@
             </GridPane.margin>
         </Label>
         <Label text="Description" GridPane.rowIndex="6" />
-        <Button alignment="CENTER_RIGHT" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
-        <Button  defaultButton="true" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Edit" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
-        <ImageView fx:id="routeImage" fitHeight="164.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="6">
-            <image>
-                <Image url="@../../../../../../../../OneDrive/Dokumente/FH/BIFSEM4/SWEN/TestMap.png" />
-            </image>
-        </ImageView>
+        <Button  onAction="#addNewTourAction" fx:id="addButton" alignment="CENTER_RIGHT" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="add" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+        <Button fx:id="editButton"  defaultButton="true" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="55.0" text="Edit" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
         <ChoiceBox fx:id="transportTypeChoiceBox" prefHeight="26.0" prefWidth="166.4" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets left="10.0" />

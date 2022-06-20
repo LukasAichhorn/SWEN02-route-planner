@@ -1,13 +1,12 @@
 package at.fh.tourplanner.viewmodels;
 
-import at.fh.tourplanner.model.Tour;
+import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class TourFormViewModelTest {
 
@@ -41,12 +40,12 @@ class TourFormViewModelTest {
     @Test
     void getFormData() {
         //Arrange
-        Tour tour;
-        Tour expectedElement = new Tour("Ausflug", "Wien", "Graz", "Spass");
-        instance.getTourName().set("Ausflug");
-        instance.getStart().set("Wien");
-        instance.getDestination().set("Graz");
-        instance.getDescription().set("Spass");
+//        Tour tour;
+//        Tour expectedElement = new Tour("Ausflug", "Wien", "Graz", "Spass");
+//        instance.getTourName().set("Ausflug");
+//        instance.getStart().set("Wien");
+//        instance.getDestination().set("Graz");
+//        instance.getDescription().set("Spass");
 
         //Act
 

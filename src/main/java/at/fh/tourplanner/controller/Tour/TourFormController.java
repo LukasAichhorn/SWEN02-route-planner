@@ -1,16 +1,15 @@
-package at.fh.tourplanner.controller;
+package at.fh.tourplanner.controller.Tour;
 
 
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
-import at.fh.tourplanner.viewmodels.TourFormViewModel;
-import at.fh.tourplanner.viewmodels.TourListViewModel;
-import javafx.collections.FXCollections;
+import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TourFormController implements Initializable {
@@ -19,13 +18,12 @@ public class TourFormController implements Initializable {
     public TextField tourNameTextField;
     public TextField startTextField;
     public TextField destinationTextField;
-
     public TextField tourDistanceTextField;
     public TextField estimatedTimeTextField;
     public TextArea descriptionTextArea;
     public ChoiceBox<TransportType> transportTypeChoiceBox;
 
-    public Button deleteButton;
+    public Button addButton;
 
     public Button editButton;
 
@@ -42,21 +40,30 @@ public class TourFormController implements Initializable {
         startTextField.textProperty().bindBidirectional(tourFormViewModel.getStart());
         destinationTextField.textProperty().bindBidirectional(tourFormViewModel.getDestination());
         descriptionTextArea.textProperty().bindBidirectional(tourFormViewModel.getDescription());
-        estimatedTimeTextField.textProperty().bindBidirectional(tourFormViewModel.getEstimatedTime());
-        tourDistanceTextField.textProperty().bindBidirectional(tourFormViewModel.getTourDistance());
+        //estimatedTimeTextField.textProperty().bindBidirectional(tourFormViewModel.getEstimatedTime());
+        //tourDistanceTextField.textProperty().bindBidirectional(tourFormViewModel.getTourDistance());
         transportTypeChoiceBox.getItems().setAll(tourFormViewModel.getTransportTypes());
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
     }
 
-    public void saveAction() {
-        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
-        tourFormViewModel.publishCreateButtonEvent(tour);
-        tourFormViewModel.clearForm();
-
+    public void addNewTourAction() {
+        Tour tour = new Tour(
+                tourNameTextField.getText(),
+                startTextField.getText(),
+                destinationTextField.getText(),
+                descriptionTextArea.getText(),
+                TransportType.BICYCLE,
+                "120 km",
+                "2h",
+                new ArrayList<>());
+        tourFormViewModel.addNewTourAction(tour);
     }
-
-    public void editAction() {
-        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
-        tourFormViewModel.publishEditButtonEvent(tour);
+    public void closeWindow(ActionEvent event){
+        tourFormViewModel.closeWindow(event);
     }
+//
+//    public void editAction() {
+//        Tour tour = new Tour(tourNameTextField.getText(), startTextField.getText(), destinationTextField.getText(), descriptionTextArea.getText(), TransportType.BICYCLE, "120 km", "2h");
+//        tourFormViewModel.publishEditButtonEvent(tour);
+//    }
 }

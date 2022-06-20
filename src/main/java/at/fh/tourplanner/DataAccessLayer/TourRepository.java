@@ -1,40 +1,29 @@
 package at.fh.tourplanner.DataAccessLayer;
 
 import at.fh.tourplanner.model.Tour;
-import at.fh.tourplanner.model.TransportType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TourRepository {
+    private DAO_Interface<Tour> database = DAO.getInstance();
+    private ObservableList<Tour> tours = FXCollections.observableArrayList();
+
     private static TourRepository instance = new TourRepository();
-    public static TourRepository getInstance(){return instance;}
-    private List<Tour> tours = new ArrayList();
 
-    private TourRepository() {
-        tours.add(new Tour("Roadtrip", "Wien", "Graz", "Fun  fun", TransportType.BICYCLE, "180 km", "11h"));
-        tours.add(new Tour("Kurzausflug", "Graz", "Paris", "Fun fun fun", TransportType.CAR, "1233 km", "12h 30min"));
-        tours.add(new Tour("Trip", "Wien", "Krems", " fun", TransportType.PEDESTRIAN, "70 km", "14h"));
+    public static TourRepository getInstance() {
+        return instance;
     }
-
-    public List<Tour> getAll(){
-        return tours;
+    private TourRepository(){
+        tours.setAll(database.getAll());
     }
-
-    public void create(Tour t){
-        tours.add(t);
+    public List<Tour> getCachedToursList(){
+        return database.getAll();
     }
-
-
-    public List<Tour> findMatchingTours(String searchString) {
-      //get all tours from db
-      var tours  = this.tours;
-      if(searchString.isEmpty() || searchString == null){
-          return tours;
-      }
-      return tours.stream()
-              .filter(tour-> tour.getName().toLowerCase().contains(searchString.toLowerCase()))
-              .collect(Collectors.toList());
+    public void addTour(Tour tour){
+        database.addTour(tour);
     }
 }
+
+
