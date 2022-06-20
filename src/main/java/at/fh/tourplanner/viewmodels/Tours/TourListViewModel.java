@@ -1,11 +1,17 @@
-package at.fh.tourplanner.viewmodels;
+package at.fh.tourplanner.viewmodels.Tours;
 
+import at.fh.tourplanner.ControllerFactory;
 import at.fh.tourplanner.DataAccessLayer.TourRepository;
+import at.fh.tourplanner.Main;
 import at.fh.tourplanner.businessLayer.TourService;
 import at.fh.tourplanner.controller.Tour.TourFormController;
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectiontListener;
+import at.fh.tourplanner.listenerInterfaces.OpenBlankTourFormListener;
+import at.fh.tourplanner.listenerInterfaces.OpenFilledTourFormListener;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.DataAccessLayer.DAO;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,7 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -25,7 +33,10 @@ import java.util.List;
 public class TourListViewModel {
 
     private List<ListItemSelectiontListener> eventListeners = new ArrayList<>();
+    private List<OpenBlankTourFormListener> openBlankTourFormListeners = new ArrayList<>();
+    private List<OpenFilledTourFormListener> openFilledTourFormListeners = new ArrayList<>();
     ObservableList<Tour> tours = FXCollections.observableArrayList();
+    private BooleanProperty editIsDisabled = new SimpleBooleanProperty(true);
     public ObservableList<Tour> getTours() {
         return tours;
     }
@@ -33,7 +44,6 @@ public class TourListViewModel {
     public TourListViewModel() {
         // TODO route request over Tour service interface
         //create tour service interface
-        //
         setTours(TourRepository.getInstance().getCachedToursList());
     }
 
@@ -45,9 +55,25 @@ public class TourListViewModel {
     public void addListener(ListItemSelectiontListener listItemSelectiontListener){
         this.eventListeners.add(listItemSelectiontListener);
     }
+    public void addOpenBlankFormListener(OpenBlankTourFormListener openBlankTourFormListener){
+        this.openBlankTourFormListeners.add(openBlankTourFormListener);
+    }
+    public void addOpenFilledFormListener(OpenFilledTourFormListener openFilledTourFormListener){
+        this.openFilledTourFormListeners.add(openFilledTourFormListener);
+    }
     public void publishSelectionEvent(Tour tour) {
         for(var listener : eventListeners){
             listener.fillForm(tour);
+        }
+    }
+    public void publishOpenBlankTourFormEvent(){
+        for(var listener : openBlankTourFormListeners){
+            listener.handleEvent();
+        }
+    }
+    public void publishOpenFilledTourFormEvent(){
+        for(var listener : openFilledTourFormListeners){
+            listener.handleEvent();
         }
     }
     public void addChangeListener(ListView listView){
@@ -97,5 +123,20 @@ public class TourListViewModel {
     public void searchTours(String searchString) {
         var tours = DAO.getInstance().findMatchingTours(searchString);
         setTours(tours);
+    }
+
+    public void openBlankFormButtonAction() {
+        publishOpenBlankTourFormEvent();
+    }
+    public BooleanProperty getEditIsDisabledProperty() {
+        return editIsDisabled;
+    }
+
+    public void setEditIsDisabled(boolean canEdit) {
+        this.editIsDisabled.set(canEdit);
+    }
+
+    public void openFilledFormButtonAction() {
+        publishOpenFilledTourFormEvent();
     }
 }

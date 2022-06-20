@@ -1,7 +1,6 @@
 package at.fh.tourplanner.controller.Log;
 
-import at.fh.tourplanner.model.Log;
-import at.fh.tourplanner.viewmodels.LogListViewModel;
+import at.fh.tourplanner.viewmodels.Logs.LogListViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -9,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class LogListController implements Initializable {

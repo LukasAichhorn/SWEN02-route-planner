@@ -1,7 +1,7 @@
 package at.fh.tourplanner.controller.Log;
 
 import at.fh.tourplanner.model.DifficultyTier;
-import at.fh.tourplanner.viewmodels.LogsFormViewModel;
+import at.fh.tourplanner.viewmodels.Logs.LogsFormViewModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;

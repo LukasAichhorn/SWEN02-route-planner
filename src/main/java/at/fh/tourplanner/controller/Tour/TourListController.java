@@ -1,8 +1,9 @@
 package at.fh.tourplanner.controller.Tour;
 
 import at.fh.tourplanner.model.Tour;
-import at.fh.tourplanner.viewmodels.TourListViewModel;
+import at.fh.tourplanner.viewmodels.Tours.TourListViewModel;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.util.StringConverter;
@@ -14,6 +15,7 @@ public class TourListController implements Initializable {
 
     private final TourListViewModel viewModel;
     public ListView<Tour> tourList;
+    public Button editButton;
 
     public TourListController(TourListViewModel viewModel) {
         this.viewModel = viewModel;
@@ -21,6 +23,7 @@ public class TourListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        editButton.disableProperty().bind(viewModel.getEditIsDisabledProperty());
         viewModel.addChangeListener(tourList);
         tourList.setItems(viewModel.getTours());
         tourList.setCellFactory(value -> {
@@ -42,6 +45,10 @@ public class TourListController implements Initializable {
             return cell;
         });
     }
+    public void openBlankFormButtonAction(){
+        viewModel.openBlankFormButtonAction();
+    }
+    public void openFilledFormButtonAction() {viewModel.openFilledFormButtonAction();}
 
 
 }

@@ -2,17 +2,17 @@ package at.fh.tourplanner.viewmodels;
 
 import at.fh.tourplanner.ControllerFactory;
 import at.fh.tourplanner.Main;
-import at.fh.tourplanner.controller.Log.LogsFormController;
-import at.fh.tourplanner.controller.MainWindowController;
-import at.fh.tourplanner.controller.Tour.TourFormController;
 import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
+import at.fh.tourplanner.viewmodels.Logs.LogListViewModel;
+import at.fh.tourplanner.viewmodels.Logs.LogsFormViewModel;
+import at.fh.tourplanner.viewmodels.Tours.StaticTourInfoViewModel;
+import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
+import at.fh.tourplanner.viewmodels.Tours.TourListViewModel;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -29,15 +29,17 @@ public class MainWindowViewModel {
     private final SearchBarViewModel searchBarViewModel;
     private final LogsFormViewModel logsFormViewModel;
     private  final LogListViewModel logListViewModel;
+    private final StaticTourInfoViewModel staticTourInfoViewModel;
 
     private final List<NewTourModeActionListener> newTourModeActionListeners = new ArrayList<>();
 
-    public MainWindowViewModel(TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel, SearchBarViewModel searchBarViewModel, LogsFormViewModel logsFormViewModel,LogListViewModel logListViewModel) {
+    public MainWindowViewModel(StaticTourInfoViewModel staticTourInfoViewModel, TourFormViewModel tourFormViewModel, TourListViewModel tourListViewModel, SearchBarViewModel searchBarViewModel, LogsFormViewModel logsFormViewModel,LogListViewModel logListViewModel) {
         this.tourFormViewModel = tourFormViewModel;
         this.tourListViewModel = tourListViewModel;
         this.searchBarViewModel = searchBarViewModel;
         this.logsFormViewModel = logsFormViewModel;
         this.logListViewModel = logListViewModel;
+        this.staticTourInfoViewModel = staticTourInfoViewModel;
 
 
         //Section - listener
@@ -56,7 +58,27 @@ public class MainWindowViewModel {
         this.tourListViewModel.addListener(new ListItemSelectiontListener<Tour>() {
             @Override
             public void fillForm(Tour tour) {
+                tourListViewModel.setEditIsDisabled(false);
                 tourFormViewModel.fillFormWithSelection(tour);
+            }
+        });
+        this.tourListViewModel.addOpenBlankFormListener(new OpenBlankTourFormListener() {
+            @Override
+            public void handleEvent() {
+                tourFormViewModel.clearForm();
+                tourFormViewModel.openFormInWindow();
+            }
+        });
+        this.tourListViewModel.addOpenFilledFormListener(new OpenFilledTourFormListener() {
+            @Override
+            public void handleEvent() {
+                tourFormViewModel.openFormInWindow();
+            }
+        });
+        this.tourListViewModel.addListener(new ListItemSelectiontListener<Tour>() {
+            @Override
+            public void fillForm(Tour tour) {
+                staticTourInfoViewModel.fillTourInfo(tour);
             }
         });
         this.tourListViewModel.addListener(new ListItemSelectiontListener<Tour>() {
@@ -120,8 +142,5 @@ public class MainWindowViewModel {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-
-
     }
 }

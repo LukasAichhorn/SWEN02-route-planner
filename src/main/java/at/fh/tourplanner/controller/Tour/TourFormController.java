@@ -3,9 +3,7 @@ package at.fh.tourplanner.controller.Tour;
 
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
-import at.fh.tourplanner.viewmodels.TourFormViewModel;
-import at.fh.tourplanner.viewmodels.TourListViewModel;
-import javafx.collections.FXCollections;
+import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -20,7 +18,6 @@ public class TourFormController implements Initializable {
     public TextField tourNameTextField;
     public TextField startTextField;
     public TextField destinationTextField;
-
     public TextField tourDistanceTextField;
     public TextField estimatedTimeTextField;
     public TextArea descriptionTextArea;
@@ -43,8 +40,8 @@ public class TourFormController implements Initializable {
         startTextField.textProperty().bindBidirectional(tourFormViewModel.getStart());
         destinationTextField.textProperty().bindBidirectional(tourFormViewModel.getDestination());
         descriptionTextArea.textProperty().bindBidirectional(tourFormViewModel.getDescription());
-        estimatedTimeTextField.textProperty().bindBidirectional(tourFormViewModel.getEstimatedTime());
-        tourDistanceTextField.textProperty().bindBidirectional(tourFormViewModel.getTourDistance());
+        //estimatedTimeTextField.textProperty().bindBidirectional(tourFormViewModel.getEstimatedTime());
+        //tourDistanceTextField.textProperty().bindBidirectional(tourFormViewModel.getTourDistance());
         transportTypeChoiceBox.getItems().setAll(tourFormViewModel.getTransportTypes());
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
     }
@@ -60,6 +57,9 @@ public class TourFormController implements Initializable {
                 "2h",
                 new ArrayList<>());
         tourFormViewModel.addNewTourAction(tour);
+    }
+    public void closeWindow(ActionEvent event){
+        tourFormViewModel.closeWindow(event);
     }
 //
 //    public void editAction() {

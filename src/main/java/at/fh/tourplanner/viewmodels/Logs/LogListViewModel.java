@@ -1,4 +1,4 @@
-package at.fh.tourplanner.viewmodels;
+package at.fh.tourplanner.viewmodels.Logs;
 
 import at.fh.tourplanner.DataAccessLayer.TourRepository;
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectiontListener;
