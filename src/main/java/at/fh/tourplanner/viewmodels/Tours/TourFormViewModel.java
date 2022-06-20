@@ -1,7 +1,10 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
 import at.fh.tourplanner.ControllerFactory;
+import at.fh.tourplanner.DataAccessLayer.RemoteMapAPI;
 import at.fh.tourplanner.Main;
+import at.fh.tourplanner.businessLayer.DirectionService;
+import at.fh.tourplanner.businessLayer.DirectionServiceImpl;
 import at.fh.tourplanner.businessLayer.FormValidationService;
 import at.fh.tourplanner.businessLayer.FormValidationServiceImp;
 import at.fh.tourplanner.listenerInterfaces.FormActionCreateListener;
@@ -45,8 +48,10 @@ public class TourFormViewModel {
 
     private final ObservableList<TransportType> transportTypeObservableList = FXCollections.observableArrayList(TransportType.values());
     private final FormValidationService formValidationService;
+    private final DirectionService  directionService;
 
-    public TourFormViewModel() {
+    public TourFormViewModel(RemoteMapAPI remoteMapAPI) {
+        this.directionService = new DirectionServiceImpl(remoteMapAPI);
         this.formValidationService = new FormValidationServiceImp();
     }
 
@@ -135,7 +140,8 @@ public class TourFormViewModel {
 
     public void addNewTourAction(Tour tour) {
         if(formValidationService.noEmptyValues(tour)){
-            System.out.println("adding " + tour );
+            System.out.println("calling APi " + tour );
+            directionService.queryDirection(getStart().get(), getDestination().get());
             publishCreateButtonEvent(tour);
         }
         else {

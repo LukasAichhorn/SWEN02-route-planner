@@ -1,5 +1,6 @@
 package at.fh.tourplanner;
 
+import at.fh.tourplanner.DataAccessLayer.RemoteMapAPI;
 import at.fh.tourplanner.controller.Log.LogListController;
 import at.fh.tourplanner.controller.Log.LogsFormController;
 import at.fh.tourplanner.controller.SearchBarController;
@@ -26,7 +27,7 @@ public class ControllerFactory {
 
 
     public ControllerFactory() {
-        tourFormViewModel = new TourFormViewModel();
+        tourFormViewModel = new TourFormViewModel(new RemoteMapAPI());
         tourListViewModel = new TourListViewModel();
         searchBarViewModel = new SearchBarViewModel();
         logsFormViewModel = new LogsFormViewModel();

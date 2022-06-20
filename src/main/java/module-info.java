@@ -2,11 +2,16 @@ module at.fh.tourplanner {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
-
+    requires retrofit2;
+    requires com.fasterxml.jackson.annotation;
+    requires retrofit2.converter.jackson;
+    requires okhttp3;
 
 
     opens at.fh.tourplanner to javafx.fxml;
     exports at.fh.tourplanner;
+    exports at.fh.tourplanner.DataAccessLayer;
+    opens at.fh.tourplanner.DataAccessLayer;
     exports at.fh.tourplanner.controller;
     opens at.fh.tourplanner.controller to javafx.fxml;
     exports at.fh.tourplanner.controller.Tour;
