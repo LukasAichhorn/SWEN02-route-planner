@@ -1,7 +1,7 @@
 package at.fh.tourplanner.controller.Tour;
 
 
-import at.fh.tourplanner.model.Tour;
+import at.fh.tourplanner.model.FormDataNewTour;
 import at.fh.tourplanner.model.TransportType;
 import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import javafx.event.ActionEvent;
@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TourFormController implements Initializable {
@@ -49,16 +48,12 @@ public class TourFormController implements Initializable {
     }
 
     public void addNewTourAction() {
-        Tour tour = new Tour(
+        FormDataNewTour tour = new FormDataNewTour(
                 tourNameTextField.getText(),
+                transportTypeChoiceBox.getValue(),
                 startTextField.getText(),
                 destinationTextField.getText(),
-                descriptionTextArea.getText(),
-                transportTypeChoiceBox.getValue(),
-                "",
-                "",
-                new ArrayList<>(),
-        null);
+                descriptionTextArea.getText());
         tourFormViewModel.addNewTourAction(tour);
     }
     public void closeWindow(ActionEvent event){

@@ -2,11 +2,11 @@ package at.fh.tourplanner.viewmodels.Tours;
 
 import at.fh.tourplanner.ControllerFactory;
 import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.MapAPIDataWrapper;
-import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.Route;
 import at.fh.tourplanner.Main;
 import at.fh.tourplanner.businessLayer.*;
 import at.fh.tourplanner.listenerInterfaces.FormActionCreateListener;
 import at.fh.tourplanner.listenerInterfaces.FormActionEditListener;
+import at.fh.tourplanner.model.FormDataNewTour;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
 import javafx.beans.property.*;
@@ -23,7 +23,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -186,7 +185,7 @@ public class TourFormViewModel {
         return this.selectedTransportType;
     }
 
-    public void addNewTourAction(Tour tour) {
+    public void addNewTourAction(FormDataNewTour tour) {
         if (formValidationService.noEmptyValues(tour)) {
             System.out.println("calling APi " + tour);
             uiServiceQueryMapAPI.restart();
