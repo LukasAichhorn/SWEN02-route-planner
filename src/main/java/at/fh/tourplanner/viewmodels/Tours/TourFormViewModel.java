@@ -59,6 +59,11 @@ public class TourFormViewModel {
         this.directionService = directionService;
         this.formValidationService = new FormValidationServiceImp();
         this.uiServiceQueryDirection = new UiServiceQueryDirection();
+        uiServiceQueryDirection.valueProperty().addListener((observable,oldVal,newVal)->{
+            System.out.println("wdwdwdwd " + newVal);
+            //
+
+        });
         uiServiceQueryDirection.setOnSucceeded(e->{
             System.out.println("task is done");
             //wie bekomme ich den return value aus dem Task???
