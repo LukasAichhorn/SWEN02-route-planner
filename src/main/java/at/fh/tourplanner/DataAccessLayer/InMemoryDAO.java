@@ -35,7 +35,7 @@ public class InMemoryDAO implements DAO {
         testLogs1.add(new Log(LocalDate.now(), 4, DifficultyTier.BEGINNER,
                 Duration.ofHours(1).plusMinutes(30), "roadtrip3"));
         inMemoryDatabase.add(new Tour("Roadtrip", "Wien", "Graz", "Fun  fun",
-                TransportType.BICYCLE, "180 km", "11h", testLogs1));
+                TransportType.BICYCLE, "180 km", "11h", testLogs1,null));
         ArrayList<Log> testLogs2 = new ArrayList<>();
         testLogs2.add(new Log(LocalDate.now(), 4, DifficultyTier.ADVANCED,
                 Duration.ofHours(1),
@@ -46,7 +46,7 @@ public class InMemoryDAO implements DAO {
         testLogs2.add(new Log(LocalDate.now(), 4, DifficultyTier.ADVANCED,
                 Duration.ofHours(1).plusMinutes(30), "KurzAusFlug 3"));
         inMemoryDatabase.add(new Tour("Kurzausflug", "Graz", "Paris", "Fun fun fun",
-                TransportType.CAR, "1233 km", "12h 30min", testLogs2));
+                TransportType.CAR, "1233 km", "12h 30min", testLogs2,null));
         ArrayList<Log> testLogs3 = new ArrayList<>();
         testLogs3.add(new Log(LocalDate.now(), 4, DifficultyTier.MASTER,
                 Duration.ofHours(1), "Trip 1"));
@@ -55,7 +55,7 @@ public class InMemoryDAO implements DAO {
         testLogs3.add(new Log(LocalDate.now(), 4, DifficultyTier.MASTER,
                 Duration.ofHours(1).plusMinutes(30), "Trip 3"));
         inMemoryDatabase.add(new Tour("Trip", "Wien", "Krems", " fun",
-                TransportType.PEDESTRIAN, "70 km", "14h", testLogs3));
+                TransportType.PEDESTRIAN, "70 km", "14h", testLogs3,null));
     }
 
     public List<Tour> getAll() {

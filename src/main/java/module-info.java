@@ -6,6 +6,7 @@ module at.fh.tourplanner {
     requires com.fasterxml.jackson.annotation;
     requires retrofit2.converter.jackson;
     requires okhttp3;
+    requires java.desktop;
 
 
     opens at.fh.tourplanner to javafx.fxml;

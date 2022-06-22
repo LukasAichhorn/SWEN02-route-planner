@@ -54,10 +54,11 @@ public class TourFormController implements Initializable {
                 startTextField.getText(),
                 destinationTextField.getText(),
                 descriptionTextArea.getText(),
-                TransportType.BICYCLE,
-                "120 km",
-                "2h",
-                new ArrayList<>());
+                transportTypeChoiceBox.getValue(),
+                "",
+                "",
+                new ArrayList<>(),
+        null);
         tourFormViewModel.addNewTourAction(tour);
     }
     public void closeWindow(ActionEvent event){

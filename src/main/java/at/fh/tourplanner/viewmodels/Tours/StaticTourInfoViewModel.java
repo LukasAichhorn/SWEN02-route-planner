@@ -1,8 +1,13 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
 import at.fh.tourplanner.model.Tour;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
+
+import java.awt.image.BufferedImage;
 
 public class StaticTourInfoViewModel {
     private final StringProperty tourName = new SimpleStringProperty("");
@@ -12,9 +17,12 @@ public class StaticTourInfoViewModel {
     private final StringProperty tourDistance = new SimpleStringProperty("");
     private final StringProperty estimatedTime = new SimpleStringProperty("");
     private final StringProperty selectedTransportType = new SimpleStringProperty("");
+    private final ObjectProperty<Image> imageView =
+            new SimpleObjectProperty<>();
 
     public StaticTourInfoViewModel() {
     }
+    public ObjectProperty<Image> getImageView(){return imageView;}
 
     public StringProperty getTourName() { return tourName;}
 
@@ -40,9 +48,8 @@ public class StaticTourInfoViewModel {
         selectedTransportType.setValue(tour.getTransportType().toString());
         estimatedTime.set(tour.getEstimatedTime());
         tourDistance.set(tour.getDistance());
-
-
-
+        System.out.println(tour.getTourImage().getHeight());
+        imageView.set(tour.getTourImage());
     }
 }
 

@@ -37,6 +37,7 @@ public class TourListViewModel {
             public void onCreate() {
                 refreshListView();
 
+
             }
         });
     }
