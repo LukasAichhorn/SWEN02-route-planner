@@ -1,4 +1,8 @@
 package at.fh.tourplanner.model;
+import javafx.scene.image.Image;
+
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,6 +18,7 @@ public class Tour {
     private String distance;
     private String estimatedTime;
     private List<Log> logs;
+    private Image tourImage;
 
     @Override
     public String toString() {
@@ -30,7 +35,9 @@ public class Tour {
                 '}';
     }
 
-    public Tour(String name, String start, String destination, String description, TransportType transportType, String distance, String estimatedTime, List<Log> logs) {
+    public Tour(String name, String start, String destination, String description,
+                TransportType transportType, String distance, String estimatedTime,
+                List<Log> logs,Image tourImage) {
         this.uuid = UUID.randomUUID();
         this.name = name;
         this.start = start;
@@ -40,6 +47,15 @@ public class Tour {
         this.distance = distance;
         this.estimatedTime = estimatedTime;
         this.logs = logs;
+        this.tourImage = tourImage;
+    }
+
+    public void setTourImage(Image tourImage) {
+        this.tourImage = tourImage;
+    }
+
+    public Image getTourImage() {
+        return tourImage;
     }
 
     public UUID getUUID() {

@@ -1,7 +1,7 @@
 package at.fh.tourplanner.controller.Tour;
 
 
-import at.fh.tourplanner.model.Tour;
+import at.fh.tourplanner.model.FormDataNewTour;
 import at.fh.tourplanner.model.TransportType;
 import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import javafx.event.ActionEvent;
@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TourFormController implements Initializable {
@@ -22,6 +21,7 @@ public class TourFormController implements Initializable {
     public TextField estimatedTimeTextField;
     public TextArea descriptionTextArea;
     public ChoiceBox<TransportType> transportTypeChoiceBox;
+    public ProgressIndicator progressIndicator;
 
     public Button addButton;
 
@@ -44,18 +44,16 @@ public class TourFormController implements Initializable {
         //tourDistanceTextField.textProperty().bindBidirectional(tourFormViewModel.getTourDistance());
         transportTypeChoiceBox.getItems().setAll(tourFormViewModel.getTransportTypes());
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
+        progressIndicator.visibleProperty().bind(tourFormViewModel.runningProperty());
     }
 
     public void addNewTourAction() {
-        Tour tour = new Tour(
+        FormDataNewTour tour = new FormDataNewTour(
                 tourNameTextField.getText(),
+                transportTypeChoiceBox.getValue(),
                 startTextField.getText(),
                 destinationTextField.getText(),
-                descriptionTextArea.getText(),
-                TransportType.BICYCLE,
-                "120 km",
-                "2h",
-                new ArrayList<>());
+                descriptionTextArea.getText());
         tourFormViewModel.addNewTourAction(tour);
     }
     public void closeWindow(ActionEvent event){

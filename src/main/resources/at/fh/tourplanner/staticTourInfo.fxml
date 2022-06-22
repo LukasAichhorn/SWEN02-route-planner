@@ -2,10 +2,11 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fh.tourplanner.controller.StaticTourInfoController">
+<TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fh.tourplanner.controller.StaticTourInfoController">
     <tabs>
         <Tab text="Info">
             <content>
@@ -33,13 +34,13 @@
                                     </font>
                                 </Label>
                                 <Label fx:id="tourNameText" text="Beste Route für gschickte leid" GridPane.rowIndex="1" />
-                                <Label  text="Destination:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <Label text="Destination:" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
                                 <Label fx:id="destinationText" text="Langegasse 45 (45" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                <Label  text="Description:" GridPane.rowIndex="6">
+                                <Label text="Description:" GridPane.rowIndex="6">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
@@ -51,7 +52,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label  fx:id="startText" text="Label" GridPane.rowIndex="3" />
+                                <Label fx:id="startText" text="Label" GridPane.rowIndex="3" />
                                 <Label text="Transport-Type:" GridPane.columnIndex="1">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
@@ -63,12 +64,12 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label   text="Distance:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                <Label text="Distance:" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label  fx:id="estimatedTimeText" text="2h 34min" GridPane.rowIndex="5" />
+                                <Label fx:id="estimatedTimeText" text="2h 34min" GridPane.rowIndex="5" />
                                 <Label fx:id="tourDistanceText" text="2,34 km" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                             </children>
                         </GridPane>
@@ -80,7 +81,11 @@
         </Tab>
         <Tab text="Route">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="imageView"  fitHeight="150.0" fitWidth="200.0"
+                             layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
             </content>
         </Tab>
     </tabs>

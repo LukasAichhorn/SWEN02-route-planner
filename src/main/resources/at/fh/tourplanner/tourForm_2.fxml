@@ -9,6 +9,7 @@
    <children>
       <VBox>
          <children>
+
             <GridPane prefHeight="250.0" prefWidth="600.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -41,6 +42,11 @@
             </GridPane>
             <HBox alignment="BOTTOM_RIGHT" prefWidth="200.0">
                <children>
+                   <ProgressIndicator fx:id="progressIndicator" prefHeight="30">
+                       <padding>
+                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                       </padding>
+                   </ProgressIndicator>
                   <Button mnemonicParsing="false" text="Cancle" onAction="#closeWindow">
                      <HBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

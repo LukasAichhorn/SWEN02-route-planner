@@ -1,14 +1,11 @@
 package at.fh.tourplanner.viewmodels.Logs;
 
-import at.fh.tourplanner.DataAccessLayer.TourRepository;
-import at.fh.tourplanner.listenerInterfaces.ListItemSelectiontListener;
+import at.fh.tourplanner.listenerInterfaces.ListItemSelectionListener;
 import at.fh.tourplanner.model.Log;
-import at.fh.tourplanner.model.Tour;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ import java.util.List;
 
 public class LogListViewModel {
     ObservableList<Log> logs = FXCollections.observableArrayList();
-    private List<ListItemSelectiontListener> eventListeners = new ArrayList<>();
+    private List<ListItemSelectionListener> eventListeners = new ArrayList<>();
 
 
     public LogListViewModel(){}
@@ -30,8 +27,8 @@ public class LogListViewModel {
         this.logs.clear();
         this.logs.setAll(logs);
     }
-    public void addListener(ListItemSelectiontListener listItemSelectiontListener){
-        this.eventListeners.add(listItemSelectiontListener);
+    public void addListener(ListItemSelectionListener listItemSelectionListener){
+        this.eventListeners.add(listItemSelectionListener);
     }
     public void publishSelectionEvent(Log log) {
         for(var listener : eventListeners){
