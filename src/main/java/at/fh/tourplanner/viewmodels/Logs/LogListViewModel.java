@@ -13,6 +13,7 @@ import java.util.List;
 
 public class LogListViewModel {
     ObservableList<Log> logs = FXCollections.observableArrayList();
+
     private List<ListItemSelectionListener> eventListeners = new ArrayList<>();
 
 
