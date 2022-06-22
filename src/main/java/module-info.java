@@ -12,6 +12,8 @@ module at.fh.tourplanner {
     exports at.fh.tourplanner;
     exports at.fh.tourplanner.DataAccessLayer;
     opens at.fh.tourplanner.DataAccessLayer;
+    exports at.fh.tourplanner.DataAccessLayer.listener;
+    opens at.fh.tourplanner.DataAccessLayer.listener;
     exports at.fh.tourplanner.controller;
     opens at.fh.tourplanner.controller to javafx.fxml;
     exports at.fh.tourplanner.controller.Tour;

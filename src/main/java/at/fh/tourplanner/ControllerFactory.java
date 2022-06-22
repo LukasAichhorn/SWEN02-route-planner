@@ -1,8 +1,10 @@
 package at.fh.tourplanner;
 
+import at.fh.tourplanner.DataAccessLayer.InMemoryDAO;
 import at.fh.tourplanner.DataAccessLayer.mapAPI.RemoteMapAPI;
 import at.fh.tourplanner.businessLayer.DirectionService;
 import at.fh.tourplanner.businessLayer.DirectionServiceImpl;
+import at.fh.tourplanner.businessLayer.TourService;
 import at.fh.tourplanner.controller.Log.LogListController;
 import at.fh.tourplanner.controller.Log.LogsFormController;
 import at.fh.tourplanner.controller.SearchBarController;
@@ -29,13 +31,16 @@ public class ControllerFactory {
 
 
     public ControllerFactory() {
-        tourFormViewModel = new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()));
-        tourListViewModel = new TourListViewModel();
+        tourFormViewModel =
+                new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),new TourService(InMemoryDAO.getInstance()));
+        tourListViewModel = new TourListViewModel(new TourService(InMemoryDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();
         logsFormViewModel = new LogsFormViewModel();
         logListViewModel = new LogListViewModel();
         staticTourInfoViewModel = new StaticTourInfoViewModel();
-        mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel, tourFormViewModel, tourListViewModel, searchBarViewModel, logsFormViewModel, logListViewModel);
+        mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,
+                tourFormViewModel, tourListViewModel, searchBarViewModel,
+                logsFormViewModel, logListViewModel,new TourService(InMemoryDAO.getInstance()));
     }
 
     public Object create(Class<?> controllerClass) {
