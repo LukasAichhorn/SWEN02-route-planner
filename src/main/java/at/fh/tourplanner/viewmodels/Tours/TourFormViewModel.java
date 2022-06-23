@@ -63,15 +63,16 @@ public class TourFormViewModel {
         uiServiceQueryMapAPI.valueProperty().addListener((observable, oldVal, newVal) -> {
             if (newVal != null) {
                 Tour newTour = new Tour(
+                        newVal.getImageServiceResponse().getGeneratedId(),
                         getTourName().get(),
                         getStart().get(),
                         getDestination().get(),
                         getDescription().get(),
                         getSelectedTransportType().getValue(),
-                        String.valueOf(newVal.getRoute().getRoute().getDistance()),
-                        newVal.getRoute().getRoute().getFormattedTime(),
+                        String.valueOf(newVal.getDirectionServiceResponse().getRoute().getDistance()),
+                        newVal.getDirectionServiceResponse().getRoute().getFormattedTime(),
                         new ArrayList<>(),
-                        newVal.getRouteMap()
+                        newVal.getImageServiceResponse().getImagePath()
                 );
                 tourService.addNewTourToDatabase(newTour);
             }

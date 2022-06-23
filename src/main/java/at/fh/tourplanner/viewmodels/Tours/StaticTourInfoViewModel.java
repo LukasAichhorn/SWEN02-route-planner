@@ -67,7 +67,8 @@ public class StaticTourInfoViewModel {
         selectedTransportType.setValue(tour.getTransportType().toString());
         estimatedTime.set(tour.getEstimatedTime());
         tourDistance.set(tour.getDistance());
-        if (tour.getTourImage() != null) imageView.set(tour.getTourImage());
+        //if (tour.getTourImagePath() != null) imageView.set(new Image(tour
+        // .getTourImagePath(),true));
     }
 }
 

@@ -8,6 +8,7 @@ module at.fh.tourplanner {
     requires okhttp3;
     requires java.desktop;
     requires java.sql;
+    requires lombok;
 
 
     opens at.fh.tourplanner to javafx.fxml;

@@ -31,7 +31,7 @@ public class ControllerFactory {
     public ControllerFactory() {
         tourFormViewModel =
                 new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
-                        new TourService(InMemoryDAO.getInstance()),
+                        new TourService(PostgresDAO.getInstance()),
                         new TourImageServiceImpl(new RemoteMapAPI()));
         tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();

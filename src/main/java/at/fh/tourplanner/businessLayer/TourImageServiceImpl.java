@@ -6,19 +6,29 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
-public class TourImageServiceImpl implements TourImageService{
+public class TourImageServiceImpl implements TourImageService {
     private final MapAPI mapAPI;
 
     public TourImageServiceImpl(MapAPI mapAPI) {
         this.mapAPI = mapAPI;
     }
-    @Override
-    public Image queryTourImage(String start, String end) {
-       return convertToFxImage(mapAPI.queryRouteImage(start,end));
 
-    }private static Image convertToFxImage(BufferedImage image) {
+    @Override
+    public ImageServiceResponse queryTourImage(String start, String end) {
+        //buffered image to file and return location
+        UUID newID = UUID.randomUUID();
+        return new ImageServiceResponse(
+                imageToFile(mapAPI.queryRouteImage(start, end),newID),
+                newID);
+    }
+
+    private static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;
         if (image != null) {
             wr = new WritableImage(image.getWidth(), image.getHeight());
@@ -31,5 +41,18 @@ public class TourImageServiceImpl implements TourImageService{
         }
 
         return new ImageView(wr).getImage();
+    }
+
+    private String imageToFile(BufferedImage img,UUID newID) {
+        File outputfile = new File(newID + ".jpg");
+        try {
+            ImageIO.write(img, "jpg", outputfile);
+            System.out.println("imagefile: " + outputfile.getPath() + " created");
+            return outputfile.getPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+
     }
 }

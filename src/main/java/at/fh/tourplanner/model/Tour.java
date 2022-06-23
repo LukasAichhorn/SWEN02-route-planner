@@ -19,7 +19,6 @@ public class Tour {
     private String distance;
     private String estimatedTime;
     private List<Log> logs;
-    private Image tourImage;
     private String tourImagePath;
 
 
@@ -38,10 +37,11 @@ public class Tour {
                 '}';
     }
 
-    public Tour(String name, String start, String destination, String description,
+    public Tour(UUID id,String name, String start, String destination,
+                String description,
                 TransportType transportType, String distance, String estimatedTime,
-                List<Log> logs, Image tourImage, String tourImagePath) {
-        this.uuid = UUID.randomUUID();
+                List<Log> logs, String tourImagePath) {
+        this.uuid = id;
         this.name = name;
         this.start = start;
         this.destination = destination;
@@ -50,7 +50,6 @@ public class Tour {
         this.distance = distance;
         this.estimatedTime = estimatedTime;
         this.logs = logs;
-        this.tourImage = tourImage;
         this.tourImagePath = tourImagePath;
     }
 
@@ -60,14 +59,6 @@ public class Tour {
 
     public void setTourImagePath(String tourImagePath) {
         this.tourImagePath = tourImagePath;
-    }
-
-    public void setTourImage(Image tourImage) {
-        this.tourImage = tourImage;
-    }
-
-    public Image getTourImage() {
-        return tourImage;
     }
 
     public UUID getUUID() {
