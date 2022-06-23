@@ -58,7 +58,7 @@ public class InMemoryDAO implements DAO {
                 TransportType.PEDESTRIAN, "70 km", "14h", testLogs3,null));
     }
 
-    public List<Tour> getAll() {
+    public List<Tour> getAllTours() {
         return inMemoryDatabase;
     }
 
@@ -72,11 +72,9 @@ public class InMemoryDAO implements DAO {
         }catch (InterruptedException e){
             e.printStackTrace();
         }
-
         System.out.println( "before " + inMemoryDatabase.size());
         this.inMemoryDatabase.add(tour);
         System.out.println( "after " + inMemoryDatabase.size());
-        //Service.start ??
         publishCreatedEvent();
     }
 

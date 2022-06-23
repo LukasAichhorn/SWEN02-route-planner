@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface DAO {
-    List<Tour> getAll();
+    List<Tour> getAllTours();
 
     //T get(UUID uuid);
     void addTour(Tour tour);

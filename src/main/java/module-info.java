@@ -7,6 +7,7 @@ module at.fh.tourplanner {
     requires retrofit2.converter.jackson;
     requires okhttp3;
     requires java.desktop;
+    requires java.sql;
 
 
     opens at.fh.tourplanner to javafx.fxml;

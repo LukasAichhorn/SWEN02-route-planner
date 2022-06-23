@@ -80,7 +80,9 @@ public class MainWindowViewModel {
             public void fillForm(Tour tour) {
                 System.out.println("published Tour:");
                 System.out.println(tour);
-                logListViewModel.setLogs(tour.getLogs());
+                if(tour!=null){
+                    logListViewModel.setLogs(tour.getLogs());
+                }
             }
         });
         this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {

@@ -14,7 +14,7 @@ public class TourService implements TourService_Interface {
 
     @Override
     public List<Tour> getToursFromDatabase() {
-        return database.getAll();
+        return database.getAllTours();
     }
 
     @Override
