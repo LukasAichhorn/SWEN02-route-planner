@@ -45,7 +45,6 @@ public class PostgresDAO implements DAO {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                System.out.println(rs.getString("uuid").length());
                 temp.add(new Tour(
                         UUID.fromString(rs.getString("uuid")),
                         rs.getString("name"),

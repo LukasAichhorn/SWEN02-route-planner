@@ -23,8 +23,9 @@ public class TourImageServiceImpl implements TourImageService {
     public ImageServiceResponse queryTourImage(String start, String end) {
         //buffered image to file and return location
         UUID newID = UUID.randomUUID();
+        BufferedImage bufferedImage = mapAPI.queryRouteImage(start, end);
         return new ImageServiceResponse(
-                imageToFile(mapAPI.queryRouteImage(start, end),newID),
+                imageToFile(bufferedImage,newID),
                 newID);
     }
 
@@ -44,11 +45,12 @@ public class TourImageServiceImpl implements TourImageService {
     }
 
     private String imageToFile(BufferedImage img,UUID newID) {
-        File outputfile = new File(newID + ".jpg");
+        String location = "C:/Users/Lukas/Documents/01_UNI/04_SEM/SWEN02/";
+        File outputfile = new File(location + newID + ".jpg");
         try {
             ImageIO.write(img, "jpg", outputfile);
-            System.out.println("imagefile: " + outputfile.getPath() + " created");
-            return outputfile.getPath();
+            System.out.println("imagefile: " + outputfile.getAbsolutePath() + " created");
+            return outputfile.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();
             return "";

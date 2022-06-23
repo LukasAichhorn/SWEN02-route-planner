@@ -1,5 +1,6 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
+import at.fh.tourplanner.Main;
 import at.fh.tourplanner.model.Tour;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -7,7 +8,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class StaticTourInfoViewModel {
     private final StringProperty tourName = new SimpleStringProperty("");
@@ -67,8 +71,10 @@ public class StaticTourInfoViewModel {
         selectedTransportType.setValue(tour.getTransportType().toString());
         estimatedTime.set(tour.getEstimatedTime());
         tourDistance.set(tour.getDistance());
-        //if (tour.getTourImagePath() != null) imageView.set(new Image(tour
-        // .getTourImagePath(),true));
+            Image image = new Image(tour.getTourImagePath());
+            imageView.set(image);
+
+
     }
 }
 

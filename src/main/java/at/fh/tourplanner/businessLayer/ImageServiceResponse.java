@@ -1,5 +1,6 @@
 package at.fh.tourplanner.businessLayer;
 
+import java.awt.image.BufferedImage;
 import java.util.UUID;
 import lombok.*;
 @AllArgsConstructor
