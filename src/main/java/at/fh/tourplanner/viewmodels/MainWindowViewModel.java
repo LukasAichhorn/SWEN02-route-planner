@@ -10,6 +10,8 @@ import at.fh.tourplanner.viewmodels.Tours.StaticTourInfoViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourListViewModel;
 
+import java.util.UUID;
+
 public class MainWindowViewModel {
 
     private final TourFormViewModel tourFormViewModel;
@@ -37,18 +39,18 @@ public class MainWindowViewModel {
 
 
         //Section - listener
-//        this.tourFormViewModel.addCreateActionListener(new FormActionCreateListener() {
-//            @Override
-//            public void handleCreateAction(Tour formData) {
-//                tourListViewModel.saveTourToList(formData);
-//            }
-//        });
-//        this.tourFormViewModel.addEditActionListener(new FormActionEditListener() {
-//            @Override
-//            public void handleEditAction(Tour formData) {
-//                tourListViewModel.editTour(formData);
-//            }
-//        });
+        this.tourFormViewModel.addCreateActionListener(new FormActionCreateListener() {
+            @Override
+            public void handleCreateAction() {
+                tourListViewModel.refreshListView();
+            }
+        });
+        this.tourFormViewModel.addEditActionListener(new FormActionEditListener() {
+            @Override
+            public void handleEditAction() {
+                tourListViewModel.refreshListView();
+            }
+        });
         this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
             @Override
             public void fillForm(Tour tour) {
@@ -60,13 +62,13 @@ public class MainWindowViewModel {
             @Override
             public void handleEvent() {
                 tourFormViewModel.clearForm();
-                tourFormViewModel.openFormInWindow();
+                tourFormViewModel.openFormInWindow("create");
             }
         });
         this.tourListViewModel.addOpenFilledFormListener(new OpenFilledTourFormListener() {
             @Override
             public void handleEvent() {
-                tourFormViewModel.openFormInWindow();
+                tourFormViewModel.openFormInWindow("update");
             }
         });
         this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
@@ -80,7 +82,7 @@ public class MainWindowViewModel {
             public void fillForm(Tour tour) {
                 System.out.println("published Tour:");
                 System.out.println(tour);
-                if(tour!=null){
+                if (tour != null) {
                     logListViewModel.setLogs(tour.getLogs());
                 }
             }

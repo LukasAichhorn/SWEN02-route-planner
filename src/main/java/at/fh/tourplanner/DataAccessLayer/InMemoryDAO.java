@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
@@ -72,10 +73,17 @@ public class InMemoryDAO implements DAO {
         }catch (InterruptedException e){
             e.printStackTrace();
         }
-        System.out.println( "before " + inMemoryDatabase.size());
         this.inMemoryDatabase.add(tour);
-        System.out.println( "after " + inMemoryDatabase.size());
-        publishCreatedEvent();
+    }
+
+    @Override
+    public void updateTour(Tour tour) {
+
+    }
+
+    @Override
+    public void deleteTour(UUID id) {
+
     }
 
     public void create(Tour t) {
@@ -92,15 +100,5 @@ public class InMemoryDAO implements DAO {
         return tours.stream()
                 .filter(tour -> tour.getName().toLowerCase().contains(searchString.toLowerCase()))
                 .collect(Collectors.toList());
-    }
-    @Override
-    public void addCreateListener(DbCreateEvent createEventListener) {
-        this.createListeners.add(createEventListener);
-    }
-    private void publishCreatedEvent(){
-        for (var listener : createListeners) {
-            listener.onCreate();
-        }
-
     }
 }

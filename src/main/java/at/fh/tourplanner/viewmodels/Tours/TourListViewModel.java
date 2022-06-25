@@ -17,8 +17,10 @@ import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TourListViewModel {
+    private Tour currentSelection = null;
 
     private final List<ListItemSelectionListener> eventListeners = new ArrayList<>();
     private final List<OpenBlankTourFormListener> openBlankTourFormListeners =
@@ -32,14 +34,6 @@ public class TourListViewModel {
     public TourListViewModel(TourService tourService) {
         this.tourService = tourService;
         refreshListView();
-        tourService.addCreateListener(new DbCreateEvent() {
-            @Override
-            public void onCreate() {
-                refreshListView();
-
-
-            }
-        });
     }
 
     public ObservableList<Tour> getTours() {
@@ -51,7 +45,16 @@ public class TourListViewModel {
         tours.addAll(tourList);
 
     }
-    private void refreshListView(){
+
+    public Tour getCurrentSelection() {
+        return currentSelection;
+    }
+
+    public void setCurrentSelection(Tour currentSelection) {
+        this.currentSelection = currentSelection;
+    }
+
+    public void refreshListView(){
         tours.clear();
         tours.addAll(tourService.getToursFromDatabase());
     }
@@ -86,10 +89,13 @@ public class TourListViewModel {
         }
     }
 
-    public void addChangeListener(ListView listView) {
+    public void addChangeListener(ListView<Tour> listView) {
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tour>() {
             @Override
             public void changed(ObservableValue<? extends Tour> observableValue, Tour tour, Tour t1) {
+                currentSelection = t1;
+                System.out.println("current selection : ");
+                System.out.println(t1);
                 publishSelectionEvent(t1);
                 System.out.println("changeListener triggered with");
                 System.out.println(t1);
@@ -117,5 +123,6 @@ public class TourListViewModel {
     public void openFilledFormButtonAction() {
         publishOpenFilledTourFormEvent();
     }
+    public void deleteButtonAction(){}
 
 }

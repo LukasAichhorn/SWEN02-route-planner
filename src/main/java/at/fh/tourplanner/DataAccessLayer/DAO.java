@@ -11,6 +11,7 @@ public interface DAO {
 
     //T get(UUID uuid);
     void addTour(Tour tour);
+    void updateTour(Tour tour);
+    void deleteTour(UUID id);
 
-    void addCreateListener(DbCreateEvent createEventListener);
 }

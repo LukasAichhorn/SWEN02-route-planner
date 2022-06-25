@@ -28,6 +28,14 @@ public class TourImageServiceImpl implements TourImageService {
                 imageToFile(bufferedImage,newID),
                 newID);
     }
+    @Override
+    public ImageServiceResponse updateTourImage(String start, String end,UUID id) {
+
+        BufferedImage bufferedImage = mapAPI.queryRouteImage(start, end);
+        return new ImageServiceResponse(
+                imageToFile(bufferedImage,id),
+                id);
+    }
 
     private static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;

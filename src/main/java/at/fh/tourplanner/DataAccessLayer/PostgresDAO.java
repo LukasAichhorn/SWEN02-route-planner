@@ -16,7 +16,6 @@ public class PostgresDAO implements DAO {
     private final String pw = "admin";
     private final String user = "postgres";
     private final String dbUrl = "jdbc:postgresql://localhost:5432/TourPlannerDB";
-    private final List<DbCreateEvent> createListeners = new ArrayList<>();
     private static final PostgresDAO instance = new PostgresDAO();
 
 
@@ -85,23 +84,61 @@ public class PostgresDAO implements DAO {
 
             int row = preparedStatement.executeUpdate();
             if(row ==1) System.out.println("created tour entry in DB");
-            publishCreatedEvent();
         } catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
     @Override
-    public void addCreateListener(DbCreateEvent createEventListener) {
-        this.createListeners.add(createEventListener);
-    }
-    private void publishCreatedEvent(){
-        for (var listener : createListeners) {
-            listener.onCreate();
-        }
+    public void updateTour(Tour tour){
 
+        String SQL = "UPDATE tours " +
+                "SET name = ?," +
+                "startlocation = ?," +
+                "endlocation = ?," +
+                "description = ?," +
+                "transporttype = ?," +
+                "distance = ?," +
+                "estimatedtime = ?," +
+                "imagepath = ? " +
+                "WHERE uuid = ?";
+
+        try (Connection conn = getConnection(); PreparedStatement preparedStatement =
+                conn.prepareStatement(SQL)) {
+            preparedStatement.setString(1, tour.getName());
+            preparedStatement.setString(2, tour.getStart());
+            preparedStatement.setString(3, tour.getDestination());
+            preparedStatement.setString(4, tour.getDescription());
+            preparedStatement.setString(5, tour.getTransportType().toString());
+            preparedStatement.setString(6, tour.getDistance());
+            preparedStatement.setString(7, tour.getEstimatedTime());
+            preparedStatement.setString(8, tour.getTourImagePath());
+            preparedStatement.setString(9, tour.getUUID().toString());
+
+            int row = preparedStatement.executeUpdate();
+            if(row ==1) System.out.println("updated tour entry in DB");
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void deleteTour(UUID id) {
+        String SQL = "DELETE FROM tours " +
+                "WHERE uuid = ?";
+
+        try (Connection conn = getConnection(); PreparedStatement preparedStatement =
+                conn.prepareStatement(SQL)) {
+            preparedStatement.setString(1, id.toString());
+
+            int row = preparedStatement.executeUpdate();
+            if (row == 1) System.out.println("deleted tour entry in DB");
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
