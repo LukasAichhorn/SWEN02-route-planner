@@ -9,11 +9,16 @@ import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.DataAccessLayer.InMemoryDAO;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.control.ListView;
+import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +35,17 @@ public class TourListViewModel {
     ObservableList<Tour> tours = FXCollections.observableArrayList();
     private final BooleanProperty editIsDisabled = new SimpleBooleanProperty(true);
     private final TourService tourService;
+    private final UiDeleteRouteService uiDeleteRouteService;
 
     public TourListViewModel(TourService tourService) {
         this.tourService = tourService;
+        this.uiDeleteRouteService = new UiDeleteRouteService();
         refreshListView();
+        uiDeleteRouteService.valueProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal != null) {
+                refreshListView();
+            }
+        });
     }
 
     public ObservableList<Tour> getTours() {
@@ -54,7 +66,7 @@ public class TourListViewModel {
         this.currentSelection = currentSelection;
     }
 
-    public void refreshListView(){
+    public void refreshListView() {
         tours.clear();
         tours.addAll(tourService.getToursFromDatabase());
     }
@@ -123,6 +135,25 @@ public class TourListViewModel {
     public void openFilledFormButtonAction() {
         publishOpenFilledTourFormEvent();
     }
-    public void deleteButtonAction(){}
 
+    public void deleteButtonAction() {
+        uiDeleteRouteService.restart();
+    }
+
+    @AllArgsConstructor
+    @Setter
+    public class UiDeleteRouteService extends Service<String> {
+
+
+        @Override
+        protected Task<String> createTask() {
+            return new Task<>() {
+                protected String call() {
+                    System.out.println("starting task deleting id: " + getCurrentSelection().getUUID());
+                    tourService.deleteTourInDatabase(getCurrentSelection().getUUID());
+                    return "completed delete Task";
+                }
+            };
+        }
+    }
 }

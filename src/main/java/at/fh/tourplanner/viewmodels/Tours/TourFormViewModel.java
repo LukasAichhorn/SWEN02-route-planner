@@ -268,9 +268,7 @@ public class TourFormViewModel {
                         return "service Task Done";
                     }
                 }
-            }
-
-                    ;
+            };
         }
     }
 
