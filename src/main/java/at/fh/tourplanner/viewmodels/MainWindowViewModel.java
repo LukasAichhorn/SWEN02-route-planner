@@ -57,6 +57,7 @@ public class MainWindowViewModel {
                 tourFormViewModel.openFormInWindow("create");
             }
         });
+
         this.tourListViewModel.addOpenFilledFormListener(new OpenFilledTourFormListener() {
             @Override
             public void handleEvent() {

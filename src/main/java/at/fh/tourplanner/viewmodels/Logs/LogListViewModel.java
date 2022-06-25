@@ -46,5 +46,7 @@ public class LogListViewModel {
             }
         });
     }
+    public void openBlankFormButtonAction(){}
+
 
 }

@@ -11,5 +11,15 @@ CREATE TABLE IF NOT EXISTS tours(
 	distance VARCHAR(50) NOT NULL,
 	estimatedTime VARCHAR(50) NOT NULL,
 	imagePath VARCHAR(50) NOT NULL
-
 )
+
+CREATE TABLE logs(
+	id serial Primary Key,
+	local_date TIMESTAMP NOT NULL,
+	rating INT NOT NULL,
+	difficulty_tier Varchar(50) NOT NULL,
+	duration INT NOT NULL,
+	description Varchar(255) NOT NULL
+	linked_tour Varchar(36) NOT NULL
+	FOREIGN KEY(linked_tour) REFERENCES tours (id)
+);

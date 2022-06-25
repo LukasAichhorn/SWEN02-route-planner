@@ -1,5 +1,7 @@
 package at.fh.tourplanner.viewmodels.Logs;
 
+import at.fh.tourplanner.ControllerFactory;
+import at.fh.tourplanner.Main;
 import at.fh.tourplanner.model.DifficultyTier;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
@@ -7,7 +9,13 @@ import at.fh.tourplanner.model.TransportType;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -43,10 +51,31 @@ public class LogsFormViewModel {
     public ObservableList<DifficultyTier> getDifficultyTiers() {
         return this.difficultyTierObservableList;
     }
+    public void openFormInWindow(String buttonName) {
+       // actionButtonNameProperty().set(buttonName);
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(Main.class.getResource("/at/fh/tourplanner/logForm_2" +
+                    ".fxml"));
+            fxmlLoader.setControllerFactory(controller -> ControllerFactory.getInstance().create(controller));
+            Pane gridPane = fxmlLoader.load();
+            Stage modal_stage = new Stage();
+            modal_stage.setScene(new Scene(gridPane, 620, 300));
+            modal_stage.setTitle("modal");
+            modal_stage.initModality(Modality.APPLICATION_MODAL);
+            modal_stage.initOwner(modal_stage.getOwner());
+            modal_stage.setResizable(false);
+            modal_stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
     public void fillFormWithSelection(Log log) {
         if (log != null) {
-            logUUID = log.getUuid();
+
             date.set(log.getTimeStamp());
             duration.set(log.getDuration().toString());
             difficultyTierObjectProperty.setValue(log.getDifficulty());

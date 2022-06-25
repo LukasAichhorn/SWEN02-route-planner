@@ -3,6 +3,7 @@ package at.fh.tourplanner.controller.Log;
 import at.fh.tourplanner.viewmodels.Logs.LogListViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,6 +14,8 @@ import java.util.ResourceBundle;
 public class LogListController implements Initializable {
     private final LogListViewModel logListViewModel;
     public TableView logList;
+    public Button editButton;
+    public Button deleteButton;
     @FXML private TableColumn timeStamp;
     @FXML private TableColumn rating;
     @FXML private TableColumn difficulty;
@@ -37,4 +40,9 @@ public class LogListController implements Initializable {
         comment.setCellValueFactory(new PropertyValueFactory<>("comment"));
 
     }
+    public void openBlankFormButtonAction(){
+        logListViewModel.openBlankFormButtonAction();
+    }
+    public void openFilledFormButtonAction(){}
+    public void deleteButtonAction(){}
 }
