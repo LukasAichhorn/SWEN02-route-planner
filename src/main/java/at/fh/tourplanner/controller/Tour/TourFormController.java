@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,9 +24,8 @@ public class TourFormController implements Initializable {
     public TextArea descriptionTextArea;
     public ChoiceBox<TransportType> transportTypeChoiceBox;
     public ProgressIndicator progressIndicator;
-
+    public StackPane stackPane;
     public Button addButton;
-
     public Button actionButton;
 
 
@@ -33,6 +33,7 @@ public class TourFormController implements Initializable {
 
         this.tourFormViewModel = tourFormViewModel;
         this.transportTypeChoiceBox = new ChoiceBox<>();
+        this.stackPane = new StackPane();
     }
 
     @Override
@@ -43,8 +44,10 @@ public class TourFormController implements Initializable {
         descriptionTextArea.textProperty().bindBidirectional(tourFormViewModel.getDescription());
         transportTypeChoiceBox.getItems().setAll(tourFormViewModel.getTransportTypes());
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
-        progressIndicator.visibleProperty().bind(tourFormViewModel.runningCreateProperty());
-        progressIndicator.visibleProperty().bind(tourFormViewModel.runningUpdateProperty());
+        progressIndicator.visibleProperty().bind(tourFormViewModel.runningTaskProperty());
+        stackPane.visibleProperty().bind(tourFormViewModel.runningTaskProperty());
+
+
         actionButton.textProperty().bind(tourFormViewModel.actionButtonNameProperty());
         if(tourFormViewModel.actionButtonNameProperty().get().equals("create")) {
             actionButton.setOnAction(new EventHandler<ActionEvent>() {

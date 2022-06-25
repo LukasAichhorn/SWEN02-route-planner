@@ -10,8 +10,6 @@ import at.fh.tourplanner.viewmodels.Tours.StaticTourInfoViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourListViewModel;
 
-import java.util.UUID;
-
 public class MainWindowViewModel {
 
     private final TourFormViewModel tourFormViewModel;
@@ -39,15 +37,9 @@ public class MainWindowViewModel {
 
 
         //Section - listener
-        this.tourFormViewModel.addCreateActionListener(new FormActionCreateListener() {
+        this.tourFormViewModel.addFormActionListener(new FormActionListener() {
             @Override
-            public void handleCreateAction() {
-                tourListViewModel.refreshListView();
-            }
-        });
-        this.tourFormViewModel.addEditActionListener(new FormActionEditListener() {
-            @Override
-            public void handleEditAction() {
+            public void onAction() {
                 tourListViewModel.refreshListView();
             }
         });

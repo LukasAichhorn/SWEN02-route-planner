@@ -2,95 +2,77 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane fx:controller="at.fh.tourplanner.controller.Tour.TourFormController"
-      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
-      xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fh.tourplanner.controller.Tour.TourFormController">
     <children>
         <VBox>
             <children>
 
                 <GridPane prefHeight="250.0" prefWidth="600.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints minWidth="10.0" prefWidth="20.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                           prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints minWidth="10.0" prefWidth="20.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                        vgrow="SOMETIMES"/>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0"
-                                        vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Tour-Name:" GridPane.columnSpan="2147483647"/>
-                        <TextField fx:id="tourNameTextField" GridPane.rowIndex="1"/>
-                        <Label layoutX="30.0" layoutY="48.0" text="Start:"
-                               GridPane.rowIndex="2" GridPane.vgrow="NEVER"/>
-                        <TextField fx:id="startTextField" layoutX="30.0" layoutY="96.0"
-                                   GridPane.rowIndex="3"/>
-                        <Label layoutX="30.0" layoutY="48.0" text="transport-Type:"
-                               GridPane.columnIndex="2"/>
-                        <ChoiceBox fx:id="transportTypeChoiceBox" GridPane.columnIndex="2"
-                                   GridPane.rowIndex="1"/>
-                        <Label layoutX="30.0" layoutY="152.0" text="Description:"
-                               GridPane.rowIndex="4"/>
-                        <Label layoutX="30.0" layoutY="152.0" text="Finish:"
-                               GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-                        <TextField fx:id="destinationTextField" layoutX="30.0"
-                                   layoutY="199.0" GridPane.columnIndex="2"
-                                   GridPane.rowIndex="3"/>
-                        <TextArea fx:id="descriptionTextArea" minHeight="50"
-                                  prefHeight="200.0" prefWidth="200.0"
-                                  GridPane.columnSpan="2147483647" GridPane.rowIndex="5"/>
+                        <Label text="Tour-Name:" GridPane.columnSpan="2147483647" />
+                        <TextField fx:id="tourNameTextField" GridPane.rowIndex="1" />
+                        <Label layoutX="30.0" layoutY="48.0" text="Start:" GridPane.rowIndex="2" GridPane.vgrow="NEVER" />
+                        <TextField fx:id="startTextField" layoutX="30.0" layoutY="96.0" GridPane.rowIndex="3" />
+                        <Label layoutX="30.0" layoutY="48.0" text="transport-Type:" GridPane.columnIndex="2" />
+                        <ChoiceBox fx:id="transportTypeChoiceBox" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label layoutX="30.0" layoutY="152.0" text="Description:" GridPane.rowIndex="4" />
+                        <Label layoutX="30.0" layoutY="152.0" text="Finish:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <TextField fx:id="destinationTextField" layoutX="30.0" layoutY="199.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <TextArea fx:id="descriptionTextArea" minHeight="50" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
                     </children>
                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                 </GridPane>
                 <HBox alignment="BOTTOM_RIGHT" prefWidth="200.0">
                     <children>
-                        <ProgressIndicator fx:id="progressIndicator" prefHeight="30">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </ProgressIndicator>
-                        <Button mnemonicParsing="false" text="Cancle"
-                                onAction="#closeWindow">
+                        <Button mnemonicParsing="false" onAction="#closeWindow" text="Cancle">
                             <HBox.margin>
-                                <Insets bottom="20.0" left="20.0" right="20.0"
-                                        top="20.0"/>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </HBox.margin>
                             <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                         </Button>
-                        <Button fx:id="actionButton" mnemonicParsing="false"
-                                text="Create Tour"
-                        >
+                        <Button fx:id="actionButton" mnemonicParsing="false" text="Create Tour">
                             <HBox.margin>
-                                <Insets bottom="20.0" right="20.0" top="20.0"/>
+                                <Insets bottom="20.0" right="20.0" top="20.0" />
                             </HBox.margin>
                             <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                         </Button>
                     </children>
                 </HBox>
             </children>
         </VBox>
+      <StackPane fx:id="stackPane" prefHeight="317.0" prefWidth="600.0" style="-fx-background-color: #242424; -fx-opacity: 0.5;">
+         <children>
+                  <ProgressIndicator fx:id="progressIndicator" prefHeight="30">
+                      <padding>
+                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                      </padding>
+                  </ProgressIndicator>
+         </children>
+         <effect>
+            <Bloom />
+         </effect>
+      </StackPane>
     </children>
 </Pane>
