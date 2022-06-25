@@ -14,7 +14,9 @@
         <rowConstraints>
             <RowConstraints />
         </rowConstraints>
-        <Button fx:id="createButton" defaultButton="true" mnemonicParsing="false" onAction="#openBlankFormButtonAction" text="Create New" GridPane.halignment="RIGHT">
+        <Button fx:id="createButton" defaultButton="true" mnemonicParsing="false"
+                onAction="#openBlankLogFormButtonAction" text="Create New"
+                GridPane.halignment="RIGHT">
             <GridPane.margin>
                 <Insets right="10.0" />
             </GridPane.margin>

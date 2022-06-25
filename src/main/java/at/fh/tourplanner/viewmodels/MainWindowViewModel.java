@@ -57,6 +57,12 @@ public class MainWindowViewModel {
                 tourFormViewModel.openFormInWindow("create");
             }
         });
+        this.logListViewModel.addOpenBlankLogFormListener(new OpenBlankLogFormListener(){
+            public void handleEvent(){
+                logsFormViewModel.clearForm();
+                logsFormViewModel.openFormInWindow("create");
+            }
+        });
 
         this.tourListViewModel.addOpenFilledFormListener(new OpenFilledTourFormListener() {
             @Override

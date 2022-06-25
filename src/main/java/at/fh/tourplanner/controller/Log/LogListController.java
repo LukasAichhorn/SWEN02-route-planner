@@ -40,8 +40,8 @@ public class LogListController implements Initializable {
         comment.setCellValueFactory(new PropertyValueFactory<>("comment"));
 
     }
-    public void openBlankFormButtonAction(){
-        logListViewModel.openBlankFormButtonAction();
+    public void openBlankLogFormButtonAction(){
+        logListViewModel.openBlankLogFormButtonAction();
     }
     public void openFilledFormButtonAction(){}
     public void deleteButtonAction(){}

@@ -1,6 +1,6 @@
 package at.fh.tourplanner.viewmodels.Logs;
 
-import at.fh.tourplanner.listenerInterfaces.ListItemSelectionListener;
+import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.Log;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,8 +14,11 @@ import java.util.List;
 public class LogListViewModel {
     ObservableList<Log> logs = FXCollections.observableArrayList();
 
-    private List<ListItemSelectionListener> eventListeners = new ArrayList<>();
-
+    private final List<ListItemSelectionListener> eventListeners = new ArrayList<>();
+    private final List<OpenBlankLogFormListener> openBlankLogFormListeners =
+            new ArrayList<>();
+    private final List<OpenFilledLogFormListener> openFilledLogFormListeners =
+            new ArrayList<>();
 
     public LogListViewModel(){}
     public ObservableList<Log> getLogs() {
@@ -36,7 +39,22 @@ public class LogListViewModel {
             listener.fillForm(log);
         }
     }
-
+    public void addOpenBlankLogFormListener(OpenBlankLogFormListener openBlankLogFormListener) {
+        this.openBlankLogFormListeners.add(openBlankLogFormListener);
+    }
+    public void addOpenFilledLogFormListener(OpenFilledLogFormListener openFilledLogFormListener) {
+        this.openFilledLogFormListeners.add(openFilledLogFormListener);
+    }
+    public void publishOpenBlankLogFormEvent() {
+        for (var listener : openBlankLogFormListeners) {
+            listener.handleEvent();
+        }
+    }
+    public void publishOpenFilledLogFormEvent() {
+        for (var listener : openFilledLogFormListeners) {
+            listener.handleEvent();
+        }
+    }
     public void addChangeListener(TableView tableView){
         tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Log>() {
             @Override
@@ -46,7 +64,12 @@ public class LogListViewModel {
             }
         });
     }
-    public void openBlankFormButtonAction(){}
+    public void openBlankLogFormButtonAction(){
+        publishOpenBlankLogFormEvent();
+    }
+    public void openFilledLogFormButtonAction(){
+        publishOpenFilledLogFormEvent();
+    }
 
 
 }
