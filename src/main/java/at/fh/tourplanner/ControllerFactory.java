@@ -35,7 +35,8 @@ public class ControllerFactory {
                         new TourImageServiceImpl(new RemoteMapAPI()));
         tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();
-        logsFormViewModel = new LogsFormViewModel();
+        logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(),
+                new LogService(PostgresDAO.getInstance()));
         logListViewModel = new LogListViewModel();
         staticTourInfoViewModel = new StaticTourInfoViewModel();
         mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,

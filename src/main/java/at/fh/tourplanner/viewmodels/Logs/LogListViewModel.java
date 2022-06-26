@@ -2,6 +2,8 @@ package at.fh.tourplanner.viewmodels.Logs;
 
 import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.Log;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,13 +21,43 @@ public class LogListViewModel {
             new ArrayList<>();
     private final List<OpenFilledLogFormListener> openFilledLogFormListeners =
             new ArrayList<>();
+    private final BooleanProperty createLogIsDisabled = new SimpleBooleanProperty(true);
+    private final BooleanProperty editIsDisabled = new SimpleBooleanProperty(true);
 
-    public LogListViewModel(){}
+    public LogListViewModel(){
+
+    }
+
+    public boolean isEditIsDisabled() {
+        return editIsDisabled.get();
+    }
+
+    public BooleanProperty editIsDisabledProperty() {
+        return editIsDisabled;
+    }
+
+    public void setEditIsDisabled(boolean editIsDisabled) {
+        this.editIsDisabled.set(editIsDisabled);
+    }
+
     public ObservableList<Log> getLogs() {
         return logs;
     }
 
+    public boolean isCreateLogIsDisabled() {
+        return createLogIsDisabled.get();
+    }
+
+    public BooleanProperty createLogIsDisabledProperty() {
+        return createLogIsDisabled;
+    }
+
+    public void setCreateLogIsDisabled(boolean createLogIsDisabled) {
+        this.createLogIsDisabled.set(createLogIsDisabled);
+    }
+
     public void setLogs(List<Log> logs) {
+        //get
         System.out.println("setting obs list in View model logs");
         System.out.println(logs);
         this.logs.clear();

@@ -68,6 +68,7 @@ public class TourListViewModel {
 
     public void refreshListView() {
         tours.clear();
+        // TODO wrap refresh into a service
         tours.addAll(tourService.getToursFromDatabase());
     }
 

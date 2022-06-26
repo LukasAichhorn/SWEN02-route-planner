@@ -86,6 +86,21 @@ public class InMemoryDAO implements DAO {
 
     }
 
+    @Override
+    public void addLog(Log log) {
+
+    }
+
+    @Override
+    public void updateLog(Log log) {
+
+    }
+
+    @Override
+    public void deleteLog(int id) {
+
+    }
+
     public void create(Tour t) {
         inMemoryDatabase.add(t);
     }

@@ -17,7 +17,17 @@ public class Log {
     private LocalDate timeStamp;
     private int rating;
     private DifficultyTier difficulty;
-    private Duration duration;
+    private int duration;
     private String comment;
+    private int tourID;
 
+    public Log(LocalDate timeStamp, int rating, DifficultyTier difficulty,
+               int duration, String comment,int tourID) {
+        this.timeStamp = timeStamp;
+        this.rating = rating;
+        this.difficulty = difficulty;
+        this.duration = duration;
+        this.comment = comment;
+        this.tourID = tourID;
+    }
 }

@@ -16,6 +16,7 @@ public class LogListController implements Initializable {
     public TableView logList;
     public Button editButton;
     public Button deleteButton;
+    public Button createButton;
     @FXML private TableColumn timeStamp;
     @FXML private TableColumn rating;
     @FXML private TableColumn difficulty;
@@ -32,6 +33,9 @@ public class LogListController implements Initializable {
         System.out.println("setting items to table view");
         System.out.println(logListViewModel.getLogs());
         logList.setItems(logListViewModel.getLogs());
+        createButton.disableProperty().bind(logListViewModel.createLogIsDisabledProperty());
+        editButton.disableProperty().bind(logListViewModel.editIsDisabledProperty());
+        deleteButton.disableProperty().bind(logListViewModel.editIsDisabledProperty());
 
         timeStamp.setCellValueFactory(new PropertyValueFactory<>("timeStamp"));
        rating.setCellValueFactory(new PropertyValueFactory<>("rating"));

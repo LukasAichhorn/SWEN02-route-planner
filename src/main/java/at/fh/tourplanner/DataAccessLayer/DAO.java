@@ -1,6 +1,7 @@
 package at.fh.tourplanner.DataAccessLayer;
 
 import at.fh.tourplanner.DataAccessLayer.listener.DbCreateEvent;
+import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
 
 import java.util.List;
@@ -13,5 +14,9 @@ public interface DAO {
     void addTour(Tour tour);
     void updateTour(Tour tour);
     void deleteTour(UUID id);
+    void addLog(Log log);
+    void updateLog(Log log);
+    void deleteLog(int id);
+
 
 }

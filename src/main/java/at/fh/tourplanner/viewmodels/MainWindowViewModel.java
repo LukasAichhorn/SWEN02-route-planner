@@ -60,6 +60,8 @@ public class MainWindowViewModel {
         this.logListViewModel.addOpenBlankLogFormListener(new OpenBlankLogFormListener(){
             public void handleEvent(){
                 logsFormViewModel.clearForm();
+                var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                logsFormViewModel.setTourID(selectedTourID);
                 logsFormViewModel.openFormInWindow("create");
             }
         });
@@ -82,21 +84,19 @@ public class MainWindowViewModel {
                 System.out.println("published Tour:");
                 System.out.println(tour);
                 if (tour != null) {
+                    var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                    logListViewModel.setCreateLogIsDisabled(false);
                     logListViewModel.setLogs(tour.getLogs());
                 }
-            }
-        });
-        this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
-            @Override
-            public void fillForm(Tour tour) {
-                System.out.println("Clearing Form:");
-                logsFormViewModel.clearForm();
+
             }
         });
         this.logListViewModel.addListener(new ListItemSelectionListener<Log>() {
             @Override
             public void fillForm(Log log) {
-                logsFormViewModel.fillFormWithSelection(log);
+                var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                System.out.println("current selected postgresID : " + selectedTourID );
+                logsFormViewModel.fillFormWithSelection(log,selectedTourID);
             }
         });
 

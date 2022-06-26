@@ -2,6 +2,7 @@ package at.fh.tourplanner.DataAccessLayer;
 
 import at.fh.tourplanner.DataAccessLayer.DAO;
 import at.fh.tourplanner.DataAccessLayer.listener.DbCreateEvent;
+import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
 import javafx.geometry.Pos;
@@ -45,6 +46,7 @@ public class PostgresDAO implements DAO {
             ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
                 temp.add(new Tour(
+                        rs.getInt("id"),
                         UUID.fromString(rs.getString("uuid")),
                         rs.getString("name"),
                         rs.getString("startlocation"),
@@ -140,5 +142,40 @@ public class PostgresDAO implements DAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addLog(Log log) {
+        String SQL = "INSERT INTO logs (local_date,rating,difficulty_tier," +
+                "duration, description,linked_tour ) VALUES (?,?,?,?," +
+                "?,?)";
+        try (Connection conn = getConnection(); PreparedStatement preparedStatement =
+                conn.prepareStatement(SQL)) {
+            preparedStatement.setTimestamp(1,
+                    Timestamp.valueOf(log.getTimeStamp().atStartOfDay()));
+            preparedStatement.setInt(2,log.getRating());
+            preparedStatement.setString(3, log.getDifficulty().toString());
+            preparedStatement.setDouble(4, log.getDuration());
+            preparedStatement.setString(5, log.getComment());
+            preparedStatement.setInt(6, log.getTourID());
+
+            int row = preparedStatement.executeUpdate();
+            if(row ==1) System.out.println("created tour entry in DB");
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void updateLog(Log log) {
+
+    }
+
+    @Override
+    public void deleteLog(int id) {
+
     }
 }

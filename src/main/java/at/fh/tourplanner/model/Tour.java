@@ -1,6 +1,10 @@
 package at.fh.tourplanner.model;
 
 import javafx.scene.image.Image;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
@@ -8,8 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+@AllArgsConstructor
+@Setter
+@Getter
+@ToString
 public class Tour {
+    private int postgresID;
     private UUID uuid;
     private String name;
     private String start;
@@ -22,20 +30,6 @@ public class Tour {
     private String tourImagePath;
 
 
-    @Override
-    public String toString() {
-        return "Tour{" +
-                "uuid=" + uuid +
-                ", name='" + name + '\'' +
-                ", start='" + start + '\'' +
-                ", destination='" + destination + '\'' +
-                ", description='" + description + '\'' +
-                ", transportType=" + transportType +
-                ", distance='" + distance + '\'' +
-                ", estimatedTime='" + estimatedTime + '\'' +
-                ", logs=" + logs +
-                '}';
-    }
 
     public Tour(UUID id,String name, String start, String destination,
                 String description,
