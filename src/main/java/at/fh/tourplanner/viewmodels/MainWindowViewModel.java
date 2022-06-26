@@ -86,7 +86,7 @@ public class MainWindowViewModel {
                 if (tour != null) {
                     var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
                     logListViewModel.setCreateLogIsDisabled(false);
-                    logListViewModel.setLogs(tour.getLogs());
+                    logListViewModel.setLogs(selectedTourID);
                 }
 
             }

@@ -1,5 +1,6 @@
 package at.fh.tourplanner.viewmodels.Logs;
 
+import at.fh.tourplanner.businessLayer.LogService;
 import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.Log;
 import javafx.beans.property.BooleanProperty;
@@ -23,8 +24,11 @@ public class LogListViewModel {
             new ArrayList<>();
     private final BooleanProperty createLogIsDisabled = new SimpleBooleanProperty(true);
     private final BooleanProperty editIsDisabled = new SimpleBooleanProperty(true);
+    // -- services
+    LogService logService;
 
-    public LogListViewModel(){
+    public LogListViewModel(LogService logService){
+        this.logService = logService;
 
     }
 
@@ -56,12 +60,9 @@ public class LogListViewModel {
         this.createLogIsDisabled.set(createLogIsDisabled);
     }
 
-    public void setLogs(List<Log> logs) {
-        //get
-        System.out.println("setting obs list in View model logs");
-        System.out.println(logs);
+    public void setLogs(int tourID) {
         this.logs.clear();
-        this.logs.setAll(logs);
+        this.logs.setAll(logService.getLogForTourFromDatabase(tourID));
     }
     public void addListener(ListItemSelectionListener listItemSelectionListener){
         this.eventListeners.add(listItemSelectionListener);

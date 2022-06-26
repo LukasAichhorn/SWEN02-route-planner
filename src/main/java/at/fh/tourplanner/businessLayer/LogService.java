@@ -13,8 +13,8 @@ public class LogService implements  LogService_Interface{
         this.database = database;
     }
     @Override
-    public List<Log> getLogForTourFromDatabase(UUID tourID) {
-        return null;
+    public List<Log> getLogForTourFromDatabase(int tourID) {
+        return database.getAllLogsForTour(tourID);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class LogService implements  LogService_Interface{
     }
 
     @Override
-    public void deleteLogInDatabase(UUID logID) {
+    public void deleteLogInDatabase(int logID) {
 
     }
 }

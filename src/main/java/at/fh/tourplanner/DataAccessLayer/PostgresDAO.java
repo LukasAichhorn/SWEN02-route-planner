@@ -2,6 +2,7 @@ package at.fh.tourplanner.DataAccessLayer;
 
 import at.fh.tourplanner.DataAccessLayer.DAO;
 import at.fh.tourplanner.DataAccessLayer.listener.DbCreateEvent;
+import at.fh.tourplanner.model.DifficultyTier;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
@@ -9,6 +10,7 @@ import javafx.geometry.Pos;
 
 import java.sql.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -59,6 +61,34 @@ public class PostgresDAO implements DAO {
                         rs.getString("imagepath")
                         ));
             }
+            return temp;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return temp;
+        }
+    }
+
+    @Override
+    public List<Log> getAllLogsForTour(int tourID) {
+        List<Log> temp = new ArrayList<>();
+        String SQL = "SELECT * FROM logs WHERE linked_tour = " + String.valueOf(tourID);
+        try{
+            Connection conn = getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                temp.add(new Log(
+                        rs.getInt("id"),
+                        rs.getTimestamp("local_date").toLocalDateTime().toLocalDate(),
+                        rs.getInt("rating"),
+                        DifficultyTier.valueOf(rs.getString("difficulty_tier")),
+                        rs.getInt("duration"),
+                        rs.getString("description"),
+                        rs.getInt("linked_tour")
+                ));
+            }
+            System.out.println("return value from DATABASE LOGs");
+            System.out.println(temp);
             return temp;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

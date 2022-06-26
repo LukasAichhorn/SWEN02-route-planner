@@ -37,7 +37,7 @@ public class ControllerFactory {
         searchBarViewModel = new SearchBarViewModel();
         logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(),
                 new LogService(PostgresDAO.getInstance()));
-        logListViewModel = new LogListViewModel();
+        logListViewModel = new LogListViewModel(new LogService(PostgresDAO.getInstance()));
         staticTourInfoViewModel = new StaticTourInfoViewModel();
         mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,
                 tourFormViewModel, tourListViewModel, searchBarViewModel,

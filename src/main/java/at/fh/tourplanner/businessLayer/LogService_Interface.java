@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface LogService_Interface {
-    public List<Log> getLogForTourFromDatabase(UUID tourID);
+    public List<Log> getLogForTourFromDatabase(int tourID);
 
     void addNewLogToDatabase(Log newLog);
     void updateLogInDatabase(Log newLog);
-    void deleteLogInDatabase(UUID logID);
+    void deleteLogInDatabase(int logID);
 
 }

@@ -64,6 +64,11 @@ public class InMemoryDAO implements DAO {
     }
 
     @Override
+    public List<Log> getAllLogsForTour(int TourID) {
+        return null;
+    }
+
+    @Override
     public void addTour(Tour tour) {
         System.out.println("inside database");
         try{
