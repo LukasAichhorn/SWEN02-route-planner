@@ -1,5 +1,6 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
+import at.fh.tourplanner.Main;
 import at.fh.tourplanner.model.Tour;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -7,7 +8,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class StaticTourInfoViewModel {
     private final StringProperty tourName = new SimpleStringProperty("");
@@ -22,34 +26,55 @@ public class StaticTourInfoViewModel {
 
     public StaticTourInfoViewModel() {
     }
-    public ObjectProperty<Image> getImageView(){return imageView;}
 
-    public StringProperty getTourName() { return tourName;}
+    public ObjectProperty<Image> getImageView() {
+        return imageView;
+    }
 
-    public StringProperty getStart() { return start;}
+    public StringProperty getTourName() {
+        return tourName;
+    }
 
-    public StringProperty getDestination() { return destination;}
+    public StringProperty getStart() {
+        return start;
+    }
 
-    public StringProperty getDescription() { return description;}
+    public StringProperty getDestination() {
+        return destination;
+    }
 
-    public StringProperty getTourDistance() { return tourDistance;}
+    public StringProperty getDescription() {
+        return description;
+    }
 
-    public StringProperty getEstimatedTime() { return estimatedTime;}
-    public StringProperty getSelectedTransportType() { return selectedTransportType;}
+    public StringProperty getTourDistance() {
+        return tourDistance;
+    }
+
+    public StringProperty getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public StringProperty getSelectedTransportType() {
+        return selectedTransportType;
+    }
 
     public void fillTourInfo(Tour tour) {
-        if(tour == null){
+        if (tour == null) {
             System.out.println("fillTourInfo was called with an Empty Tour");
             return;
         }
+        tourName.set(tour.getName());
         start.set(tour.getStart());
         destination.set(tour.getDestination());
         description.set(tour.getDescription());
         selectedTransportType.setValue(tour.getTransportType().toString());
         estimatedTime.set(tour.getEstimatedTime());
         tourDistance.set(tour.getDistance());
-        System.out.println(tour.getTourImage().getHeight());
-        imageView.set(tour.getTourImage());
+            Image image = new Image(tour.getTourImagePath());
+            imageView.set(image);
+
+
     }
 }
 

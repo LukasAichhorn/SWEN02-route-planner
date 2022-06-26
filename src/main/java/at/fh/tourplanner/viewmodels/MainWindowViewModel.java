@@ -37,18 +37,19 @@ public class MainWindowViewModel {
 
 
         //Section - listener
-//        this.tourFormViewModel.addCreateActionListener(new FormActionCreateListener() {
-//            @Override
-//            public void handleCreateAction(Tour formData) {
-//                tourListViewModel.saveTourToList(formData);
-//            }
-//        });
-//        this.tourFormViewModel.addEditActionListener(new FormActionEditListener() {
-//            @Override
-//            public void handleEditAction(Tour formData) {
-//                tourListViewModel.editTour(formData);
-//            }
-//        });
+        this.tourFormViewModel.addFormActionListener(new FormActionListener() {
+            @Override
+            public void onAction() {
+                tourListViewModel.refreshListView();
+            }
+        });
+        this.logsFormViewModel.addFormActionListener(new FormActionListener() {
+            @Override
+            public void onAction() {
+                var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                logListViewModel.setLogs(selectedTourID);
+            }
+        });
         this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
             @Override
             public void fillForm(Tour tour) {
@@ -60,13 +61,29 @@ public class MainWindowViewModel {
             @Override
             public void handleEvent() {
                 tourFormViewModel.clearForm();
-                tourFormViewModel.openFormInWindow();
+                tourFormViewModel.openFormInWindow("create");
             }
         });
+        this.logListViewModel.addOpenBlankLogFormListener(new OpenBlankLogFormListener(){
+            public void handleEvent(){
+                logsFormViewModel.clearForm();
+                var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                logsFormViewModel.setTourID(selectedTourID);
+                logsFormViewModel.openFormInWindow("create");
+            }
+        });
+
         this.tourListViewModel.addOpenFilledFormListener(new OpenFilledTourFormListener() {
             @Override
             public void handleEvent() {
-                tourFormViewModel.openFormInWindow();
+                tourFormViewModel.openFormInWindow("update");
+            }
+        });
+        this.logListViewModel.addOpenFilledLogFormListener(new OpenFilledLogFormListener(){
+            public void handleEvent(){
+                var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                logsFormViewModel.setTourID(selectedTourID);
+                logsFormViewModel.openFormInWindow("update");
             }
         });
         this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
@@ -80,20 +97,28 @@ public class MainWindowViewModel {
             public void fillForm(Tour tour) {
                 System.out.println("published Tour:");
                 System.out.println(tour);
-                logListViewModel.setLogs(tour.getLogs());
-            }
-        });
-        this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
-            @Override
-            public void fillForm(Tour tour) {
-                System.out.println("Clearing Form:");
-                logsFormViewModel.clearForm();
+                if(tour == null){
+                    logListViewModel.setCreateLogIsDisabled(true);
+                    logListViewModel.clearLogsList();
+                }
+                if (tour != null) {
+                    var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                    logListViewModel.setCreateLogIsDisabled(false);
+                    logListViewModel.setLogs(selectedTourID);
+                }
+
             }
         });
         this.logListViewModel.addListener(new ListItemSelectionListener<Log>() {
             @Override
             public void fillForm(Log log) {
-                logsFormViewModel.fillFormWithSelection(log);
+                var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                System.out.println("current selected postgresID : " + selectedTourID );
+                logListViewModel.setEditIsDisabled(false);
+                logsFormViewModel.fillFormWithSelection(log,selectedTourID);
+                if(log == null){
+                    logListViewModel.setEditIsDisabled(true);
+                }
             }
         });
 

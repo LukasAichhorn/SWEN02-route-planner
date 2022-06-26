@@ -16,6 +16,7 @@ public class TourListController implements Initializable {
     private final TourListViewModel viewModel;
     public ListView<Tour> tourList;
     public Button editButton;
+    public Button deleteButton;
 
     public TourListController(TourListViewModel viewModel) {
         this.viewModel = viewModel;
@@ -24,6 +25,7 @@ public class TourListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         editButton.disableProperty().bind(viewModel.getEditIsDisabledProperty());
+        deleteButton.disableProperty().bind(viewModel.getEditIsDisabledProperty());
         viewModel.addChangeListener(tourList);
         tourList.setItems(viewModel.getTours());
         tourList.setCellFactory(value -> {
@@ -49,6 +51,7 @@ public class TourListController implements Initializable {
         viewModel.openBlankFormButtonAction();
     }
     public void openFilledFormButtonAction() {viewModel.openFilledFormButtonAction();}
+    public void deleteButtonAction() {viewModel.deleteButtonAction();}
 
 
 }

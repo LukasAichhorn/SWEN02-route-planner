@@ -1,6 +1,7 @@
 package at.fh.tourplanner;
 
 import at.fh.tourplanner.DataAccessLayer.InMemoryDAO;
+import at.fh.tourplanner.DataAccessLayer.PostgresDAO;
 import at.fh.tourplanner.DataAccessLayer.mapAPI.RemoteMapAPI;
 import at.fh.tourplanner.businessLayer.*;
 import at.fh.tourplanner.controller.Log.LogListController;
@@ -30,16 +31,17 @@ public class ControllerFactory {
     public ControllerFactory() {
         tourFormViewModel =
                 new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
-                        new TourService(InMemoryDAO.getInstance()),
+                        new TourService(PostgresDAO.getInstance()),
                         new TourImageServiceImpl(new RemoteMapAPI()));
-        tourListViewModel = new TourListViewModel(new TourService(InMemoryDAO.getInstance()));
+        tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();
-        logsFormViewModel = new LogsFormViewModel();
-        logListViewModel = new LogListViewModel();
+        logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(),
+                new LogService(PostgresDAO.getInstance()));
+        logListViewModel = new LogListViewModel(new LogService(PostgresDAO.getInstance()));
         staticTourInfoViewModel = new StaticTourInfoViewModel();
         mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,
                 tourFormViewModel, tourListViewModel, searchBarViewModel,
-                logsFormViewModel, logListViewModel, new TourService(InMemoryDAO.getInstance()));
+                logsFormViewModel, logListViewModel, new TourService(PostgresDAO.getInstance()));
     }
 
     public Object create(Class<?> controllerClass) {

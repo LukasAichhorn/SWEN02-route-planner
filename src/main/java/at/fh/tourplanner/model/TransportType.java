@@ -1,9 +1,9 @@
 package at.fh.tourplanner.model;
 
 public enum TransportType {
-    BICYCLE("Bicycle"),
-    PEDESTRIAN("Pedestrian"),
-    CAR("Car"),
+    bicycle("bicycle"),
+    pedestrian("pedestrian"),
+    car("car"),
     ;
 
     private String type;

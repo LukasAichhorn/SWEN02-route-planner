@@ -1,6 +1,8 @@
 package at.fh.tourplanner.businessLayer;
 
 import at.fh.tourplanner.model.FormDataNewTour;
+import at.fh.tourplanner.model.Log;
+import at.fh.tourplanner.model.LogFormData;
 import at.fh.tourplanner.model.Tour;
 
 public class FormValidationServiceImp implements  FormValidationService{
@@ -13,5 +15,10 @@ public class FormValidationServiceImp implements  FormValidationService{
        if(tour.getTransportType() == null) return false;
         return true;
         }
+
+    @Override
+    public boolean noEmptyValues(LogFormData logFormData) {
+        return true;
+    }
 }
 

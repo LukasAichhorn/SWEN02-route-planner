@@ -6,19 +6,38 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
-public class TourImageServiceImpl implements TourImageService{
+public class TourImageServiceImpl implements TourImageService {
     private final MapAPI mapAPI;
 
     public TourImageServiceImpl(MapAPI mapAPI) {
         this.mapAPI = mapAPI;
     }
-    @Override
-    public Image queryTourImage(String start, String end) {
-       return convertToFxImage(mapAPI.queryRouteImage(start,end));
 
-    }private static Image convertToFxImage(BufferedImage image) {
+    @Override
+    public ImageServiceResponse queryTourImage(String start, String end) {
+        //buffered image to file and return location
+        UUID newID = UUID.randomUUID();
+        BufferedImage bufferedImage = mapAPI.queryRouteImage(start, end);
+        return new ImageServiceResponse(
+                imageToFile(bufferedImage,newID),
+                newID);
+    }
+    @Override
+    public ImageServiceResponse updateTourImage(String start, String end,UUID id) {
+
+        BufferedImage bufferedImage = mapAPI.queryRouteImage(start, end);
+        return new ImageServiceResponse(
+                imageToFile(bufferedImage,id),
+                id);
+    }
+
+    private static Image convertToFxImage(BufferedImage image) {
         WritableImage wr = null;
         if (image != null) {
             wr = new WritableImage(image.getWidth(), image.getHeight());
@@ -31,5 +50,19 @@ public class TourImageServiceImpl implements TourImageService{
         }
 
         return new ImageView(wr).getImage();
+    }
+
+    private String imageToFile(BufferedImage img,UUID newID) {
+        String location = "C:/Users/Lukas/Documents/01_UNI/04_SEM/SWEN02/";
+        File outputfile = new File(location + newID + ".jpg");
+        try {
+            ImageIO.write(img, "jpg", outputfile);
+            System.out.println("imagefile: " + outputfile.getAbsolutePath() + " created");
+            return outputfile.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+
     }
 }

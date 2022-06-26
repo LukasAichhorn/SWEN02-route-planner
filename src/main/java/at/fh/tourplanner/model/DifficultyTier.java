@@ -1,10 +1,10 @@
 package at.fh.tourplanner.model;
 
 public enum DifficultyTier {
-    BEGINNER("Anfänger"),
-    INTERMDIATE("Mittel"),
-    ADVANCED("Fortgeschritten"),
-    MASTER("Profi");
+    Anfaenger("Anfaenger"),
+    Mittel("Mittel"),
+    Fortgeschritten("Fortgeschritten"),
+    Profi("Profi");
 
     private String type;
 

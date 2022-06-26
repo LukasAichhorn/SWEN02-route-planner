@@ -1,9 +1,7 @@
 package at.fh.tourplanner.DataAccessLayer.mapAPI;
 
 import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.RetrofitMapQuestAPI;
-import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.Route;
-import javafx.scene.image.Image;
-import okhttp3.ResponseBody;
+import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.DirectionServiceResponse;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -27,15 +25,15 @@ public class RemoteMapAPI implements MapAPI {
 
 
     @Override
-    public Route queryDirection(String start, String end) {
-        Route result;
+    public DirectionServiceResponse queryDirection(String start, String end) {
+        DirectionServiceResponse result;
         try {
             result = mapApi.getDirection(start, end).execute().body();
             System.out.println( "QueryDirection result: " + result.getRoute().toString());
             return result;
         } catch (IOException e) {
             e.printStackTrace();
-            return new Route();
+            return new DirectionServiceResponse();
         }
 
     }

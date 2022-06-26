@@ -9,16 +9,23 @@ import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.DataAccessLayer.InMemoryDAO;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.control.ListView;
+import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TourListViewModel {
+    private Tour currentSelection = null;
 
     private final List<ListItemSelectionListener> eventListeners = new ArrayList<>();
     private final List<OpenBlankTourFormListener> openBlankTourFormListeners =
@@ -28,16 +35,15 @@ public class TourListViewModel {
     ObservableList<Tour> tours = FXCollections.observableArrayList();
     private final BooleanProperty editIsDisabled = new SimpleBooleanProperty(true);
     private final TourService tourService;
+    private final UiDeleteRouteService uiDeleteRouteService;
 
     public TourListViewModel(TourService tourService) {
         this.tourService = tourService;
+        this.uiDeleteRouteService = new UiDeleteRouteService();
         refreshListView();
-        tourService.addCreateListener(new DbCreateEvent() {
-            @Override
-            public void onCreate() {
+        uiDeleteRouteService.valueProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal != null) {
                 refreshListView();
-
-
             }
         });
     }
@@ -51,8 +57,18 @@ public class TourListViewModel {
         tours.addAll(tourList);
 
     }
-    private void refreshListView(){
+
+    public Tour getCurrentSelection() {
+        return currentSelection;
+    }
+
+    public void setCurrentSelection(Tour currentSelection) {
+        this.currentSelection = currentSelection;
+    }
+
+    public void refreshListView() {
         tours.clear();
+        // TODO wrap refresh into a service
         tours.addAll(tourService.getToursFromDatabase());
     }
 
@@ -86,10 +102,13 @@ public class TourListViewModel {
         }
     }
 
-    public void addChangeListener(ListView listView) {
+    public void addChangeListener(ListView<Tour> listView) {
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tour>() {
             @Override
             public void changed(ObservableValue<? extends Tour> observableValue, Tour tour, Tour t1) {
+                currentSelection = t1;
+                System.out.println("current selection : ");
+                System.out.println(t1);
                 publishSelectionEvent(t1);
                 System.out.println("changeListener triggered with");
                 System.out.println(t1);
@@ -118,4 +137,24 @@ public class TourListViewModel {
         publishOpenFilledTourFormEvent();
     }
 
+    public void deleteButtonAction() {
+        uiDeleteRouteService.restart();
+    }
+
+    @AllArgsConstructor
+    @Setter
+    public class UiDeleteRouteService extends Service<String> {
+
+
+        @Override
+        protected Task<String> createTask() {
+            return new Task<>() {
+                protected String call() {
+                    System.out.println("starting task deleting id: " + getCurrentSelection().getUUID());
+                    tourService.deleteTourInDatabase(getCurrentSelection().getUUID());
+                    return "completed delete Task";
+                }
+            };
+        }
+    }
 }

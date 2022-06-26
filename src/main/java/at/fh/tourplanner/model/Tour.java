@@ -1,5 +1,10 @@
 package at.fh.tourplanner.model;
+
 import javafx.scene.image.Image;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
@@ -7,9 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+@AllArgsConstructor
+@Setter
+@Getter
+@ToString
 public class Tour {
-    private UUID   uuid;
+    private int postgresID;
+    private UUID uuid;
     private String name;
     private String start;
     private String destination;
@@ -18,27 +27,15 @@ public class Tour {
     private String distance;
     private String estimatedTime;
     private List<Log> logs;
-    private Image tourImage;
+    private String tourImagePath;
 
-    @Override
-    public String toString() {
-        return "Tour{" +
-                "uuid=" + uuid +
-                ", name='" + name + '\'' +
-                ", start='" + start + '\'' +
-                ", destination='" + destination + '\'' +
-                ", description='" + description + '\'' +
-                ", transportType=" + transportType +
-                ", distance='" + distance + '\'' +
-                ", estimatedTime='" + estimatedTime + '\'' +
-                ", logs=" + logs +
-                '}';
-    }
 
-    public Tour(String name, String start, String destination, String description,
+
+    public Tour(UUID id,String name, String start, String destination,
+                String description,
                 TransportType transportType, String distance, String estimatedTime,
-                List<Log> logs,Image tourImage) {
-        this.uuid = UUID.randomUUID();
+                List<Log> logs, String tourImagePath) {
+        this.uuid = id;
         this.name = name;
         this.start = start;
         this.destination = destination;
@@ -47,15 +44,15 @@ public class Tour {
         this.distance = distance;
         this.estimatedTime = estimatedTime;
         this.logs = logs;
-        this.tourImage = tourImage;
+        this.tourImagePath = tourImagePath;
     }
 
-    public void setTourImage(Image tourImage) {
-        this.tourImage = tourImage;
+    public String getTourImagePath() {
+        return tourImagePath;
     }
 
-    public Image getTourImage() {
-        return tourImage;
+    public void setTourImagePath(String tourImagePath) {
+        this.tourImagePath = tourImagePath;
     }
 
     public UUID getUUID() {

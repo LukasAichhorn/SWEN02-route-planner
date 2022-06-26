@@ -3,6 +3,7 @@ package at.fh.tourplanner.controller.Log;
 import at.fh.tourplanner.viewmodels.Logs.LogListViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,6 +14,9 @@ import java.util.ResourceBundle;
 public class LogListController implements Initializable {
     private final LogListViewModel logListViewModel;
     public TableView logList;
+    public Button editButton;
+    public Button deleteButton;
+    public Button createButton;
     @FXML private TableColumn timeStamp;
     @FXML private TableColumn rating;
     @FXML private TableColumn difficulty;
@@ -29,6 +33,9 @@ public class LogListController implements Initializable {
         System.out.println("setting items to table view");
         System.out.println(logListViewModel.getLogs());
         logList.setItems(logListViewModel.getLogs());
+        createButton.disableProperty().bind(logListViewModel.createLogIsDisabledProperty());
+        editButton.disableProperty().bind(logListViewModel.editIsDisabledProperty());
+        deleteButton.disableProperty().bind(logListViewModel.editIsDisabledProperty());
 
         timeStamp.setCellValueFactory(new PropertyValueFactory<>("timeStamp"));
        rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
@@ -36,5 +43,14 @@ public class LogListController implements Initializable {
         duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
         comment.setCellValueFactory(new PropertyValueFactory<>("comment"));
 
+    }
+    public void openBlankLogFormButtonAction(){
+        logListViewModel.openBlankLogFormButtonAction();
+    }
+    public void openFilledFormButtonAction(){
+        logListViewModel.openFilledLogFormButtonAction();
+    }
+    public void deleteButtonAction(){
+        logListViewModel.deleteButtonAction();
     }
 }

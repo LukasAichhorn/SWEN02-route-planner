@@ -7,5 +7,7 @@
 # Maven
 log/
 target/
-
+.img
 tourPlanner.iml
+# Images
+*.jpg
