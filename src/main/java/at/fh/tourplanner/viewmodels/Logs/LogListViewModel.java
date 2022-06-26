@@ -9,12 +9,17 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.control.TableView;
+import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LogListViewModel {
+    private Log currentSelection;
     ObservableList<Log> logs = FXCollections.observableArrayList();
 
     private final List<ListItemSelectionListener> eventListeners = new ArrayList<>();
@@ -26,10 +31,26 @@ public class LogListViewModel {
     private final BooleanProperty editIsDisabled = new SimpleBooleanProperty(true);
     // -- services
     LogService logService;
+    //-- workers
+    UiDeleteLogService uiDeleteLogService;
 
     public LogListViewModel(LogService logService){
         this.logService = logService;
+        this.uiDeleteLogService = new UiDeleteLogService();
+        uiDeleteLogService.valueProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal != null) {
+                // TODO refresh listview
+                setLogs(newVal);
+            }
+        });
+    }
 
+    public Log getCurrentSelection() {
+        return currentSelection;
+    }
+
+    public void setCurrentSelection(Log currentSelection) {
+        this.currentSelection = currentSelection;
     }
 
     public boolean isEditIsDisabled() {
@@ -94,6 +115,7 @@ public class LogListViewModel {
         tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Log>() {
             @Override
             public void changed(ObservableValue<? extends Log> observableValue, Log o, Log t1) {
+                currentSelection = t1;
                 publishSelectionEvent(t1);
                 System.out.println("changeListener triggered with " + t1);
             }
@@ -104,6 +126,26 @@ public class LogListViewModel {
     }
     public void openFilledLogFormButtonAction(){
         publishOpenFilledLogFormEvent();
+    }
+    public void deleteButtonAction(){
+        uiDeleteLogService.restart();
+    }
+    @AllArgsConstructor
+    @Setter
+    public class UiDeleteLogService extends Service<Integer> {
+
+
+        @Override
+        protected Task<Integer> createTask() {
+            return new Task<>() {
+                protected Integer call() {
+                    System.out.println("starting task deleting id: " + getCurrentSelection().getId());
+                    int linkedTourID = getCurrentSelection().getTourID();
+                    logService.deleteLogInDatabase(getCurrentSelection().getId());
+                    return linkedTourID;
+                }
+            };
+        }
     }
 
 

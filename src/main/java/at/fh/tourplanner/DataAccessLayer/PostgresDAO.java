@@ -202,10 +202,50 @@ public class PostgresDAO implements DAO {
     @Override
     public void updateLog(Log log) {
 
+        String SQL = "UPDATE logs " +
+                "SET local_date = ?," +
+                "rating = ?," +
+                "difficulty_tier = ?," +
+                "duration = ?," +
+                "description = ? " +
+                "WHERE id = ?";
+
+        try (Connection conn = getConnection(); PreparedStatement preparedStatement =
+                conn.prepareStatement(SQL)) {
+            preparedStatement.setTimestamp(1,
+                    Timestamp.valueOf(log.getTimeStamp().atStartOfDay()));
+            preparedStatement.setInt(2,log.getRating());
+            preparedStatement.setString(3, log.getDifficulty().toString());
+            preparedStatement.setDouble(4, log.getDuration());
+            preparedStatement.setString(5, log.getComment());
+            preparedStatement.setInt(6, log.getId());
+
+            int row = preparedStatement.executeUpdate();
+            if(row ==1) System.out.println("updated log entry in DB");
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void deleteLog(int id) {
 
+        String SQL = "DELETE FROM logs " +
+                "WHERE id = ?";
+
+        try (Connection conn = getConnection(); PreparedStatement preparedStatement =
+                conn.prepareStatement(SQL)) {
+            preparedStatement.setInt(1, id);
+
+            int row = preparedStatement.executeUpdate();
+            if (row == 1) System.out.println("deleted log entry in DB");
+        } catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -24,11 +24,12 @@ public class LogService implements  LogService_Interface{
 
     @Override
     public void updateLogInDatabase(Log newLog) {
-
+        database.updateLog(newLog);
     }
 
     @Override
     public void deleteLogInDatabase(int logID) {
+        database.deleteLog(logID);
 
     }
 }

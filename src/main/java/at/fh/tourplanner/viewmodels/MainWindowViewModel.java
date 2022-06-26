@@ -79,6 +79,13 @@ public class MainWindowViewModel {
                 tourFormViewModel.openFormInWindow("update");
             }
         });
+        this.logListViewModel.addOpenFilledLogFormListener(new OpenFilledLogFormListener(){
+            public void handleEvent(){
+                var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                logsFormViewModel.setTourID(selectedTourID);
+                logsFormViewModel.openFormInWindow("update");
+            }
+        });
         this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
             @Override
             public void fillForm(Tour tour) {

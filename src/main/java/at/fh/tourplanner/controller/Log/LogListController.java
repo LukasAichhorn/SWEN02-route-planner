@@ -47,6 +47,10 @@ public class LogListController implements Initializable {
     public void openBlankLogFormButtonAction(){
         logListViewModel.openBlankLogFormButtonAction();
     }
-    public void openFilledFormButtonAction(){}
-    public void deleteButtonAction(){}
+    public void openFilledFormButtonAction(){
+        logListViewModel.openFilledLogFormButtonAction();
+    }
+    public void deleteButtonAction(){
+        logListViewModel.deleteButtonAction();
+    }
 }

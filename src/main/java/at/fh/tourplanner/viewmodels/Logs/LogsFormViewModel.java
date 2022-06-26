@@ -30,6 +30,7 @@ import java.util.UUID;
 public class LogsFormViewModel {
     // -- Properties
     private final IntegerProperty tourID = new SimpleIntegerProperty();
+    private final IntegerProperty logID = new SimpleIntegerProperty();
     private final ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
     private final StringProperty duration = new SimpleStringProperty("");
     private final StringProperty comment = new SimpleStringProperty("");
@@ -75,6 +76,18 @@ public class LogsFormViewModel {
 
     public void setTourID(int tourID) {
         this.tourID.set(tourID);
+    }
+
+    public int getLogID() {
+        return logID.get();
+    }
+
+    public IntegerProperty logIDProperty() {
+        return logID;
+    }
+
+    public void setLogID(int logID) {
+        this.logID.set(logID);
     }
 
     public StringProperty getDuration() {
@@ -130,6 +143,7 @@ public class LogsFormViewModel {
 
     public void fillFormWithSelection(Log log, int selectedTourId) {
         if (log != null) {
+            logID.set(log.getId());
             tourID.set(selectedTourId);
             date.set(log.getTimeStamp());
             duration.set(String.valueOf(log.getDuration()));
@@ -151,9 +165,9 @@ public class LogsFormViewModel {
 
     }
 
-    public void addNewLogAction(LogFormData logformData) {
-        if (formValidationService.noEmptyValues(logformData)) {
-            System.out.println("calling APi " + logformData);
+    public void addNewLogAction(LogFormData logFormData) {
+        if (formValidationService.noEmptyValues(logFormData)) {
+            System.out.println("calling APi to insert " + logFormData);
             System.out.println("Owned by Tour:  " + getTourID());
             uiServiceQueryAPI.restart();
 
@@ -161,7 +175,16 @@ public class LogsFormViewModel {
             System.out.println("error while creating new Tour ");
         }
     }
-    public void updateLogAction(LogFormData logFormData){}
+    public void updateLogAction(LogFormData logFormData){
+        if (formValidationService.noEmptyValues(logFormData)) {
+            System.out.println("calling APi to update " + logFormData.toString());
+            //System.out.println("Owned by Tour:  " + getTourID());
+            uiServiceQueryAPI.restart();
+
+        } else {
+            System.out.println("error while creating new Tour ");
+        }
+    }
 
     public void addFormActionListener(FormActionListener formActionListener) {
         this.formActionListeners.add(formActionListener);
@@ -182,8 +205,9 @@ public class LogsFormViewModel {
         protected Task<String> createTask() {
             return new Task<>() {
                 protected String call() {
-                    System.out.println("starting task adding log");
+
                     Log newLog = new Log(
+                            logID.get(),
                             date.get(),
                             ratingObjectProperty.getValue(),
                             difficultyTierObjectProperty.getValue(),
@@ -191,7 +215,15 @@ public class LogsFormViewModel {
                             comment.get(),
                             getTourID()
                     );
-                    logService.addNewLogToDatabase(newLog);
+                    if(actionButtonNameProperty().get().equals("create")){
+                        System.out.println("starting task adding log");
+                        logService.addNewLogToDatabase(newLog);
+                    }
+                    if(actionButtonNameProperty().get().equals("update")){
+                        System.out.println("starting task updating log");
+                        logService.updateLogInDatabase(newLog);
+                    }
+
                     return "completed delete Task";
                 }
             };
