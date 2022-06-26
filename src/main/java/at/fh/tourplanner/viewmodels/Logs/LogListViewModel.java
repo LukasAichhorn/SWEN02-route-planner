@@ -59,7 +59,9 @@ public class LogListViewModel {
     public void setCreateLogIsDisabled(boolean createLogIsDisabled) {
         this.createLogIsDisabled.set(createLogIsDisabled);
     }
-
+    public void clearLogsList(){
+        this.logs.clear();
+    }
     public void setLogs(int tourID) {
         this.logs.clear();
         this.logs.setAll(logService.getLogForTourFromDatabase(tourID));

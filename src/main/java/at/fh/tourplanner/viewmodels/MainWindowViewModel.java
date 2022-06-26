@@ -43,6 +43,13 @@ public class MainWindowViewModel {
                 tourListViewModel.refreshListView();
             }
         });
+        this.logsFormViewModel.addFormActionListener(new FormActionListener() {
+            @Override
+            public void onAction() {
+                var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
+                logListViewModel.setLogs(selectedTourID);
+            }
+        });
         this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
             @Override
             public void fillForm(Tour tour) {
@@ -83,6 +90,10 @@ public class MainWindowViewModel {
             public void fillForm(Tour tour) {
                 System.out.println("published Tour:");
                 System.out.println(tour);
+                if(tour == null){
+                    logListViewModel.setCreateLogIsDisabled(true);
+                    logListViewModel.clearLogsList();
+                }
                 if (tour != null) {
                     var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
                     logListViewModel.setCreateLogIsDisabled(false);
@@ -96,7 +107,11 @@ public class MainWindowViewModel {
             public void fillForm(Log log) {
                 var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
                 System.out.println("current selected postgresID : " + selectedTourID );
+                logListViewModel.setEditIsDisabled(false);
                 logsFormViewModel.fillFormWithSelection(log,selectedTourID);
+                if(log == null){
+                    logListViewModel.setEditIsDisabled(true);
+                }
             }
         });
 
