@@ -36,7 +36,6 @@ import java.util.UUID;
 public class TourFormViewModel {
 
     // --Fields
-    private FormMode currentFormMode;
 
     // -- Binding Properties
     private final StringProperty tourUUID = new SimpleStringProperty("");
@@ -116,12 +115,13 @@ public class TourFormViewModel {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
-    public void openFormInWindow(String buttonName) {
-        actionButtonNameProperty().set(buttonName);
-        if(buttonName.equals("create")){
+    public void openFormInWindow(FormMode formMode) {
+        if(formMode == FormMode.CREATE){
+            actionButtonNameProperty().set("create");
             this.uiServiceQueryMapAPI = new UiServiceCreateTour(tourName, start, destination, description, selectedTransportType,
                     directionService,tourImageService,tourService);
-        } if(buttonName.equals("update")){
+        } if(formMode == FormMode.UPDATE){
+            actionButtonNameProperty().set("update");
             this.uiServiceQueryMapAPI = new UiServiceUpdateTour(tourUUID,tourName, start, destination, description, selectedTransportType,
                     directionService,tourImageService,tourService);
         }
@@ -160,14 +160,12 @@ public class TourFormViewModel {
         this.formActionListeners.add(formActionListener);
     }
 
-
     public void publishFormEvent() {
         System.out.println("publish form Event from Tour Form");
         for (var listener : formActionListeners) {
             listener.onAction();
         }
     }
-
     public void fillFormWithSelection(Tour tour) {
         if (tour != null) {
             tourUUID.set(tour.getUUID().toString());
@@ -176,7 +174,6 @@ public class TourFormViewModel {
             destination.set(tour.getDestination());
             description.set(tour.getDescription());
             selectedTransportType.setValue(tour.getTransportType());
-
         } else {
             clearForm();
         }
@@ -190,7 +187,7 @@ public class TourFormViewModel {
         return this.selectedTransportType;
     }
 
-    public void addNewTourAction(FormDataNewTour tour) {
+    public void formAction(FormDataNewTour tour) {
         if (formValidationService.noEmptyValues(tour)) {
             System.out.println("calling APi " + tour);
             uiServiceQueryMapAPI.restart();
@@ -199,14 +196,6 @@ public class TourFormViewModel {
         }
     }
 
-    public void updateTourAction(FormDataNewTour tour) {
-        if (formValidationService.noEmptyValues(tour)) {
-            System.out.println("calling APi " + tour);
-            uiServiceQueryMapAPI.restart();
-        } else {
-            System.out.println("error while creating new Tour ");
-        }
-    }
 
 }
 
