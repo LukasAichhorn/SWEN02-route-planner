@@ -9,9 +9,7 @@ import java.util.List;
 public class SearchBarViewModel {
 
     private final StringProperty searchString = new SimpleStringProperty("");
-
     private final BooleanProperty isButtonDisabled = new SimpleBooleanProperty(true);
-
     private final List<SearchListener> searchListenerList = new ArrayList<>();
 
     public StringProperty getSearchString() { return searchString; }

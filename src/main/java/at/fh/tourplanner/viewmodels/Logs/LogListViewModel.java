@@ -92,7 +92,7 @@ public class LogListViewModel {
     }
     public void publishSelectionEvent(Log log) {
         for(var listener : eventListeners){
-            listener.fillForm(log);
+            listener.handleListItemSelection(log);
         }
     }
     public void addOpenBlankLogFormListener(OpenBlankLogFormListener openBlankLogFormListener) {
