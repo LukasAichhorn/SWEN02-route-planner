@@ -20,4 +20,5 @@ public interface DAO {
     void deleteLog(int id);
 
 
+
 }

@@ -1,5 +1,6 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
+import at.fh.tourplanner.businessLayer.searchService.SearchService;
 import at.fh.tourplanner.businessLayer.tourService.TourService;
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectionListener;
 import at.fh.tourplanner.listenerInterfaces.ListUpdateListener;
@@ -33,11 +34,14 @@ public class TourListViewModel {
             new ArrayList<>();
     ObservableList<Tour> tours = FXCollections.observableArrayList();
     private final BooleanProperty editIsDisabled = new SimpleBooleanProperty(true);
+
     private final TourService tourService;
+    private final SearchService searchService;
     private final UiDeleteRouteService uiDeleteRouteService;
 
-    public TourListViewModel(TourService tourService) {
+    public TourListViewModel(TourService tourService, SearchService searchService) {
         this.tourService = tourService;
+        this.searchService = searchService;
         this.uiDeleteRouteService = new UiDeleteRouteService();
         refreshListView();
         uiDeleteRouteService.valueProperty().addListener((observable, oldVal, newVal) -> {
@@ -66,7 +70,6 @@ public class TourListViewModel {
 
     public void refreshListView() {
         tours.clear();
-        // TODO wrap refresh into a service
         tours.addAll(tourService.getToursFromDatabase());
     }
 
@@ -117,8 +120,8 @@ public class TourListViewModel {
         });
     }
 
-    public void searchTours(String searchString) {
-        var tours = InMemoryDAO.getInstance().findMatchingTours(searchString);
+    public void filterTours(String searchString) {
+        var tours = searchService.findMatchingTours(searchString);
         setTours(tours);
     }
 

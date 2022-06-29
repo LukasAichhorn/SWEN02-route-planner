@@ -135,7 +135,7 @@ public class MainWindowViewModel {
         this.searchBarViewModel.addSearchListener(new SearchListener() {
             @Override
             public void handleSearch(String searchString) {
-                tourListViewModel.searchTours(searchString);
+                tourListViewModel.filterTours(searchString);
             }
         });
     }

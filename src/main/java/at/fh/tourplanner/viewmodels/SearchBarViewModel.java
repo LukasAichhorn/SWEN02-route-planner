@@ -1,7 +1,10 @@
 package at.fh.tourplanner.viewmodels;
 
+import at.fh.tourplanner.businessLayer.searchService.SearchService;
 import at.fh.tourplanner.listenerInterfaces.SearchListener;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,14 @@ public class SearchBarViewModel {
 
     public void addSearchListener(SearchListener searchListener){
         searchListenerList.add(searchListener);
+    }
+    public SearchBarViewModel(){
+        searchString.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                publishSearchEvent();
+            }
+        });
     }
 
     public void publishSearchEvent() {

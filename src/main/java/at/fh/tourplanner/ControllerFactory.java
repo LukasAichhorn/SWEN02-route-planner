@@ -6,6 +6,7 @@ import at.fh.tourplanner.businessLayer.logService.LogService;
 import at.fh.tourplanner.businessLayer.mapApiService.DirectionServiceImpl;
 import at.fh.tourplanner.businessLayer.mapApiService.TourImageServiceImpl;
 import at.fh.tourplanner.businessLayer.pdfGenerationService.PdfGenerationServiceImpl;
+import at.fh.tourplanner.businessLayer.searchService.SearchService;
 import at.fh.tourplanner.businessLayer.tourService.TourService;
 import at.fh.tourplanner.businessLayer.validationService.FormValidationServiceImp;
 import at.fh.tourplanner.controller.Log.LogListController;
@@ -37,7 +38,7 @@ public class ControllerFactory {
                 new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
                         new TourService(PostgresDAO.getInstance()),
                         new TourImageServiceImpl(new RemoteMapAPI()));
-        tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()));
+        tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()),new SearchService(PostgresDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();
         logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(),
                 new LogService(PostgresDAO.getInstance()));
