@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+@Log4j2
 public class TourImageServiceImpl implements TourImageService {
     private final MapAPI mapAPI;
 
@@ -59,7 +62,7 @@ public class TourImageServiceImpl implements TourImageService {
         File outputfile = new File(location + newID + ".jpg");
         try {
             ImageIO.write(img, "jpg", outputfile);
-            System.out.println("imagefile: " + outputfile.getAbsolutePath() + " created");
+            log.info("Image: {} created", outputfile.getAbsolutePath());
             return outputfile.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();

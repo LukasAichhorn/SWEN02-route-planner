@@ -30,8 +30,6 @@ public class LogListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logListViewModel.addChangeListener(logList);
-        System.out.println("setting items to table view");
-        System.out.println(logListViewModel.getLogs());
         logList.setItems(logListViewModel.getLogs());
         createButton.disableProperty().bind(logListViewModel.createLogIsDisabledProperty());
         editButton.disableProperty().bind(logListViewModel.editIsDisabledProperty());

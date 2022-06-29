@@ -14,10 +14,12 @@ import javafx.concurrent.Task;
 import javafx.scene.control.TableView;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class LogListViewModel {
     private Log currentSelection;
     ObservableList<Log> logs = FXCollections.observableArrayList();
@@ -117,7 +119,7 @@ public class LogListViewModel {
             public void changed(ObservableValue<? extends Log> observableValue, Log o, Log t1) {
                 currentSelection = t1;
                 publishSelectionEvent(t1);
-                System.out.println("changeListener triggered with " + t1);
+                log.info("changeListener triggered with {}", t1);
             }
         });
     }
@@ -139,7 +141,7 @@ public class LogListViewModel {
         protected Task<Integer> createTask() {
             return new Task<>() {
                 protected Integer call() {
-                    System.out.println("starting task deleting id: " + getCurrentSelection().getId());
+                    log.info("Deleting log with ID:{}", getCurrentSelection().getId());
                     int linkedTourID = getCurrentSelection().getTourID();
                     logService.deleteLogInDatabase(getCurrentSelection().getId());
                     return linkedTourID;

@@ -13,12 +13,15 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
+@Log4j2
 public class UiServiceUpdateTour extends Service<String> {
     private StringProperty id;
     private StringProperty name;
@@ -34,12 +37,11 @@ public class UiServiceUpdateTour extends Service<String> {
     protected Task<String> createTask() {
         return new Task<>() {
             protected String call() {
-                System.out.println("edit tour with id: " + id);
-                System.out.println("Updating ID: " + id + "in thread");
+                log.info("Updating tour with ID: {}", id);
                 DirectionServiceResponse dirR = directionService.queryDirection(start.get(), end.get());
-                System.out.println("Fetching direction data is done");
+                log.info("Updated direction data for tour '{}' fetched", name.get());
                 ImageServiceResponse imgR = tourImageService.updateTourImage(start.get(),end.get(),UUID.fromString(id.get()));
-                System.out.println("fetching image data is done");
+                log.info("Updated image for tour '{}' fetched", name.get());
 
                     Tour newTour = new Tour(
                             UUID.fromString(id.get()),

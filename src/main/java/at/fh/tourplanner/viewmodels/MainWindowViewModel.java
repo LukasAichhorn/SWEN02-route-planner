@@ -10,7 +10,9 @@ import at.fh.tourplanner.viewmodels.Logs.LogsFormViewModel;
 import at.fh.tourplanner.viewmodels.Tours.StaticTourInfoViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourListViewModel;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class MainWindowViewModel {
 
     private final TourFormViewModel tourFormViewModel;
@@ -98,8 +100,7 @@ public class MainWindowViewModel {
         this.tourListViewModel.addSelectionListener(new ListItemSelectionListener<Tour>() {
             @Override
             public void handleListItemSelection(Tour tour) {
-                System.out.println("published Tour:");
-                System.out.println(tour);
+                log.info("{} selected in list", tour.toString());
                 if(tour == null){
                     logListViewModel.setCreateLogIsDisabled(true);
                     logListViewModel.clearLogsList();
@@ -116,7 +117,6 @@ public class MainWindowViewModel {
             @Override
             public void handleListItemSelection(Log log) {
                 var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
-                System.out.println("current selected postgresID : " + selectedTourID );
                 logListViewModel.setEditIsDisabled(false);
                 logsFormViewModel.fillFormWithSelection(log,selectedTourID);
                 if(log == null){

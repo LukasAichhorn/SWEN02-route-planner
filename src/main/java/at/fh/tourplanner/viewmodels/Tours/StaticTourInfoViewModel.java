@@ -7,12 +7,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
+import lombok.extern.log4j.Log4j2;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+@Log4j2
 public class StaticTourInfoViewModel {
     private final StringProperty tourName = new SimpleStringProperty("");
     private final StringProperty start = new SimpleStringProperty("");
@@ -61,7 +62,7 @@ public class StaticTourInfoViewModel {
 
     public void fillTourInfo(Tour tour) {
         if (tour == null) {
-            System.out.println("fillTourInfo was called with an Empty Tour");
+            log.error("Error: Empty tour submitted.");
             return;
         }
         tourName.set(tour.getName());
