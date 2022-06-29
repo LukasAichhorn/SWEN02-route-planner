@@ -1,7 +1,6 @@
 package at.fh.tourplanner;
 
 import at.fh.tourplanner.DataAccessLayer.InMemoryDAO;
-import at.fh.tourplanner.DataAccessLayer.PostgresDAO;
 import at.fh.tourplanner.DataAccessLayer.mapAPI.RemoteMapAPI;
 import at.fh.tourplanner.businessLayer.*;
 import at.fh.tourplanner.controller.Log.LogListController;
@@ -26,22 +25,24 @@ public class ControllerFactory {
     private final LogsFormViewModel logsFormViewModel;
     private final LogListViewModel logListViewModel;
     private final MainWindowViewModel mainWindowViewModel;
-
+    private final MenuBarViewModel menuBarViewModel;
 
     public ControllerFactory() {
         tourFormViewModel =
                 new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
-                        new TourService(PostgresDAO.getInstance()),
+                        new TourService(InMemoryDAO.getInstance()),
                         new TourImageServiceImpl(new RemoteMapAPI()));
-        tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()));
+        tourListViewModel = new TourListViewModel(new TourService(InMemoryDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();
         logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(),
-                new LogService(PostgresDAO.getInstance()));
-        logListViewModel = new LogListViewModel(new LogService(PostgresDAO.getInstance()));
+                new LogService(InMemoryDAO.getInstance()));
+        logListViewModel = new LogListViewModel(new LogService(InMemoryDAO.getInstance()));
         staticTourInfoViewModel = new StaticTourInfoViewModel();
+        menuBarViewModel = new MenuBarViewModel(new PdfGenerationServiceImpl(InMemoryDAO.getInstance()));
         mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,
                 tourFormViewModel, tourListViewModel, searchBarViewModel,
-                logsFormViewModel, logListViewModel, new TourService(PostgresDAO.getInstance()));
+                logsFormViewModel, logListViewModel, menuBarViewModel,
+                new TourService(InMemoryDAO.getInstance()));
     }
 
     public Object create(Class<?> controllerClass) {
@@ -59,6 +60,8 @@ public class ControllerFactory {
             return new MainWindowController(mainWindowViewModel);
         } else if (controllerClass == StaticTourInfoController.class) {
             return new StaticTourInfoController(staticTourInfoViewModel);
+        } else if(controllerClass == MenuBarController.class) {
+            return new MenuBarController(menuBarViewModel);
         }
         throw new IllegalArgumentException("Unknown Controller Class");
     }

@@ -9,10 +9,11 @@ module at.fh.tourplanner {
     requires java.desktop;
     requires java.sql;
     requires lombok;
+    requires itextpdf;
+    requires kernel;
+    requires layout;
+    requires io;
 
-
-    opens at.fh.tourplanner to javafx.fxml;
-    exports at.fh.tourplanner;
     exports at.fh.tourplanner.DataAccessLayer;
     opens at.fh.tourplanner.DataAccessLayer;
     exports at.fh.tourplanner.DataAccessLayer.listener;
@@ -29,5 +30,7 @@ module at.fh.tourplanner {
     opens at.fh.tourplanner.DataAccessLayer.mapAPI;
     exports at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit;
     opens at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit;
+    exports at.fh.tourplanner;
+    opens at.fh.tourplanner;
 
 }

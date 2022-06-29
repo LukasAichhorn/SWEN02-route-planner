@@ -1,15 +1,14 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
-import at.fh.tourplanner.DataAccessLayer.listener.DbCreateEvent;
 import at.fh.tourplanner.businessLayer.TourService;
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectionListener;
+import at.fh.tourplanner.listenerInterfaces.ListUpdateListener;
 import at.fh.tourplanner.listenerInterfaces.OpenBlankTourFormListener;
 import at.fh.tourplanner.listenerInterfaces.OpenFilledTourFormListener;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.DataAccessLayer.InMemoryDAO;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,12 +21,12 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class TourListViewModel {
     private Tour currentSelection = null;
 
-    private final List<ListItemSelectionListener> eventListeners = new ArrayList<>();
+    private final List<ListItemSelectionListener> selectionEventListeners = new ArrayList<>();
+    private final List<ListUpdateListener>  updateListeners = new ArrayList<>();
     private final List<OpenBlankTourFormListener> openBlankTourFormListeners =
             new ArrayList<>();
     private final List<OpenFilledTourFormListener> openFilledTourFormListeners =
@@ -55,7 +54,6 @@ public class TourListViewModel {
     public void setTours(List<Tour> tourList) {
         tours.clear();
         tours.addAll(tourList);
-
     }
 
     public Tour getCurrentSelection() {
@@ -72,8 +70,11 @@ public class TourListViewModel {
         tours.addAll(tourService.getToursFromDatabase());
     }
 
-    public void addListener(ListItemSelectionListener listItemSelectionListener) {
-        this.eventListeners.add(listItemSelectionListener);
+    public void addSelectionListener(ListItemSelectionListener listItemSelectionListener) {
+        this.selectionEventListeners.add(listItemSelectionListener);
+    }
+    public void addUpdateListener(ListUpdateListener listUpdateListener) {
+        this.updateListeners.add(listUpdateListener);
     }
 
     public void addOpenBlankFormListener(OpenBlankTourFormListener openBlankTourFormListener) {
@@ -85,8 +86,8 @@ public class TourListViewModel {
     }
 
     public void publishSelectionEvent(Tour tour) {
-        for (var listener : eventListeners) {
-            listener.fillForm(tour);
+        for (var listener : selectionEventListeners) {
+            listener.handleListItemSelection(tour);
         }
     }
 

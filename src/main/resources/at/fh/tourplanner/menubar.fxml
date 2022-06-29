@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="27.0"
+            prefWidth="898.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="at.fh.tourplanner.controller.MenuBarController"
+            >
+<children>
+    <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+            <Menu mnemonicParsing="false" text="Create">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Statistical Report" onAction="#statisticalReportAction" fx:id="statisticalReportItem"/>
+                    <MenuItem mnemonicParsing="false" text="Tour Report" onAction="#tourReportAction" fx:id="tourReportMenuItem"/>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+</children>
+</AnchorPane>
+
