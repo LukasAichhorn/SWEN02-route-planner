@@ -10,16 +10,17 @@ import at.fh.tourplanner.viewmodels.Tours.StaticTourInfoViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourListViewModel;
 
+import java.util.List;
+
 public class MainWindowViewModel {
 
     private final TourFormViewModel tourFormViewModel;
-
     private final TourListViewModel tourListViewModel;
-
     private final SearchBarViewModel searchBarViewModel;
     private final LogsFormViewModel logsFormViewModel;
     private final LogListViewModel logListViewModel;
     private final StaticTourInfoViewModel staticTourInfoViewModel;
+    private final MenuBarViewModel menuBarViewModel;
 
 
     public MainWindowViewModel(StaticTourInfoViewModel staticTourInfoViewModel,
@@ -27,13 +28,16 @@ public class MainWindowViewModel {
                                TourListViewModel tourListViewModel,
                                SearchBarViewModel searchBarViewModel,
                                LogsFormViewModel logsFormViewModel,
-                               LogListViewModel logListViewModel, TourService tourService) {
+                               LogListViewModel logListViewModel,
+                               MenuBarViewModel menuBarViewModel,
+                               TourService tourService) {
         this.tourFormViewModel = tourFormViewModel;
         this.tourListViewModel = tourListViewModel;
         this.searchBarViewModel = searchBarViewModel;
         this.logsFormViewModel = logsFormViewModel;
         this.logListViewModel = logListViewModel;
         this.staticTourInfoViewModel = staticTourInfoViewModel;
+        this.menuBarViewModel = menuBarViewModel;
 
 
         //Section - listener
@@ -50,9 +54,9 @@ public class MainWindowViewModel {
                 logListViewModel.setLogs(selectedTourID);
             }
         });
-        this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
+        this.tourListViewModel.addSelectionListener(new ListItemSelectionListener<Tour>() {
             @Override
-            public void fillForm(Tour tour) {
+            public void handleListItemSelection(Tour tour) {
                 tourListViewModel.setEditIsDisabled(false);
                 tourFormViewModel.fillFormWithSelection(tour);
             }
@@ -86,15 +90,15 @@ public class MainWindowViewModel {
                 logsFormViewModel.openFormInWindow("update");
             }
         });
-        this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
+        this.tourListViewModel.addSelectionListener(new ListItemSelectionListener<Tour>() {
             @Override
-            public void fillForm(Tour tour) {
+            public void handleListItemSelection(Tour tour) {
                 staticTourInfoViewModel.fillTourInfo(tour);
             }
         });
-        this.tourListViewModel.addListener(new ListItemSelectionListener<Tour>() {
+        this.tourListViewModel.addSelectionListener(new ListItemSelectionListener<Tour>() {
             @Override
-            public void fillForm(Tour tour) {
+            public void handleListItemSelection(Tour tour) {
                 System.out.println("published Tour:");
                 System.out.println(tour);
                 if(tour == null){
@@ -111,7 +115,7 @@ public class MainWindowViewModel {
         });
         this.logListViewModel.addListener(new ListItemSelectionListener<Log>() {
             @Override
-            public void fillForm(Log log) {
+            public void handleListItemSelection(Log log) {
                 var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
                 System.out.println("current selected postgresID : " + selectedTourID );
                 logListViewModel.setEditIsDisabled(false);
@@ -119,6 +123,21 @@ public class MainWindowViewModel {
                 if(log == null){
                     logListViewModel.setEditIsDisabled(true);
                 }
+            }
+        });
+
+        this.tourListViewModel.addSelectionListener(new ListItemSelectionListener<Tour>() {
+            @Override
+            public void handleListItemSelection(Tour tour) {
+                menuBarViewModel.setCurrentSelection(tour);
+                menuBarViewModel.setIsItemSelected(true);
+            }
+        });
+
+        this.tourListViewModel.addUpdateListener(new ListUpdateListener() {
+            @Override
+            public void handleListUpdate(Object o) {
+                menuBarViewModel.updateTours((List<Tour>) o);
             }
         });
 
