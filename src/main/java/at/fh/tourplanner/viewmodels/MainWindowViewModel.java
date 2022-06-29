@@ -61,7 +61,7 @@ public class MainWindowViewModel {
         this.tourListViewModel.addOpenBlankFormListener(new OpenBlankTourFormListener() {
             @Override
             public void handleEvent() {
-                tourFormViewModel.clearForm();
+
                 tourFormViewModel.openFormInWindow(FormMode.CREATE);
             }
         });

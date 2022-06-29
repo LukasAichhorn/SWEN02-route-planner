@@ -68,15 +68,19 @@ public class TourFormViewModel {
         this.formValidationService = new FormValidationServiceImp();
 
     }
+
     public StringProperty actionButtonNameProperty() {
         return actionButtonName;
     }
+
     public String getTourUUID() {
         return tourUUID.get();
     }
+
     public StringProperty tourUUIDProperty() {
         return tourUUID;
     }
+
     public void setTourUUID(String tourUUID) {
         this.tourUUID.set(tourUUID);
     }
@@ -116,15 +120,18 @@ public class TourFormViewModel {
     }
 
     public void openFormInWindow(FormMode formMode) {
-        if(formMode == FormMode.CREATE){
+        if (formMode == FormMode.CREATE) {
+            clearForm();
             actionButtonNameProperty().set("create");
             this.uiServiceQueryMapAPI = new UiServiceCreateTour(tourName, start, destination, description, selectedTransportType,
-                    directionService,tourImageService,tourService);
-        } if(formMode == FormMode.UPDATE){
-            actionButtonNameProperty().set("update");
-            this.uiServiceQueryMapAPI = new UiServiceUpdateTour(tourUUID,tourName, start, destination, description, selectedTransportType,
-                    directionService,tourImageService,tourService);
+                    directionService, tourImageService, tourService);
         }
+        if (formMode == FormMode.UPDATE) {
+            actionButtonNameProperty().set("update");
+            this.uiServiceQueryMapAPI = new UiServiceUpdateTour(tourUUID, tourName, start, destination, description, selectedTransportType,
+                    directionService, tourImageService, tourService);
+        }
+
         uiServiceQueryMapAPI.valueProperty().addListener((observable, oldVal, newVal) -> {
             if (newVal != null) {
                 publishFormEvent();
@@ -166,6 +173,7 @@ public class TourFormViewModel {
             listener.onAction();
         }
     }
+
     public void fillFormWithSelection(Tour tour) {
         if (tour != null) {
             tourUUID.set(tour.getUUID().toString());
