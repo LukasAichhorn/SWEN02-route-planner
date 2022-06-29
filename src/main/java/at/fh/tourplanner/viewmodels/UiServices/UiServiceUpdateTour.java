@@ -1,10 +1,10 @@
 package at.fh.tourplanner.viewmodels.UiServices;
 
 import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.DirectionServiceResponse;
-import at.fh.tourplanner.businessLayer.DirectionService;
-import at.fh.tourplanner.businessLayer.ImageServiceResponse;
-import at.fh.tourplanner.businessLayer.TourImageService;
-import at.fh.tourplanner.businessLayer.TourService;
+import at.fh.tourplanner.businessLayer.mapApiService.DirectionService;
+import at.fh.tourplanner.businessLayer.mapApiService.ImageServiceResponse;
+import at.fh.tourplanner.businessLayer.mapApiService.TourImageService;
+import at.fh.tourplanner.businessLayer.tourService.TourService;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
 import javafx.beans.property.ObjectProperty;

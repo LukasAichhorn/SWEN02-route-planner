@@ -1,7 +1,6 @@
 package at.fh.tourplanner.viewmodels;
 
-import at.fh.tourplanner.businessLayer.PdfGenerationService;
-import at.fh.tourplanner.businessLayer.PdfGenerationServiceImpl;
+import at.fh.tourplanner.businessLayer.pdfGenerationService.PdfGenerationService;
 import at.fh.tourplanner.model.Tour;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
@@ -10,7 +9,6 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.time.LocalTime;
-import java.util.List;
 
 public class MenuBarViewModel {
 

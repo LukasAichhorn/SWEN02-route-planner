@@ -1,12 +1,12 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.logService;
 
 import at.fh.tourplanner.DataAccessLayer.DAO;
+import at.fh.tourplanner.businessLayer.logService.LogService_Interface;
 import at.fh.tourplanner.model.Log;
 
 import java.util.List;
-import java.util.UUID;
 
-public class LogService implements  LogService_Interface{
+public class LogService implements LogService_Interface {
     private final DAO database;
 
     public LogService(DAO database){

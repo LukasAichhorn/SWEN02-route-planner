@@ -1,4 +1,4 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.validationService;
 
 import at.fh.tourplanner.model.FormDataNewTour;
 import at.fh.tourplanner.model.Log;

@@ -1,6 +1,6 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
-import at.fh.tourplanner.businessLayer.TourService;
+import at.fh.tourplanner.businessLayer.tourService.TourService;
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectionListener;
 import at.fh.tourplanner.listenerInterfaces.ListUpdateListener;
 import at.fh.tourplanner.listenerInterfaces.OpenBlankTourFormListener;

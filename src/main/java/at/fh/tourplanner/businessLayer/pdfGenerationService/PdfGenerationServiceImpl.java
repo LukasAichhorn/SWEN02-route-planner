@@ -1,6 +1,7 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.pdfGenerationService;
 
 import at.fh.tourplanner.DataAccessLayer.DAO;
+import at.fh.tourplanner.businessLayer.pdfGenerationService.PdfGenerationService;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
 import com.itextpdf.io.font.constants.StandardFonts;
@@ -13,8 +14,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.UnitValue;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -23,8 +22,8 @@ import java.util.List;
 @Getter
 public class PdfGenerationServiceImpl implements PdfGenerationService {
 
-    public static final String STATISTICAL_REPORT_PDF = "C:/Users/goell/IdeaProjects/tourPlanner/statTest.pdf";
-    public static final String TOUR_REPORT_PDF = "C:/Users/goell/IdeaProjects/tourPlanner/test.pdf";
+    public static final String STATISTICAL_REPORT_PDF = "C:/Users/Lukas/IdeaProjects/SWEN02-route-planner/statTest.pdf";
+    public static final String TOUR_REPORT_PDF = "C:\\Users\\Lukas\\IdeaProjects\\SWEN02-route-planner\\test.pdf";
     private DAO database;
 
     private Tour selectedTour;
@@ -37,12 +36,18 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
 
     @Override
     public void generateStatisticalReport() {
+        try{
         List<Tour> tours = database.getAllTours();
-        try {
+        for(var tour : tours ){
+            tour.setLogs(database.getAllLogsForTour(tour.getPostgresID()));
+        }
+        System.out.println("done with loop");
+
             PdfWriter writer = new PdfWriter(STATISTICAL_REPORT_PDF);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
             document.add(generateTourHeader("Statistical Report"));
+            System.out.println("help");
             document.add(generateStatisticsTable(tours));
             System.out.println(tours);
             document.close();
@@ -52,6 +57,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
     }
 
     private Table generateStatisticsTable(List<Tour> tours) {
+        System.out.println("inside generateStatsiticsTable");
         Table table = new Table(UnitValue.createPercentArray(4)).useAllAvailableWidth();
         table.setFontSize(14).setBackgroundColor(ColorConstants.WHITE);
         table.addHeaderCell(getHeaderCell("Id"));
@@ -59,6 +65,8 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         table.addHeaderCell(getHeaderCell("Avg. time"));
         table.addHeaderCell(getHeaderCell("Avg. rating"));
         tours.forEach(tour -> {
+            System.out.println("writing Stats for Tour: ");
+            System.out.println(tour.getPostgresID() + "   " + tour.getLogs().size());
             double avgTime = 0.0;
             double avgRating = 0.0;
             table.addCell(String.valueOf(tour.getPostgresID()));
@@ -83,6 +91,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
     @Override
     public void generateTourReport(Tour tour) {
         try {
+            tour.setLogs(database.getAllLogsForTour(tour.getPostgresID()));
             PdfWriter writer = new PdfWriter(TOUR_REPORT_PDF);
             PdfDocument pdf = new PdfDocument(writer);
             try (Document document = new Document(pdf)) {
@@ -133,6 +142,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         table.addHeaderCell(getHeaderCell("Rating"));
         table.addHeaderCell(getHeaderCell("Time Stamp"));
         table.addHeaderCell(getHeaderCell("Comment"));
+
         tour.getLogs().forEach(log -> {
             table.addCell(String.valueOf(log.getId()));
             table.addCell(String.valueOf(log.getDuration()) + "h");

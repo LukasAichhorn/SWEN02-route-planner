@@ -1,11 +1,10 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.validationService;
 
+import at.fh.tourplanner.businessLayer.validationService.FormValidationService;
 import at.fh.tourplanner.model.FormDataNewTour;
-import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.LogFormData;
-import at.fh.tourplanner.model.Tour;
 
-public class FormValidationServiceImp implements  FormValidationService{
+public class FormValidationServiceImp implements FormValidationService {
     @Override
     public boolean noEmptyValues(FormDataNewTour tour) {
         if(tour.getTourName().isBlank()) return false;

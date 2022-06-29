@@ -1,6 +1,6 @@
 package at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit;
 
-import at.fh.tourplanner.businessLayer.ImageServiceResponse;
+import at.fh.tourplanner.businessLayer.mapApiService.ImageServiceResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

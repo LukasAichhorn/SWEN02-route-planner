@@ -1,6 +1,6 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.mapApiService;
 
-import javafx.scene.image.Image;
+import at.fh.tourplanner.businessLayer.mapApiService.ImageServiceResponse;
 
 import java.util.UUID;
 

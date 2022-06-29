@@ -1,6 +1,8 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.mapApiService;
 
 import at.fh.tourplanner.DataAccessLayer.mapAPI.MapAPI;
+import at.fh.tourplanner.businessLayer.mapApiService.ImageServiceResponse;
+import at.fh.tourplanner.businessLayer.mapApiService.TourImageService;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;

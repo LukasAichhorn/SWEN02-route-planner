@@ -1,4 +1,4 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.pdfGenerationService;
 
 import at.fh.tourplanner.model.Tour;
 

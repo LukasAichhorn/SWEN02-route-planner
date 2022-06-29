@@ -1,4 +1,4 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.logService;
 
 import at.fh.tourplanner.model.Log;
 

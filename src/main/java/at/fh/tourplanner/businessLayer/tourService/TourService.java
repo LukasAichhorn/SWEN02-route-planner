@@ -1,8 +1,6 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.tourService;
 
 import at.fh.tourplanner.DataAccessLayer.DAO;
-import at.fh.tourplanner.DataAccessLayer.listener.DbCreateEvent;
-import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.DirectionServiceResponse;
 import at.fh.tourplanner.model.Tour;
 
 import java.util.List;

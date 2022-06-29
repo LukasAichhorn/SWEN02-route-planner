@@ -1,6 +1,6 @@
 package at.fh.tourplanner.viewmodels;
 
-import at.fh.tourplanner.businessLayer.TourService;
+import at.fh.tourplanner.businessLayer.tourService.TourService;
 import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.FormMode;
 import at.fh.tourplanner.model.Log;
@@ -10,8 +10,6 @@ import at.fh.tourplanner.viewmodels.Logs.LogsFormViewModel;
 import at.fh.tourplanner.viewmodels.Tours.StaticTourInfoViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import at.fh.tourplanner.viewmodels.Tours.TourListViewModel;
-
-import java.util.List;
 
 public class MainWindowViewModel {
 

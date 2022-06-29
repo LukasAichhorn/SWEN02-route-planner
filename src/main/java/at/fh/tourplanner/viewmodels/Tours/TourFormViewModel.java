@@ -1,9 +1,12 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
 import at.fh.tourplanner.ControllerFactory;
-import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.DirectionServiceResponse;
 import at.fh.tourplanner.Main;
-import at.fh.tourplanner.businessLayer.*;
+import at.fh.tourplanner.businessLayer.mapApiService.DirectionService;
+import at.fh.tourplanner.businessLayer.mapApiService.TourImageService;
+import at.fh.tourplanner.businessLayer.tourService.TourService;
+import at.fh.tourplanner.businessLayer.validationService.FormValidationService;
+import at.fh.tourplanner.businessLayer.validationService.FormValidationServiceImp;
 import at.fh.tourplanner.listenerInterfaces.FormActionListener;
 import at.fh.tourplanner.model.FormDataNewTour;
 import at.fh.tourplanner.model.FormMode;
@@ -15,7 +18,6 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,13 +26,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 public class TourFormViewModel {

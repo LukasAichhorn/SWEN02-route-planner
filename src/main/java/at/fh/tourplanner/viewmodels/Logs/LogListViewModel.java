@@ -1,6 +1,6 @@
 package at.fh.tourplanner.viewmodels.Logs;
 
-import at.fh.tourplanner.businessLayer.LogService;
+import at.fh.tourplanner.businessLayer.logService.LogService;
 import at.fh.tourplanner.listenerInterfaces.*;
 import at.fh.tourplanner.model.Log;
 import javafx.beans.property.BooleanProperty;

@@ -1,4 +1,4 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.mapApiService;
 
 import java.awt.image.BufferedImage;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package at.fh.tourplanner.businessLayer;
+package at.fh.tourplanner.businessLayer.tourService;
 
 import at.fh.tourplanner.DataAccessLayer.listener.DbCreateEvent;
 import at.fh.tourplanner.model.Tour;

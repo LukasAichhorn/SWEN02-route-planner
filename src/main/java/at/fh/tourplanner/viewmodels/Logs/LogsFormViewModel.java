@@ -2,11 +2,10 @@ package at.fh.tourplanner.viewmodels.Logs;
 
 import at.fh.tourplanner.ControllerFactory;
 import at.fh.tourplanner.Main;
-import at.fh.tourplanner.businessLayer.FormValidationService;
-import at.fh.tourplanner.businessLayer.LogService;
+import at.fh.tourplanner.businessLayer.validationService.FormValidationService;
+import at.fh.tourplanner.businessLayer.logService.LogService;
 import at.fh.tourplanner.listenerInterfaces.FormActionListener;
 import at.fh.tourplanner.model.*;
-import at.fh.tourplanner.viewmodels.Tours.TourFormViewModel;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,11 +20,9 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class LogsFormViewModel {
     // -- Properties
