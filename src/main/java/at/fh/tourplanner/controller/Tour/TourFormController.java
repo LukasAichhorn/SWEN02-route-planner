@@ -46,25 +46,8 @@ public class TourFormController implements Initializable {
         transportTypeChoiceBox.valueProperty().bindBidirectional(tourFormViewModel.getSelectedTransportType());
         progressIndicator.visibleProperty().bind(tourFormViewModel.runningTaskProperty());
         stackPane.visibleProperty().bind(tourFormViewModel.runningTaskProperty());
-
-
         actionButton.textProperty().bind(tourFormViewModel.actionButtonNameProperty());
-        if(tourFormViewModel.actionButtonNameProperty().get().equals("create")) {
-            actionButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    addNewTourAction();
-                }
-            });
-        }
-        if(tourFormViewModel.actionButtonNameProperty().get().equals("update")) {
-            actionButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    updateTourAction();
-                }
-            });
-        }
+
 
     }
     private FormDataNewTour collectFormData(){
@@ -75,12 +58,10 @@ public class TourFormController implements Initializable {
                 destinationTextField.getText(),
                 descriptionTextArea.getText());
     }
-    public void addNewTourAction() {
-        tourFormViewModel.addNewTourAction(collectFormData());
+    public void formAction() {
+        tourFormViewModel.formAction(collectFormData());
     }
-    public void updateTourAction() {
-        tourFormViewModel.updateTourAction(collectFormData());
-    }
+
     public void closeWindow(ActionEvent event){
         tourFormViewModel.closeWindow(event);
     }
