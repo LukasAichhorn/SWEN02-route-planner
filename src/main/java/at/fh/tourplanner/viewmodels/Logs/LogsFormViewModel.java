@@ -18,12 +18,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class LogsFormViewModel {
     // -- Properties
     private final IntegerProperty tourID = new SimpleIntegerProperty();
@@ -167,22 +169,20 @@ public class LogsFormViewModel {
 
     public void addNewLogAction(LogFormData logFormData) {
         if (formValidationService.noEmptyValues(logFormData)) {
-            System.out.println("calling APi to insert " + logFormData);
-            System.out.println("Owned by Tour:  " + getTourID());
+            log.info("New Log created data: {}", logFormData);
             uiServiceQueryAPI.restart();
 
         } else {
-            System.out.println("error while creating new Tour ");
+            log.error("Error: Incorrect data submitted {}", logFormData.toString());
         }
     }
     public void updateLogAction(LogFormData logFormData){
         if (formValidationService.noEmptyValues(logFormData)) {
-            System.out.println("calling APi to update " + logFormData.toString());
-            //System.out.println("Owned by Tour:  " + getTourID());
+            log.info("Updating log data: {}", logFormData.toString());
             uiServiceQueryAPI.restart();
 
         } else {
-            System.out.println("error while creating new Tour ");
+            log.error("Error: Incorrect data submitted for update {}", logFormData.toString());
         }
     }
 
@@ -190,7 +190,6 @@ public class LogsFormViewModel {
         this.formActionListeners.add(formActionListener);
     }
     public void publishFormEvent() {
-        System.out.println("publish form Event from Tour Form");
         for (var listener : formActionListeners) {
             listener.onAction();
         }
@@ -216,11 +215,9 @@ public class LogsFormViewModel {
                             getTourID()
                     );
                     if(actionButtonNameProperty().get().equals("create")){
-                        System.out.println("starting task adding log");
                         logService.addNewLogToDatabase(newLog);
                     }
                     if(actionButtonNameProperty().get().equals("update")){
-                        System.out.println("starting task updating log");
                         logService.updateLogInDatabase(newLog);
                     }
 

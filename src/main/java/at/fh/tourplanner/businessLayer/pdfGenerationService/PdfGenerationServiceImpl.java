@@ -41,15 +41,11 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         for(var tour : tours ){
             tour.setLogs(database.getAllLogsForTour(tour.getPostgresID()));
         }
-        System.out.println("done with loop");
-
             PdfWriter writer = new PdfWriter(STATISTICAL_REPORT_PDF);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
             document.add(generateTourHeader("Statistical Report"));
-            System.out.println("help");
             document.add(generateStatisticsTable(tours));
-            System.out.println(tours);
             document.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -57,7 +53,6 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
     }
 
     private Table generateStatisticsTable(List<Tour> tours) {
-        System.out.println("inside generateStatsiticsTable");
         Table table = new Table(UnitValue.createPercentArray(4)).useAllAvailableWidth();
         table.setFontSize(14).setBackgroundColor(ColorConstants.WHITE);
         table.addHeaderCell(getHeaderCell("Id"));
@@ -65,8 +60,6 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         table.addHeaderCell(getHeaderCell("Avg. time"));
         table.addHeaderCell(getHeaderCell("Avg. rating"));
         tours.forEach(tour -> {
-            System.out.println("writing Stats for Tour: ");
-            System.out.println(tour.getPostgresID() + "   " + tour.getLogs().size());
             double avgTime = 0.0;
             double avgRating = 0.0;
             table.addCell(String.valueOf(tour.getPostgresID()));
@@ -75,7 +68,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
                 avgTime += log.getDuration();
                 avgRating += log.getRating();
             }
-            if (tour.getLogs().size() > 0) {
+            if (tour.getLogs().isEmpty()) {
                 table.addCell(String.valueOf(avgTime/tour.getLogs().size()));
                 table.addCell(String.valueOf(avgRating/tour.getLogs().size()));
             }

@@ -40,7 +40,6 @@ public class TourListController implements Initializable {
                 public Tour fromString(String s) {
                     Tour tour = cell.getItem();
                     tour.setName(s);
-                    System.out.println(tour);
                     return tour;
                 }
             });

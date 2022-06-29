@@ -18,10 +18,12 @@ import javafx.concurrent.Task;
 import javafx.scene.control.ListView;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class TourListViewModel {
     private Tour currentSelection = null;
 
@@ -108,11 +110,7 @@ public class TourListViewModel {
             @Override
             public void changed(ObservableValue<? extends Tour> observableValue, Tour tour, Tour t1) {
                 currentSelection = t1;
-                System.out.println("current selection : ");
-                System.out.println(t1);
                 publishSelectionEvent(t1);
-                System.out.println("changeListener triggered with");
-                System.out.println(t1);
             }
         });
     }
@@ -151,7 +149,7 @@ public class TourListViewModel {
         protected Task<String> createTask() {
             return new Task<>() {
                 protected String call() {
-                    System.out.println("starting task deleting id: " + getCurrentSelection().getUUID());
+                    log.info("Deleting tour with UUID: {}", getCurrentSelection().getUUID());
                     tourService.deleteTourInDatabase(getCurrentSelection().getUUID());
                     return "completed delete Task";
                 }

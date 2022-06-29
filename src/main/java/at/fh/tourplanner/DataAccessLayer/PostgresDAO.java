@@ -7,6 +7,7 @@ import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
 import javafx.geometry.Pos;
+import lombok.extern.log4j.Log4j2;
 
 import java.sql.*;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Log4j2
 public class PostgresDAO implements DAO {
     private final String pw = "admin";
     private final String user = "postgres";
@@ -87,8 +89,6 @@ public class PostgresDAO implements DAO {
                         rs.getInt("linked_tour")
                 ));
             }
-            System.out.println("return value from DATABASE LOGs");
-            System.out.println(temp);
             return temp;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -115,9 +115,9 @@ public class PostgresDAO implements DAO {
             preparedStatement.setString(9, tour.getUUID().toString());
 
             int row = preparedStatement.executeUpdate();
-            if(row ==1) System.out.println("created tour entry in DB");
+            if(row ==1) log.info("created tour entry in DB");
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            log.error("SQL State: {}\n{}", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -149,9 +149,9 @@ public class PostgresDAO implements DAO {
             preparedStatement.setString(9, tour.getUUID().toString());
 
             int row = preparedStatement.executeUpdate();
-            if(row ==1) System.out.println("updated tour entry in DB");
+            if(row ==1) log.info("updated tour with UUID: {} entry in DB", tour.getUUID());
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            log.error("SQL State: {}\n{}", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -166,33 +166,33 @@ public class PostgresDAO implements DAO {
             preparedStatement.setString(1, id.toString());
 
             int row = preparedStatement.executeUpdate();
-            if (row == 1) System.out.println("deleted tour entry in DB");
+            if (row == 1) log.info("deleted tour with UUID: {} in DB", id);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            log.error("SQL State: {}\n{}", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void addLog(Log log) {
+    public void addLog(Log newLog) {
         String SQL = "INSERT INTO logs (local_date,rating,difficulty_tier," +
                 "duration, description,linked_tour ) VALUES (?,?,?,?," +
                 "?,?)";
         try (Connection conn = getConnection(); PreparedStatement preparedStatement =
                 conn.prepareStatement(SQL)) {
             preparedStatement.setTimestamp(1,
-                    Timestamp.valueOf(log.getTimeStamp().atStartOfDay()));
-            preparedStatement.setInt(2,log.getRating());
-            preparedStatement.setString(3, log.getDifficulty().toString());
-            preparedStatement.setDouble(4, log.getDuration());
-            preparedStatement.setString(5, log.getComment());
-            preparedStatement.setInt(6, log.getTourID());
+                    Timestamp.valueOf(newLog.getTimeStamp().atStartOfDay()));
+            preparedStatement.setInt(2,newLog.getRating());
+            preparedStatement.setString(3, newLog.getDifficulty().toString());
+            preparedStatement.setDouble(4, newLog.getDuration());
+            preparedStatement.setString(5, newLog.getComment());
+            preparedStatement.setInt(6, newLog.getTourID());
 
             int row = preparedStatement.executeUpdate();
-            if(row ==1) System.out.println("created tour entry in DB");
+            if(row ==1) log.info("created log in DB for tour with ID:{}", newLog.getTourID());
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            log.error("SQL State: {}\n{}", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -200,7 +200,7 @@ public class PostgresDAO implements DAO {
     }
 
     @Override
-    public void updateLog(Log log) {
+    public void updateLog(Log updateLog) {
 
         String SQL = "UPDATE logs " +
                 "SET local_date = ?," +
@@ -213,17 +213,17 @@ public class PostgresDAO implements DAO {
         try (Connection conn = getConnection(); PreparedStatement preparedStatement =
                 conn.prepareStatement(SQL)) {
             preparedStatement.setTimestamp(1,
-                    Timestamp.valueOf(log.getTimeStamp().atStartOfDay()));
-            preparedStatement.setInt(2,log.getRating());
-            preparedStatement.setString(3, log.getDifficulty().toString());
-            preparedStatement.setDouble(4, log.getDuration());
-            preparedStatement.setString(5, log.getComment());
-            preparedStatement.setInt(6, log.getId());
+                    Timestamp.valueOf(updateLog.getTimeStamp().atStartOfDay()));
+            preparedStatement.setInt(2,updateLog.getRating());
+            preparedStatement.setString(3, updateLog.getDifficulty().toString());
+            preparedStatement.setDouble(4, updateLog.getDuration());
+            preparedStatement.setString(5, updateLog.getComment());
+            preparedStatement.setInt(6, updateLog.getId());
 
             int row = preparedStatement.executeUpdate();
-            if(row ==1) System.out.println("updated log entry in DB");
+            if(row ==1) log.info("updated log in DB with ID:{}", updateLog.getId());
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            log.error("SQL State: {}\n{}", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -241,9 +241,9 @@ public class PostgresDAO implements DAO {
             preparedStatement.setInt(1, id);
 
             int row = preparedStatement.executeUpdate();
-            if (row == 1) System.out.println("deleted log entry in DB");
+            if (row == 1)log.info("deleted log with ID: {} from DB", id);
         } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            log.error("SQL State: {}\n{}", e.getSQLState(), e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
