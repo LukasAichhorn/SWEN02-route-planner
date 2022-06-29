@@ -2,6 +2,7 @@ package at.fh.tourplanner.viewmodels;
 
 import at.fh.tourplanner.businessLayer.TourService;
 import at.fh.tourplanner.listenerInterfaces.*;
+import at.fh.tourplanner.model.FormMode;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.viewmodels.Logs.LogListViewModel;
@@ -64,8 +65,8 @@ public class MainWindowViewModel {
         this.tourListViewModel.addOpenBlankFormListener(new OpenBlankTourFormListener() {
             @Override
             public void handleEvent() {
-                tourFormViewModel.clearForm();
-                tourFormViewModel.openFormInWindow("create");
+
+                tourFormViewModel.openFormInWindow(FormMode.CREATE);
             }
         });
         this.logListViewModel.addOpenBlankLogFormListener(new OpenBlankLogFormListener(){
@@ -80,7 +81,7 @@ public class MainWindowViewModel {
         this.tourListViewModel.addOpenFilledFormListener(new OpenFilledTourFormListener() {
             @Override
             public void handleEvent() {
-                tourFormViewModel.openFormInWindow("update");
+                tourFormViewModel.openFormInWindow(FormMode.UPDATE);
             }
         });
         this.logListViewModel.addOpenFilledLogFormListener(new OpenFilledLogFormListener(){

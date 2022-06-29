@@ -6,8 +6,11 @@ import at.fh.tourplanner.Main;
 import at.fh.tourplanner.businessLayer.*;
 import at.fh.tourplanner.listenerInterfaces.FormActionListener;
 import at.fh.tourplanner.model.FormDataNewTour;
+import at.fh.tourplanner.model.FormMode;
 import at.fh.tourplanner.model.Tour;
 import at.fh.tourplanner.model.TransportType;
+import at.fh.tourplanner.viewmodels.UiServices.UiServiceCreateTour;
+import at.fh.tourplanner.viewmodels.UiServices.UiServiceUpdateTour;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +37,6 @@ public class TourFormViewModel {
 
     // --Fields
 
-
     // -- Binding Properties
     private final StringProperty tourUUID = new SimpleStringProperty("");
     private final StringProperty tourName = new SimpleStringProperty("");
@@ -48,7 +50,6 @@ public class TourFormViewModel {
     // -- Listener lists
     private final List<FormActionListener> formActionListeners = new ArrayList<>();
 
-
     // -- Services
     private final TourService tourService;
     private final TourImageService tourImageService;
@@ -56,7 +57,7 @@ public class TourFormViewModel {
     private final DirectionService directionService;
 
     // --Worker Task
-    private final UiServiceQueryMapAPI uiServiceQueryMapAPI;
+    private Service<String> uiServiceQueryMapAPI;
 
     public TourFormViewModel(DirectionService directionService, TourService tourService,
                              TourImageService tourImageService) {
@@ -65,26 +66,12 @@ public class TourFormViewModel {
         this.tourService = tourService;
         this.tourImageService = tourImageService;
         this.formValidationService = new FormValidationServiceImp();
-        this.uiServiceQueryMapAPI = new UiServiceQueryMapAPI(tourUUID, tourName, start,
-                destination, description, selectedTransportType);
 
-        uiServiceQueryMapAPI.valueProperty().addListener((observable, oldVal, newVal) -> {
-            if (newVal != null) {
-                publishFormEvent();
-            }
-        });
-        uiServiceQueryMapAPI.exceptionProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, newValue.toString());
-                alert.showAndWait();
-            }
-        });
     }
 
     public StringProperty actionButtonNameProperty() {
         return actionButtonName;
     }
-
 
     public String getTourUUID() {
         return tourUUID.get();
@@ -132,8 +119,30 @@ public class TourFormViewModel {
         ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
     }
 
-    public void openFormInWindow(String buttonName) {
-        actionButtonNameProperty().set(buttonName);
+    public void openFormInWindow(FormMode formMode) {
+        if (formMode == FormMode.CREATE) {
+            clearForm();
+            actionButtonNameProperty().set("create");
+            this.uiServiceQueryMapAPI = new UiServiceCreateTour(tourName, start, destination, description, selectedTransportType,
+                    directionService, tourImageService, tourService);
+        }
+        if (formMode == FormMode.UPDATE) {
+            actionButtonNameProperty().set("update");
+            this.uiServiceQueryMapAPI = new UiServiceUpdateTour(tourUUID, tourName, start, destination, description, selectedTransportType,
+                    directionService, tourImageService, tourService);
+        }
+
+        uiServiceQueryMapAPI.valueProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal != null) {
+                publishFormEvent();
+            }
+        });
+        uiServiceQueryMapAPI.exceptionProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, newValue.toString());
+                alert.showAndWait();
+            }
+        });
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -158,7 +167,6 @@ public class TourFormViewModel {
         this.formActionListeners.add(formActionListener);
     }
 
-
     public void publishFormEvent() {
         System.out.println("publish form Event from Tour Form");
         for (var listener : formActionListeners) {
@@ -174,7 +182,6 @@ public class TourFormViewModel {
             destination.set(tour.getDestination());
             description.set(tour.getDescription());
             selectedTransportType.setValue(tour.getTransportType());
-
         } else {
             clearForm();
         }
@@ -188,7 +195,7 @@ public class TourFormViewModel {
         return this.selectedTransportType;
     }
 
-    public void addNewTourAction(FormDataNewTour tour) {
+    public void formAction(FormDataNewTour tour) {
         if (formValidationService.noEmptyValues(tour)) {
             System.out.println("calling APi " + tour);
             uiServiceQueryMapAPI.restart();
@@ -197,80 +204,6 @@ public class TourFormViewModel {
         }
     }
 
-    public void updateTourAction(FormDataNewTour tour) {
-        if (formValidationService.noEmptyValues(tour)) {
-            System.out.println("calling APi " + tour);
-            uiServiceQueryMapAPI.restart();
-        } else {
-            System.out.println("error while creating new Tour ");
-        }
-    }
-
-    @Getter
-    @AllArgsConstructor
-    public class UiServiceQueryMapAPI extends Service<String> {
-        private StringProperty id;
-        private StringProperty name;
-        private StringProperty start;
-        private StringProperty end;
-        private StringProperty description;
-        private ObjectProperty<TransportType> selectedTransportType;
-
-        @Override
-        protected Task<String> createTask() {
-            return new Task<>() {
-                protected String call() {
-                    DirectionServiceResponse dirR =
-                            directionService.queryDirection(start.get(),
-                                    end.get());
-                    System.out.println("DirR is done");
-                    if (id.get().isEmpty()) {
-                        System.out.println("create new Tour");
-                        ImageServiceResponse imgR =
-                                tourImageService.queryTourImage(start.get(),
-                                        getDestination().get());
-                        System.out.println("imgR is done");
-                        Tour newTour = new Tour(
-                                imgR.getGeneratedId(),
-                                name.get(),
-                                start.get(),
-                                end.get(),
-                                description.get(),
-                                selectedTransportType.getValue(),
-                                String.valueOf(dirR.getRoute().getDistance()),
-                                dirR.getRoute().getFormattedTime(),
-                                new ArrayList<>(),
-                                imgR.getImagePath()
-                        );
-                        tourService.addNewTourToDatabase(newTour);
-                        return "create new Tour Task done";
-                    } else {
-                        System.out.println("edit tour with id: " + id);
-                        System.out.println("Updating ID: " + id + "in thread");
-                        ImageServiceResponse imgR =
-                                tourImageService.updateTourImage(start.get(),
-                                        getDestination().get(),
-                                        UUID.fromString(id.get()));
-                        System.out.println("imgR is done");
-                        Tour newTour = new Tour(
-                                UUID.fromString(id.get()),
-                                name.get(),
-                                start.get(),
-                                end.get(),
-                                description.get(),
-                                selectedTransportType.getValue(),
-                                String.valueOf(dirR.getRoute().getDistance()),
-                                dirR.getRoute().getFormattedTime(),
-                                new ArrayList<>(),
-                                imgR.getImagePath()
-                        );
-                        tourService.updateTourInDatabase(newTour);
-                        return "service Task Done";
-                    }
-                }
-            };
-        }
-    }
 
 }
 

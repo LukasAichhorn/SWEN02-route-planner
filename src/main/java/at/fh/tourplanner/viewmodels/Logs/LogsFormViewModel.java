@@ -37,15 +37,18 @@ public class LogsFormViewModel {
     private final ObjectProperty<DifficultyTier> difficultyTierObjectProperty = new SimpleObjectProperty<>();
     private final ObjectProperty<Integer> ratingObjectProperty = new SimpleObjectProperty<>();
     private final StringProperty actionButtonName = new SimpleStringProperty("");
+
     // -- Lists
     private final ObservableList<DifficultyTier> difficultyTierObservableList = FXCollections.observableArrayList(DifficultyTier.values());
     private final ObservableList<Integer> ratingObservableList = FXCollections.observableArrayList(1, 2, 3, 4);
+
     // -- Listener lists
     private final List<FormActionListener> formActionListeners = new ArrayList<>();
 
     //-- Services
     private final FormValidationService formValidationService;
     private final LogService logService;
+
     // -- UI Worker
     private final UiServiceQueryAPI uiServiceQueryAPI;
 
