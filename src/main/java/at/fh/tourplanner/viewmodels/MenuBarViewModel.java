@@ -7,9 +7,11 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalTime;
 
+@Log4j2
 public class MenuBarViewModel {
 
     private final BooleanProperty isTourSelected = new SimpleBooleanProperty(false);
@@ -30,7 +32,6 @@ public class MenuBarViewModel {
     }
     public void createStatisticalReport() {
         statisticalReportUIService.restart();
-        System.out.println("Statistical Report");
     }
 
     public void createTourReport() {
@@ -38,7 +39,6 @@ public class MenuBarViewModel {
     }
 
     public void setIsItemSelected(boolean b) {
-        System.out.println(b + ": tour is selected");
         isTourSelected.set(b);
     }
 
@@ -53,9 +53,8 @@ public class MenuBarViewModel {
             return new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                    System.out.println("started creating stat report at " + LocalTime.now());
                     pdfGenerationService.generateStatisticalReport();
-                    System.out.println("finished creating stat report at " + LocalTime.now());
+                    log.info("Statistical report created.");
                     return null;
                 }
             };
@@ -69,6 +68,7 @@ public class MenuBarViewModel {
                 @Override
                 protected Void call() throws Exception {
                     pdfGenerationService.generateTourReport(currentSelection);
+                    log.info("Tour report for '{}' generated.", currentSelection.getName());
                     return null;
                 }
             };

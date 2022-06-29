@@ -26,12 +26,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Log4j2
 public class TourFormViewModel {
 
     // --Fields
@@ -167,7 +168,6 @@ public class TourFormViewModel {
     }
 
     public void publishFormEvent() {
-        System.out.println("publish form Event from Tour Form");
         for (var listener : formActionListeners) {
             listener.onAction();
         }
@@ -196,10 +196,10 @@ public class TourFormViewModel {
 
     public void formAction(FormDataNewTour tour) {
         if (formValidationService.noEmptyValues(tour)) {
-            System.out.println("calling APi " + tour);
+            log.info("New tour created. TourData: {}", tour.toString());
             uiServiceQueryMapAPI.restart();
         } else {
-            System.out.println("error while creating new Tour ");
+            log.error("Error: creating new tour failed. TourData: {}", tour.toString());
         }
     }
 

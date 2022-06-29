@@ -2,6 +2,7 @@ package at.fh.tourplanner.DataAccessLayer.mapAPI;
 
 import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.RetrofitMapQuestAPI;
 import at.fh.tourplanner.DataAccessLayer.mapAPI.Retrofit.DirectionServiceResponse;
+import lombok.extern.log4j.Log4j2;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Log4j2
 public class RemoteMapAPI implements MapAPI {
 
     private final RetrofitMapQuestAPI mapApi;
@@ -29,7 +31,7 @@ public class RemoteMapAPI implements MapAPI {
         DirectionServiceResponse result;
         try {
             result = mapApi.getDirection(start, end).execute().body();
-            System.out.println( "QueryDirection result: " + result.getRoute().toString());
+            log.info("QueryDirection result: {}", result.getRoute().toString());
             return result;
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,8 +46,7 @@ public class RemoteMapAPI implements MapAPI {
         try {
             result = mapApi.getTourImage(start, end).execute().body().byteStream();
             BufferedImage img = ImageIO.read(result);
-            System.out.println( "QueryRouteImage result: ");
-            System.out.println(img);
+            log.info( "QueryRouteImage result:{} ", img);
             return img;
 
         } catch (IOException e) {

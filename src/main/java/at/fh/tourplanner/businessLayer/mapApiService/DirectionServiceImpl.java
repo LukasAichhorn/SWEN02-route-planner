@@ -13,7 +13,6 @@ public class DirectionServiceImpl implements DirectionService {
 
     @Override
     public DirectionServiceResponse queryDirection(String start, String end) {
-        System.out.println("DirectionServiceImp -- start: " + start +" end: " + end);
         return mapAPI.queryDirection(start,end);
     }
 }
