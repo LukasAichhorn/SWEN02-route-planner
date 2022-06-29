@@ -6,7 +6,10 @@ import at.fh.tourplanner.model.Tour;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 
+import java.time.LocalTime;
 import java.util.List;
 
 public class MenuBarViewModel {
@@ -14,25 +17,26 @@ public class MenuBarViewModel {
     private final BooleanProperty isTourSelected = new SimpleBooleanProperty(false);
     private final PdfGenerationService pdfGenerationService;
     private Tour currentSelection;
-    private List<Tour> tours;
+    private StatisticalReportUIService statisticalReportUIService;
+    private TourReportUIService tourReportUIService;
 
     public MenuBarViewModel(PdfGenerationService pdfGenerationService) {
         this.pdfGenerationService = pdfGenerationService;
+        this.statisticalReportUIService = new StatisticalReportUIService();
+        this.tourReportUIService = new TourReportUIService();
 
     }
-
 
     public Property<Boolean> getIsTourSelected() {
         return this.isTourSelected;
     }
     public void createStatisticalReport() {
-        pdfGenerationService.generateStatisticalReport(tours);
+        statisticalReportUIService.restart();
         System.out.println("Statistical Report");
     }
 
     public void createTourReport() {
-        pdfGenerationService.generateTourReport(currentSelection);
-        System.out.println("tour report");
+        tourReportUIService.restart();
     }
 
     public void setIsItemSelected(boolean b) {
@@ -44,7 +48,32 @@ public class MenuBarViewModel {
         this.currentSelection = tour;
     }
 
-    public void updateTours(List<Tour> tours) {
-        this.tours = tours;
+    public class StatisticalReportUIService extends Service<Void> {
+        @Override
+        protected Task<Void> createTask() {
+
+            return new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    System.out.println("started creating stat report at " + LocalTime.now());
+                    pdfGenerationService.generateStatisticalReport();
+                    System.out.println("finished creating stat report at " + LocalTime.now());
+                    return null;
+                }
+            };
+        }
+    }
+    public class TourReportUIService extends Service<Void> {
+        @Override
+        protected Task<Void> createTask() {
+
+            return new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    pdfGenerationService.generateTourReport(currentSelection);
+                    return null;
+                }
+            };
+        }
     }
 }

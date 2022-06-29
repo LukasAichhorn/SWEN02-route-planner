@@ -133,14 +133,6 @@ public class MainWindowViewModel {
                 menuBarViewModel.setIsItemSelected(true);
             }
         });
-
-        this.tourListViewModel.addUpdateListener(new ListUpdateListener() {
-            @Override
-            public void handleListUpdate(Object o) {
-                menuBarViewModel.updateTours((List<Tour>) o);
-            }
-        });
-
         this.searchBarViewModel.addSearchListener(new SearchListener() {
             @Override
             public void handleSearch(String searchString) {

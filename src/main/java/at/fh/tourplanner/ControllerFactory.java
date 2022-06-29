@@ -38,7 +38,7 @@ public class ControllerFactory {
                 new LogService(InMemoryDAO.getInstance()));
         logListViewModel = new LogListViewModel(new LogService(InMemoryDAO.getInstance()));
         staticTourInfoViewModel = new StaticTourInfoViewModel();
-        menuBarViewModel = new MenuBarViewModel(new PdfGenerationServiceImpl());
+        menuBarViewModel = new MenuBarViewModel(new PdfGenerationServiceImpl(InMemoryDAO.getInstance()));
         mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,
                 tourFormViewModel, tourListViewModel, searchBarViewModel,
                 logsFormViewModel, logListViewModel, menuBarViewModel,

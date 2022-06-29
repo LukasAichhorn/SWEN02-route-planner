@@ -68,7 +68,6 @@ public class TourListViewModel {
         tours.clear();
         // TODO wrap refresh into a service
         tours.addAll(tourService.getToursFromDatabase());
-        publishListUpdateEvent();
     }
 
     public void addSelectionListener(ListItemSelectionListener listItemSelectionListener) {
@@ -103,12 +102,6 @@ public class TourListViewModel {
             listener.handleEvent();
         }
     }
-    public void publishListUpdateEvent(){
-        for(var listener : updateListeners) {
-            listener.handleListUpdate(tours);
-        }
-    }
-
 
     public void addChangeListener(ListView<Tour> listView) {
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tour>() {

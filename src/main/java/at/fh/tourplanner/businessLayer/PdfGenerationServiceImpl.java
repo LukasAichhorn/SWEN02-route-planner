@@ -1,5 +1,6 @@
 package at.fh.tourplanner.businessLayer;
 
+import at.fh.tourplanner.DataAccessLayer.DAO;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
 import com.itextpdf.io.font.constants.StandardFonts;
@@ -12,18 +13,31 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.UnitValue;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.util.List;
 
+@Getter
 public class PdfGenerationServiceImpl implements PdfGenerationService {
 
     public static final String STATISTICAL_REPORT_PDF = "C:/Users/goell/IdeaProjects/tourPlanner/statTest.pdf";
     public static final String TOUR_REPORT_PDF = "C:/Users/goell/IdeaProjects/tourPlanner/test.pdf";
+    private DAO database;
+
+    private Tour selectedTour;
+
+    public PdfGenerationServiceImpl(DAO instance) {
+        this.database = instance;
+
+
+    }
 
     @Override
-    public void generateStatisticalReport(List<Tour> tours) {
-
+    public void generateStatisticalReport() {
+        List<Tour> tours = database.getAllTours();
         try {
             PdfWriter writer = new PdfWriter(STATISTICAL_REPORT_PDF);
             PdfDocument pdf = new PdfDocument(writer);
@@ -89,7 +103,6 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private Table generateTourTable(Tour tour) {
@@ -155,4 +168,8 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
                 .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
                 .setFontSize(12);
     }
+
+
+
+
 }

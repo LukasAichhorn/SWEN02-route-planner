@@ -8,7 +8,7 @@ public interface PdfGenerationService {
 
 
     void generateTourReport(Tour tour);
-    void generateStatisticalReport(List<Tour> tours);
+    void generateStatisticalReport();
 
 
 }
