@@ -12,6 +12,7 @@ public class AppConfiguration {
         private String datasourceUsername;
         private String datasourcePassword;
         private String apiKey;
+        private String reportFolder;
 
         public static AppConfiguration fromProperties(Properties appProps) {
             return AppConfiguration.builder()
@@ -19,6 +20,7 @@ public class AppConfiguration {
                     .datasourceUsername(appProps.getProperty("datasource.user"))
                     .datasourcePassword(appProps.getProperty("datasource.pw"))
                     .apiKey(appProps.getProperty("apikey"))
+                    .reportFolder(appProps.getProperty("reportFolderPath"))
                     .build();
         }
 }
