@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import org.apache.logging.log4j.core.config.Configuration?>
+<?import java.io.Console?>
+<?import org.apache.logging.log4j.core.layout.PatternLayout?>
+<?import java.io.File?>
+<?import org.apache.logging.log4j.core.layout.JsonLayout?>
+<?import org.apache.logging.log4j.core.appender.rolling.TimeBasedTriggeringPolicy?>
+<?import org.apache.logging.log4j.core.appender.rolling.SizeBasedTriggeringPolicy?>
+<?import org.apache.logging.log4j.core.appender.rolling.DefaultRolloverStrategy?>
+<?import org.apache.logging.log4j.core.Logger?>
+<?import org.apache.logging.log4j.core.config.AppenderRef?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="FileAppender" fileName="application-${date:yyyyMMdd}.log" immediateFlush="true" append="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <RollingFile name="RollingFile" fileName="logs/app.log"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <JsonLayout>
+            </JsonLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="at.fhtw.bif" level="debug"/>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
+

@@ -2,6 +2,8 @@ package at.fh.tourplanner.DataAccessLayer;
 
 import at.fh.tourplanner.DataAccessLayer.DAO;
 import at.fh.tourplanner.DataAccessLayer.listener.DbCreateEvent;
+import at.fh.tourplanner.configuration.AppConfiguration;
+import at.fh.tourplanner.configuration.AppConfigurationLoader;
 import at.fh.tourplanner.model.DifficultyTier;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
@@ -19,20 +21,23 @@ import java.util.stream.Collectors;
 
 @Log4j2
 public class PostgresDAO implements DAO {
-    private final String pw = "admin";
-    private final String user = "postgres";
-    private final String dbUrl = "jdbc:postgresql://localhost:5432/TourPlannerDB";
-    private static final PostgresDAO instance = new PostgresDAO();
+    private  final String pw;
+    private final String user;
+    private final String dbUrl;
+    private static final PostgresDAO instance = new PostgresDAO(AppConfigurationLoader.getInstance().getAppConfiguration());
 
 
-    private PostgresDAO() {
+    private PostgresDAO(AppConfiguration appConfiguration) {
+        this.pw = appConfiguration.getDatasourcePassword();
+        this.user = appConfiguration.getDatasourceUsername();
+        this.dbUrl = appConfiguration.getDatasourceUrl();
     }
 
     private Connection getConnection() {
         try {
             return DriverManager.getConnection(dbUrl, user, pw);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
     }

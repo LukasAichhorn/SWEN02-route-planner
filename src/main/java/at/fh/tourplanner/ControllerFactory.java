@@ -34,17 +34,15 @@ public class ControllerFactory {
     private final MenuBarViewModel menuBarViewModel;
 
     public ControllerFactory() {
-        tourFormViewModel =
-                new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
-                        new TourService(PostgresDAO.getInstance()),
-                        new TourImageServiceImpl(new RemoteMapAPI()));
-        tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()),new SearchService(PostgresDAO.getInstance()));
+        tourFormViewModel = new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
+                new TourService(PostgresDAO.getInstance()), new TourImageServiceImpl(new RemoteMapAPI()));
+        tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()), new SearchService(PostgresDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();
-        logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(),
-                new LogService(PostgresDAO.getInstance()));
+        logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(), new LogService(PostgresDAO.getInstance()));
         logListViewModel = new LogListViewModel(new LogService(PostgresDAO.getInstance()));
         staticTourInfoViewModel = new StaticTourInfoViewModel();
         menuBarViewModel = new MenuBarViewModel(new PdfGenerationServiceImpl(PostgresDAO.getInstance()));
+
         mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,
                 tourFormViewModel, tourListViewModel, searchBarViewModel,
                 logsFormViewModel, logListViewModel, menuBarViewModel,
