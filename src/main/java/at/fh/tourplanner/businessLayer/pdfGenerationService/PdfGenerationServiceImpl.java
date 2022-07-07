@@ -16,14 +16,17 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.properties.UnitValue;
 import lombok.Getter;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 public class PdfGenerationServiceImpl implements PdfGenerationService {
 
-    public static final String STATISTICAL_REPORT_PDF = "C:/Users/Lukas/IdeaProjects/SWEN02-route-planner/statTest.pdf";
-    public static final String TOUR_REPORT_PDF = "C:\\Users\\Lukas\\IdeaProjects\\SWEN02-route-planner\\test.pdf";
+    public static final String STATISTICAL_REPORT_PDF = "C:\\Users\\goell\\OneDrive\\Dokumente\\FH\\BIFSEM4\\SWEN\\StatisticalReports\\StatReport_";
+    public static final String TOUR_REPORT_PDF = "C:\\Users\\goell\\OneDrive\\Dokumente\\FH\\BIFSEM4\\SWEN\\TourReports\\TourReport_";
     private DAO database;
 
     private Tour selectedTour;
@@ -36,12 +39,13 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
 
     @Override
     public void generateStatisticalReport() {
+        String file = STATISTICAL_REPORT_PDF + LocalDate.now() + ".pdf";
         try{
         List<Tour> tours = database.getAllTours();
         for(var tour : tours ){
             tour.setLogs(database.getAllLogsForTour(tour.getPostgresID()));
         }
-            PdfWriter writer = new PdfWriter(STATISTICAL_REPORT_PDF);
+            PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
             document.add(generateTourHeader("Statistical Report"));
@@ -83,9 +87,10 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
 
     @Override
     public void generateTourReport(Tour tour) {
+        String file = TOUR_REPORT_PDF + tour.getName() + "_" + LocalDate.now() + ".pdf";
         try {
             tour.setLogs(database.getAllLogsForTour(tour.getPostgresID()));
-            PdfWriter writer = new PdfWriter(TOUR_REPORT_PDF);
+            PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdf = new PdfDocument(writer);
             try (Document document = new Document(pdf)) {
                 Table t = generateTourTable(tour);
