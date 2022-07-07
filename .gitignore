@@ -11,3 +11,4 @@ target/
 tourPlanner.iml
 # Images
 *.jpg
+*.log
