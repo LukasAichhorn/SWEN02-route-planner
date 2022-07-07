@@ -1,14 +1,12 @@
 package at.fh.tourplanner.businessLayer.mapApiService;
 
 import at.fh.tourplanner.DataAccessLayer.mapAPI.MapAPI;
-import at.fh.tourplanner.businessLayer.mapApiService.ImageServiceResponse;
-import at.fh.tourplanner.businessLayer.mapApiService.TourImageService;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
+
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -62,7 +60,7 @@ public class TourImageServiceImpl implements TourImageService {
         File outputfile = new File(location + newID + ".jpg");
         try {
             ImageIO.write(img, "jpg", outputfile);
-            log.info("Image: {} created", outputfile.getAbsolutePath());
+           log.info("Image: {} created", outputfile.getAbsolutePath());
             return outputfile.getAbsolutePath();
         } catch (IOException e) {
             e.printStackTrace();

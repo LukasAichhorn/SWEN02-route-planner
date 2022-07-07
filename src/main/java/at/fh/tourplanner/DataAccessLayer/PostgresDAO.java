@@ -67,6 +67,7 @@ public class PostgresDAO implements DAO {
             return temp;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            log.warn("...");
             return temp;
         }
     }

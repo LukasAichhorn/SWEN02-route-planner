@@ -13,8 +13,8 @@ module at.fh.tourplanner {
     requires kernel;
     requires layout;
     requires io;
+    requires org.apache.logging.log4j;
 
-    exports at.fh.tourplanner.DataAccessLayer;
     opens at.fh.tourplanner.DataAccessLayer;
     exports at.fh.tourplanner.DataAccessLayer.listener;
     opens at.fh.tourplanner.DataAccessLayer.listener;
