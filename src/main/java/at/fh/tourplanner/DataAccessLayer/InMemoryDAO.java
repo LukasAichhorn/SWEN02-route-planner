@@ -1,14 +1,9 @@
 package at.fh.tourplanner.DataAccessLayer;
 
 import at.fh.tourplanner.DataAccessLayer.listener.DbCreateEvent;
-import at.fh.tourplanner.model.DifficultyTier;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
-import at.fh.tourplanner.model.TransportType;
 
-import java.time.Duration;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +20,7 @@ public class InMemoryDAO implements DAO {
     }
 
 
-    private final List<Tour> inMemoryDatabase = new ArrayList<>();
+    private final List<Tour> toursDatabase = new ArrayList<>();
 
  private InMemoryDAO() {
 //        ArrayList<Log> testLogs1 = new ArrayList<>();
@@ -60,12 +55,18 @@ public class InMemoryDAO implements DAO {
     }
 
     public List<Tour> getAllTours() {
-        return inMemoryDatabase;
+        return toursDatabase;
     }
 
     @Override
     public List<Log> getAllLogsForTour(int TourID) {
-        return null;
+     List<Log> logs = new ArrayList<>();
+        for (int i = 0; i < toursDatabase.size(); i++) {
+            if(toursDatabase.get(i).getPostgresID() == TourID){
+                logs.addAll(toursDatabase.get(i).getLogs());
+            }
+        }
+     return logs;
     }
 
     @Override
@@ -78,27 +79,52 @@ public class InMemoryDAO implements DAO {
         }catch (InterruptedException e){
             e.printStackTrace();
         }
-        this.inMemoryDatabase.add(tour);
+        this.toursDatabase.add(tour);
     }
 
     @Override
     public void updateTour(Tour tour) {
+        for (int i = 0; i < toursDatabase.size(); i++) {
+            if(toursDatabase.get(i).getUUID() == tour.getUUID()){
+                toursDatabase.set(i, tour);
+            }
+        }
 
     }
 
     @Override
     public void deleteTour(UUID id) {
+        for (int i = 0; i < toursDatabase.size(); i++) {
+            if(toursDatabase.get(i).getUUID() == id){
+                toursDatabase.remove(i);
+            }
+        }
 
     }
 
     @Override
     public void addLog(Log log) {
+        for (Tour tour : toursDatabase) {
+            if (tour.getPostgresID() == log.getTourID()) {
+                tour.getLogs().add(log);
+            }
+        }
+
+
 
     }
 
     @Override
     public void updateLog(Log log) {
-
+        for (int i = 0; i < toursDatabase.size(); i++) {
+            if(toursDatabase.get(i).getPostgresID() == log.getTourID()){
+                for (int j = 0; j < toursDatabase.get(i).getLogs().size(); j++) {
+                    if(toursDatabase.get(i).getLogs().get(j).getId() == log.getId()){
+                        toursDatabase.get(i).getLogs().set(j, log);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -107,13 +133,13 @@ public class InMemoryDAO implements DAO {
     }
 
     public void create(Tour t) {
-        inMemoryDatabase.add(t);
+        toursDatabase.add(t);
     }
 
 
     public List<Tour> findMatchingTours(String searchString) {
         //get all tours from db
-        var tours = this.inMemoryDatabase;
+        var tours = this.toursDatabase;
         if (searchString.isEmpty() || searchString == null) {
             return tours;
         }

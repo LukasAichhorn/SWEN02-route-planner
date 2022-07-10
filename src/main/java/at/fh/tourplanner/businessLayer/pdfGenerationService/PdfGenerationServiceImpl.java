@@ -34,13 +34,9 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
 
     private DAO database;
 
-    private Tour selectedTour;
-
     public PdfGenerationServiceImpl(DAO instance) {
 
         this.database = instance;
-
-
     }
 
     @Override
@@ -62,7 +58,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         }
     }
 
-    private Table generateStatisticsTable(List<Tour> tours) {
+    public Table generateStatisticsTable(List<Tour> tours) {
         Table table = new Table(UnitValue.createPercentArray(4)).useAllAvailableWidth();
         table.setFontSize(14).setBackgroundColor(ColorConstants.WHITE);
         table.addHeaderCell(getHeaderCell("Id"));
@@ -118,7 +114,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
         }
     }
 
-    private Table generateTourTable(Tour tour) {
+    public Table generateTourTable(Tour tour) {
         Table table = new Table(UnitValue.createPercentArray(6)).useAllAvailableWidth();
         table.setFontSize(14).setBackgroundColor(ColorConstants.WHITE);
         table.addHeaderCell(getHeaderCell("Id"));
@@ -137,7 +133,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
     }
 
 
-    private Table generateTableForTourLogs(Tour tour) {
+    public Table generateTableForTourLogs(Tour tour) {
         Table table = new Table(UnitValue.createPercentArray(6)).useAllAvailableWidth();
         table.setFontSize(14).setBackgroundColor(ColorConstants.WHITE);
         table.addHeaderCell(getHeaderCell("Id"));

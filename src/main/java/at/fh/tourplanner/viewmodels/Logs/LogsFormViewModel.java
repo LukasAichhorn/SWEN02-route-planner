@@ -168,6 +168,7 @@ public class LogsFormViewModel {
     }
 
     public void addNewLogAction(LogFormData logFormData) {
+        System.out.println(logFormData);
         if (formValidationService.noEmptyValues(logFormData)) {
             log.info("New Log created data: {}", logFormData);
             uiServiceQueryAPI.restart();

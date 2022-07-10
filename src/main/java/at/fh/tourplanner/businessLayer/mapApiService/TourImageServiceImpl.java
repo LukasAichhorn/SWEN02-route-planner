@@ -56,7 +56,7 @@ public class TourImageServiceImpl implements TourImageService {
     }
 
     private String imageToFile(BufferedImage img,UUID newID) {
-        String location = "C:/Users/Lukas/Documents/01_UNI/04_SEM/SWEN02/";
+        String location = "C:\\Users\\goell\\OneDrive\\Dokumente\\FH\\BIFSEM4\\SWEN";
         File outputfile = new File(location + newID + ".jpg");
         try {
             ImageIO.write(img, "jpg", outputfile);

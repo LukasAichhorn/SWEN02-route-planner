@@ -1,5 +1,6 @@
 package at.fh.tourplanner;
 
+import at.fh.tourplanner.DataAccessLayer.InMemoryDAO;
 import at.fh.tourplanner.DataAccessLayer.PostgresDAO;
 import at.fh.tourplanner.DataAccessLayer.mapAPI.RemoteMapAPI;
 import at.fh.tourplanner.businessLayer.logService.LogService;

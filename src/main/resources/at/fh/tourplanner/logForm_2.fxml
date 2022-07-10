@@ -70,7 +70,7 @@
                 </GridPane>
                 <HBox alignment="BOTTOM_RIGHT" prefWidth="200.0">
                     <children>
-                        <Button mnemonicParsing="false" text="Cancle">
+                        <Button mnemonicParsing="false" text="Cancel">
                             <HBox.margin>
                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </HBox.margin>

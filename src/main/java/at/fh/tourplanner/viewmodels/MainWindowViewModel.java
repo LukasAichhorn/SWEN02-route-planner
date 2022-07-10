@@ -100,12 +100,12 @@ public class MainWindowViewModel {
         this.tourListViewModel.addSelectionListener(new ListItemSelectionListener<Tour>() {
             @Override
             public void handleListItemSelection(Tour tour) {
-                log.info("{} selected in list", tour.toString());
                 if(tour == null){
                     logListViewModel.setCreateLogIsDisabled(true);
                     logListViewModel.clearLogsList();
                 }
                 if (tour != null) {
+                    log.info("{} selected in list", tour.toString());
                     var selectedTourID = tourListViewModel.getCurrentSelection().getPostgresID();
                     logListViewModel.setCreateLogIsDisabled(false);
                     logListViewModel.setLogs(selectedTourID);

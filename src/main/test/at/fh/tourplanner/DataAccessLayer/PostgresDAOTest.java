@@ -8,7 +8,4 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PostgresDAOTest {
 
-    @Test
-    void testAddTour() {
-    }
 }

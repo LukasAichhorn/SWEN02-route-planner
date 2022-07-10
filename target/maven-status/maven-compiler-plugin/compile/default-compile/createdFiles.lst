@@ -1,12 +1,6 @@
-at\fh\tourplanner\DataAccessLayer\mapAPI\Retrofit\DirectionServiceResponse.class
-at\fh\tourplanner\DataAccessLayer\mapAPI\Retrofit\Direction.class
-at\fh\tourplanner\businessLayer\mapApiService\DirectionService.class
-at\fh\tourplanner\model\DifficultyTier.class
-at\fh\tourplanner\model\TransportType.class
-module-info.class
-at\fh\tourplanner\listenerInterfaces\OpenBlankTourFormListener.class
-at\fh\tourplanner\businessLayer\mapApiService\DirectionServiceImpl.class
-at\fh\tourplanner\model\FormDataNewTour.class
-at\fh\tourplanner\businessLayer\validationService\FormValidationService.class
-at\fh\tourplanner\DataAccessLayer\mapAPI\MapAPI.class
 at\fh\tourplanner\model\LogFormData.class
+module-info.class
+at\fh\tourplanner\model\FormDataNewTour.class
+at\fh\tourplanner\model\TransportType.class
+at\fh\tourplanner\businessLayer\validationService\FormValidationService.class
+at\fh\tourplanner\model\DifficultyTier.class

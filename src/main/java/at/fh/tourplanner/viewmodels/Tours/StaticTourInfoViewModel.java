@@ -63,7 +63,7 @@ public class StaticTourInfoViewModel {
     public void fillTourInfo(Tour tour) {
         if (tour == null) {
             log.error("Error: Empty tour submitted.");
-            return;
+            throw new IllegalArgumentException("Empty tour submitted!");
         }
         tourName.set(tour.getName());
         start.set(tour.getStart());
@@ -72,10 +72,14 @@ public class StaticTourInfoViewModel {
         selectedTransportType.setValue(tour.getTransportType().toString());
         estimatedTime.set(tour.getEstimatedTime());
         tourDistance.set(tour.getDistance());
-            Image image = new Image(tour.getTourImagePath());
-            imageView.set(image);
+        setImage(tour.getTourImagePath());
 
 
+    }
+
+    public void setImage(String imagePath) {
+        Image image = new Image(imagePath);
+        imageView.set(image);
     }
 }
 
