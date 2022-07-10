@@ -17,6 +17,11 @@ public class FormValidationServiceImp implements FormValidationService {
 
     @Override
     public boolean noEmptyValues(LogFormData logFormData) {
+        if(logFormData.getComment().isBlank()) return false;
+        if(logFormData.getDifficulty() == null) return false;
+        if(logFormData.getDuration().isBlank()) return false;
+        if(logFormData.getRating() < 1 || logFormData.getRating() > 4) return false;
+        if(logFormData.getComment().isBlank()) return false;
         return true;
     }
 }

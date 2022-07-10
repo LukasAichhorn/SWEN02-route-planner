@@ -1,5 +1,6 @@
 package at.fh.tourplanner;
 
+import at.fh.tourplanner.DataAccessLayer.InMemoryDAO;
 import at.fh.tourplanner.DataAccessLayer.PostgresDAO;
 import at.fh.tourplanner.DataAccessLayer.mapAPI.RemoteMapAPI;
 import at.fh.tourplanner.businessLayer.logService.LogService;
@@ -36,19 +37,19 @@ public class ControllerFactory {
     public ControllerFactory() {
         tourFormViewModel =
                 new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
-                        new TourService(PostgresDAO.getInstance()),
+                        new TourService(InMemoryDAO.getInstance()),
                         new TourImageServiceImpl(new RemoteMapAPI()));
-        tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()),new SearchService(PostgresDAO.getInstance()));
+        tourListViewModel = new TourListViewModel(new TourService(InMemoryDAO.getInstance()),new SearchService(InMemoryDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();
         logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(),
-                new LogService(PostgresDAO.getInstance()));
-        logListViewModel = new LogListViewModel(new LogService(PostgresDAO.getInstance()));
+                new LogService(InMemoryDAO.getInstance()));
+        logListViewModel = new LogListViewModel(new LogService(InMemoryDAO.getInstance()));
         staticTourInfoViewModel = new StaticTourInfoViewModel();
-        menuBarViewModel = new MenuBarViewModel(new PdfGenerationServiceImpl(PostgresDAO.getInstance()));
+        menuBarViewModel = new MenuBarViewModel(new PdfGenerationServiceImpl(InMemoryDAO.getInstance()));
         mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,
                 tourFormViewModel, tourListViewModel, searchBarViewModel,
                 logsFormViewModel, logListViewModel, menuBarViewModel,
-                new TourService(PostgresDAO.getInstance()));
+                new TourService(InMemoryDAO.getInstance()));
     }
 
     public Object create(Class<?> controllerClass) {

@@ -42,6 +42,8 @@ public class LogsFormController implements Initializable {
         progressIndicator.visibleProperty().bind(logsFormViewModel.runningTaskProperty());
         stackPane.visibleProperty().bind(logsFormViewModel.runningTaskProperty());
         actionButton.textProperty().bind(logsFormViewModel.actionButtonNameProperty());
+        ratingChoiceBox.setValue(1);
+        difficultyTierChoiceBox.setValue(DifficultyTier.Anfaenger);
         if(logsFormViewModel.actionButtonNameProperty().get().equals("create")) {
             actionButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -64,7 +66,7 @@ public class LogsFormController implements Initializable {
                 datePickerField.getValue(),
                 ratingChoiceBox.getValue(),
                 difficultyTierChoiceBox.getValue(),
-                Integer.parseInt(durationTextField.getText()),
+                durationTextField.getText(),
                 commentTextField.getText());
     }
     public void addNewLogAction(){

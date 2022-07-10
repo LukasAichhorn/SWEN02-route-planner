@@ -16,7 +16,7 @@ public class LogFormData {
     private LocalDate timeStamp;
     private int rating;
     private DifficultyTier difficulty;
-    private int duration;
+    private String duration;
     private String comment;
 
 }

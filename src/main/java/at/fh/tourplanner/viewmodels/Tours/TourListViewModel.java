@@ -1,7 +1,9 @@
 package at.fh.tourplanner.viewmodels.Tours;
 
 import at.fh.tourplanner.businessLayer.searchService.SearchService;
+import at.fh.tourplanner.businessLayer.searchService.SearchService_Interface;
 import at.fh.tourplanner.businessLayer.tourService.TourService;
+import at.fh.tourplanner.businessLayer.tourService.TourService_Interface;
 import at.fh.tourplanner.listenerInterfaces.ListItemSelectionListener;
 import at.fh.tourplanner.listenerInterfaces.ListUpdateListener;
 import at.fh.tourplanner.listenerInterfaces.OpenBlankTourFormListener;
@@ -37,11 +39,11 @@ public class TourListViewModel {
     ObservableList<Tour> tours = FXCollections.observableArrayList();
     private final BooleanProperty editIsDisabled = new SimpleBooleanProperty(true);
 
-    private final TourService tourService;
-    private final SearchService searchService;
+    private final TourService_Interface tourService;
+    private final SearchService_Interface searchService;
     private final UiDeleteRouteService uiDeleteRouteService;
 
-    public TourListViewModel(TourService tourService, SearchService searchService) {
+    public TourListViewModel(TourService_Interface tourService, SearchService_Interface searchService) {
         this.tourService = tourService;
         this.searchService = searchService;
         this.uiDeleteRouteService = new UiDeleteRouteService();
