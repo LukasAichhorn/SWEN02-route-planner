@@ -2,6 +2,8 @@ package at.fh.tourplanner.businessLayer.pdfGenerationService;
 
 import at.fh.tourplanner.DataAccessLayer.DAO;
 import at.fh.tourplanner.businessLayer.pdfGenerationService.PdfGenerationService;
+import at.fh.tourplanner.configuration.AppConfiguration;
+import at.fh.tourplanner.configuration.AppConfigurationLoader;
 import at.fh.tourplanner.model.Log;
 import at.fh.tourplanner.model.Tour;
 import com.itextpdf.io.font.constants.StandardFonts;
@@ -21,21 +23,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 public class PdfGenerationServiceImpl implements PdfGenerationService {
 
-    public static final String STATISTICAL_REPORT_PDF = "C:\\Users\\goell\\OneDrive\\Dokumente\\FH\\BIFSEM4\\SWEN\\StatisticalReports\\StatReport_";
-    public static final String TOUR_REPORT_PDF = "C:\\Users\\goell\\OneDrive\\Dokumente\\FH\\BIFSEM4\\SWEN\\TourReports\\TourReport_";
+    public static final String STATISTICAL_REPORT_PDF_NAME = "StatReport_";
+    public static final String TOUR_REPORT_PDF_NAME = "TourReport_";
+    public static final String FOLDER_PATH = AppConfigurationLoader.getInstance().getAppConfiguration().getReportFolder();
+
     private DAO database;
 
     public PdfGenerationServiceImpl(DAO instance) {
+
         this.database = instance;
     }
 
     @Override
     public void generateStatisticalReport() {
-        String file = STATISTICAL_REPORT_PDF + LocalDate.now() + ".pdf";
+        String file = FOLDER_PATH + STATISTICAL_REPORT_PDF_NAME +  LocalDate.now() + "_" + UUID.randomUUID() + ".pdf";
         try{
         List<Tour> tours = database.getAllTours();
         for(var tour : tours ){
@@ -68,7 +74,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
                 avgTime += log.getDuration();
                 avgRating += log.getRating();
             }
-            if (tour.getLogs().isEmpty()) {
+            if (!tour.getLogs().isEmpty()) {
                 table.addCell(String.valueOf(avgTime/tour.getLogs().size()));
                 table.addCell(String.valueOf(avgRating/tour.getLogs().size()));
             }
@@ -83,7 +89,7 @@ public class PdfGenerationServiceImpl implements PdfGenerationService {
 
     @Override
     public void generateTourReport(Tour tour) {
-        String file = TOUR_REPORT_PDF + tour.getName() + "_" + LocalDate.now() + ".pdf";
+        String file = FOLDER_PATH + TOUR_REPORT_PDF_NAME +  tour.getName() + "_" + LocalDate.now() + ".pdf";
         try {
             tour.setLogs(database.getAllLogsForTour(tour.getPostgresID()));
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));

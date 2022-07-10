@@ -35,21 +35,19 @@ public class ControllerFactory {
     private final MenuBarViewModel menuBarViewModel;
 
     public ControllerFactory() {
-        tourFormViewModel =
-                new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
-                        new TourService(InMemoryDAO.getInstance()),
-                        new TourImageServiceImpl(new RemoteMapAPI()));
-        tourListViewModel = new TourListViewModel(new TourService(InMemoryDAO.getInstance()),new SearchService(InMemoryDAO.getInstance()));
+        tourFormViewModel = new TourFormViewModel(new DirectionServiceImpl(new RemoteMapAPI()),
+                new TourService(PostgresDAO.getInstance()), new TourImageServiceImpl(new RemoteMapAPI()));
+        tourListViewModel = new TourListViewModel(new TourService(PostgresDAO.getInstance()), new SearchService(PostgresDAO.getInstance()));
         searchBarViewModel = new SearchBarViewModel();
-        logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(),
-                new LogService(InMemoryDAO.getInstance()));
-        logListViewModel = new LogListViewModel(new LogService(InMemoryDAO.getInstance()));
+        logsFormViewModel = new LogsFormViewModel(new FormValidationServiceImp(), new LogService(PostgresDAO.getInstance()));
+        logListViewModel = new LogListViewModel(new LogService(PostgresDAO.getInstance()));
         staticTourInfoViewModel = new StaticTourInfoViewModel();
-        menuBarViewModel = new MenuBarViewModel(new PdfGenerationServiceImpl(InMemoryDAO.getInstance()));
+        menuBarViewModel = new MenuBarViewModel(new PdfGenerationServiceImpl(PostgresDAO.getInstance()));
+
         mainWindowViewModel = new MainWindowViewModel(staticTourInfoViewModel,
                 tourFormViewModel, tourListViewModel, searchBarViewModel,
                 logsFormViewModel, logListViewModel, menuBarViewModel,
-                new TourService(InMemoryDAO.getInstance()));
+                new TourService(PostgresDAO.getInstance()));
     }
 
     public Object create(Class<?> controllerClass) {
